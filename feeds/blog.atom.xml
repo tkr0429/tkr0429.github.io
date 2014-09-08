@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/blog.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-08T20:00:00+09:00</updated><entry><title>ansibleでパスワード認証&amp;suでのroot実行</title><link href="http://tkr0429.github.io/ansibledepasuwadoren-zheng-sudenorootshi-xing.html" rel="alternate"></link><updated>2014-09-08T20:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:ansibledepasuwadoren-zheng-sudenorootshi-xing.html</id><summary type="html">&lt;p&gt;Tags ansible, python 
+Author: tkr0429&lt;/p&gt;
+&lt;p&gt;パスワード認証ありのサーバに接続する必要があり、
+且つ踏み台（こちらもパスワード認証）を越える必要があった。&lt;/p&gt;
+&lt;p&gt;この時の作業メモ&lt;/p&gt;
+&lt;p&gt;パスワード認証を通るためには
+sshpassが必要なので入れておく。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# yum -y install --enablerepo=epel sshpass&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ansible.cfgを使って回避する。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;[ssh_connection]&lt;/span&gt;
+&lt;span class="na"&gt;scp_if_ssh&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;True&lt;/span&gt;
+
+&lt;span class="c1"&gt;# 下記に記載の&amp;lt;gateway-server&amp;gt;を踏み台サーバIPに書き換えてください。&lt;/span&gt;
+&lt;span class="na"&gt;ssh_args&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;-o ProxyCommand=&amp;#39;sshpass -f passfile ssh -l %r &amp;lt;gateway-server&amp;gt; -W %h:%p&amp;#39;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;passfileにsshログインパスワードを書いておく&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;loginpasswd&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;プレイブックの中身&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;hosts&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;all&lt;/span&gt;
+  &lt;span class="nl"&gt;gather_facts:&lt;/span&gt; &lt;span class="n"&gt;False&lt;/span&gt;
+  &lt;span class="nl"&gt;su:&lt;/span&gt; &lt;span class="n"&gt;True&lt;/span&gt;
+  &lt;span class="nl"&gt;remote_user:&lt;/span&gt; &lt;span class="n"&gt;loginuser&lt;/span&gt;
+  &lt;span class="nl"&gt;su_user:&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;
+
+  &lt;span class="nl"&gt;tasks:&lt;/span&gt;
+    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;command&lt;/span&gt; &lt;span class="n"&gt;whoami&lt;/span&gt;
+      &lt;span class="nl"&gt;command:&lt;/span&gt; &lt;span class="n"&gt;whoami&lt;/span&gt;
+      &lt;span class="nl"&gt;register:&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;
+
+    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;msg&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;}}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;で、実行。
+ansible実行時に頭にLANG=Cを付けないと固まる。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;LANG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt; &lt;span class="n"&gt;ansible&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;playbook&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;host&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;yml&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;ask&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;su&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pass&lt;/span&gt;
+&lt;span class="n"&gt;SSH&lt;/span&gt; &lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="n"&gt;su&lt;/span&gt; &lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+
+&lt;span class="n"&gt;PLAY&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;********************************************************************&lt;/span&gt;
+
+&lt;span class="nl"&gt;TASK:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;command&lt;/span&gt; &lt;span class="n"&gt;whoami&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;********************************************************&lt;/span&gt;
+&lt;span class="nl"&gt;changed:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;client1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+&lt;span class="nl"&gt;TASK:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;debug&lt;/span&gt; &lt;span class="n"&gt;msg&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;}}]&lt;/span&gt; &lt;span class="o"&gt;*******************************************&lt;/span&gt;
+&lt;span class="nl"&gt;ok:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;clinet1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="s"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;root&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;PLAY&lt;/span&gt; &lt;span class="n"&gt;RECAP&lt;/span&gt; &lt;span class="o"&gt;********************************************************************&lt;/span&gt;
+&lt;span class="n"&gt;client1&lt;/span&gt;                      &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ok&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="n"&gt;changed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="n"&gt;unreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="n"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>YAPC::Asia 2014 Tokyoに行った話</title><link href="http://tkr0429.github.io/yapcasia-2014-tokyonixing-tsutahua.html" rel="alternate"></link><updated>2014-09-08T17:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:yapcasia-2014-tokyonixing-tsutahua.html</id><summary type="html">&lt;p&gt;Tags perl
+Author: tkr0429&lt;/p&gt;
+&lt;p&gt;今年はじめてYAPC:Asiaに@laugh_kさんの誘いで行って来ました。&lt;br /&gt;
+0日目の前夜祭には仕事で残念ながら参加出来なかった。  &lt;/p&gt;
+&lt;p&gt;まず最初に感想から書いてしまうと、&lt;br /&gt;
+何故もっと早くにこんなイベントに参加しなかったんだ。。。&lt;br /&gt;
+と後悔すら覚える程、衝撃を受けました。  &lt;/p&gt;
+&lt;h2&gt;1日目&lt;/h2&gt;
+&lt;p&gt;色々なセッションをふらふらと見ていたが、
+自分がインフラ系のエンジニアをやらせてもらっていることもあり、
+それに関連するセッションを選んで聞いていた。
+なかでも@studio3104さん の&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;「インフラエンジニア(狭義)は死んだ」&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;にはグサリと刺さる物を感じた。&lt;/p&gt;
+&lt;p&gt;自分の現状を言われているようで、苦しく思う部分が多く
+改めてコードを読み書きが出来るか否かの重要性を強く感じた。&lt;/p&gt;
+&lt;h2&gt;2日目&lt;/h2&gt;
+&lt;p&gt;せっかくのperlのイベントなのでperlに触れたくなり飛び入りで&lt;br /&gt;
+&lt;strong&gt;「Perl入学式 in YAPC::Asia Tokyo 2014」&lt;/strong&gt;&lt;br /&gt;
+に参加してきた。  &lt;/p&gt;
+&lt;p&gt;perlでbotシステムを作成するまでを学習してきたが、&lt;br /&gt;
+講師の方々の熱い説明と各グループに一人ついてくれていたので&lt;br /&gt;
+戸惑うことも少なくスムーズに受講する事が出来た。  &lt;/p&gt;
+&lt;p&gt;なんと無くperlってあまり好きじゃないと思ってたけど、&lt;br /&gt;
+完全に自分の食わず嫌いで、やってみたら面白かった。&lt;br /&gt;
+今までなんでもシェルスクリプト or Pythonでやろうとしてたけど、 
+1日目のセッションで見た@kentaroさんの  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;「いろんな言語を適材適所で使おう」&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;とはこういうことなんだなぁーと言うのを感じた。  &lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;LTも「TDD(Twitter Driven Datsu-Syoshinsya) / Twitter駆動脱初心者」が面白かった
+@typestarさんのキーノートに関してはアウトプットの必要性やエンジニアとしての生き方を考えさせられた。&lt;/p&gt;
+&lt;hr /&gt;
+&lt;h2&gt;最後に&lt;/h2&gt;
+&lt;p&gt;YAPC:Asiaは参加するまでperlのイベントってイメージが強かったんですが、&lt;br /&gt;
+perlに限らずともIT系エンジニアであれば誰でも楽しめる内容だったと思います。&lt;br /&gt;
+来年も是非参加したいと思える濃い内容で大変満足でした。&lt;/p&gt;</summary></entry><entry><title>ブログはじめます。</title><link href="http://tkr0429.github.io/buroguhazimemasu.html" rel="alternate"></link><updated>2014-09-08T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:buroguhazimemasu.html</id><summary type="html">&lt;p&gt;Tags pelican, python 
+Slug: first-post
+Author: tkr0429&lt;/p&gt;
+&lt;p&gt;ブログはじめます。&lt;/p&gt;
+&lt;p&gt;pelicanって物を知ったのでブログ始めようかと思います。&lt;br /&gt;
+大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。&lt;/p&gt;</summary></entry></feed>
