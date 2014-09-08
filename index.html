@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja"
+>
+<head>
+    <title>tkr0429 blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://tkr0429.github.io">
+        <meta name="author" content="tkr0429" />
+
+    <!-- Open Graph tags -->
+        <meta property="og:site_name" content="tkr0429 blog" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="tkr0429 blog"/>
+        <meta property="og:url" content="http://tkr0429.github.io"/>
+        <meta property="og:description" content="tkr0429 blog"/>
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://tkr0429.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://tkr0429.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://tkr0429.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://tkr0429.github.io/theme/css/style.css" type="text/css"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://tkr0429.github.io/" class="navbar-brand">
+tkr0429 blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="http://tkr0429.github.io/category/blog.html">Blog</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://tkr0429.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+            <article>
+                <h2><a href="http://tkr0429.github.io/ansibledepasuwadoren-zheng-sudenorootshi-xing.html">ansibleでパスワード認証&suでのroot実行</a></h2>
+                <div class="summary"><p>Tags ansible, python 
+Author: tkr0429</p>
+<p>パスワード認証ありのサーバに接続する必要があり、
+且つ踏み台（こちらもパスワード認証）を越える必要があった。</p>
+<p>この時の作業メモ</p>
+<p>パスワード認証を通るためには
+sshpassが必要なので入れておく。</p>
+<div class="highlight"><pre><span class="c"># yum -y install --enablerepo=epel sshpass</span>
+</pre></div>
+
+
+<p>ansible.cfgを使って回避する。</p>
+<div class="highlight"><pre><span class="k">[ssh_connection]</span>
+<span class="na">scp_if_ssh</span> <span class="o">=</span> <span class="s">True</span>
+
+<span class="c1"># 下記に記載の&lt;gateway-server&gt;を踏み台サーバIPに書き換えてください。</span>
+<span class="na">ssh_args</span> <span class="o">=</span> <span class="s">-o ProxyCommand=&#39;sshpass -f passfile ssh -l %r &lt;gateway-server&gt; -W %h:%p&#39;</span>
+</pre></div>
+
+
+<p>passfileにsshログインパスワードを書いておく</p>
+<div class="highlight"><pre><span class="n">loginpasswd</span>
+</pre></div>
+
+
+<p>プレイブックの中身</p>
+<div class="highlight"><pre><span class="o">-</span> <span class="n">hosts</span><span class="o">:</span> <span class="n">all</span>
+  <span class="nl">gather_facts:</span> <span class="n">False</span>
+  <span class="nl">su:</span> <span class="n">True</span>
+  <span class="nl">remote_user:</span> <span class="n">loginuser ...</span></pre></div>
+                    <a class="btn btn-default btn-xs" href="http://tkr0429.github.io/ansibledepasuwadoren-zheng-sudenorootshi-xing.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://tkr0429.github.io/yapcasia-2014-tokyonixing-tsutahua.html">YAPC::Asia 2014 Tokyoに行った話</a></h2>
+                <div class="summary"><p>Tags perl
+Author: tkr0429</p>
+<p>今年はじめてYAPC:Asiaに@laugh_kさんの誘いで行って来ました。<br />
+0日目の前夜祭には仕事で残念ながら参加出来なかった。  </p>
+<p>まず最初に感想から書いてしまうと、<br />
+何故もっと早くにこんなイベントに参加しなかったんだ。。。<br />
+と後悔すら覚える程、衝撃を受けました。  </p>
+<h2>1日目</h2>
+<p>色々なセッションをふらふらと見ていたが、
+自分がインフラ系のエンジニアをやらせてもらっていることもあり、
+それに関連するセッションを選んで聞いていた。
+なかでも@studio3104さん の</p>
+<p><strong>「インフラエンジニア(狭義)は死んだ」</strong></p>
+<p>にはグサリと刺さる物を感じた。</p>
+<p>自分の現状を言われているようで、苦しく思う部分が多く
+改めてコードを読み書きが出来るか否かの重要性を強く感じた。</p>
+<h2>2日目</h2>
+<p>せっかくのperlのイベントなのでperlに触れたくなり飛び入りで<br />
+<strong>「Perl入学式 in YAPC::Asia Tokyo 2014」</strong><br />
+に参加してきた。  </p>
+<p>perlでbotシステムを作成するまでを学習してきたが、<br />
+講師の方々の熱い説明と各グループに一人ついてくれていたので<br />
+戸惑うことも少なくスムーズに受講する事が出来た。  </p>
+<p>なんと無くperlってあまり好きじゃないと思ってたけど、<br />
+完全に自分の食わず嫌いで、やってみたら面白かった。<br />
+今までなんでもシェルスクリプト or Pythonでやろうとしてたけど、 
+1日目のセッションで見た@kentaroさんの  </p>
+<p><strong>「いろんな言語を適材適所で使おう」</strong></p>
+<p>とはこういうことなんだなぁーと言うのを感じた。  </p>
+<hr />
+<p>LTも「TDD ...</p>
+                    <a class="btn btn-default btn-xs" href="http://tkr0429.github.io/yapcasia-2014-tokyonixing-tsutahua.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <h2><a href="http://tkr0429.github.io/buroguhazimemasu.html">ブログはじめます。</a></h2>
+                <div class="summary"><p>Tags pelican, python 
+Slug: first-post
+Author: tkr0429</p>
+<p>ブログはじめます。</p>
+<p>pelicanって物を知ったのでブログ始めようかと思います。<br />
+大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。</p>
+                    <a class="btn btn-default btn-xs" href="http://tkr0429.github.io/buroguhazimemasu.html">more ...</a>
+                </div>
+            </article>
+            <hr/>
+
+        </div>
+        <div class="col-sm-3 well well-sm" id="sidebar">
+
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+                  <ul class="list-group" id="social">
+                    <li class="list-group-item"><a href="https://twitter.com/tkr0429"><i class="fa fa-twitter-square fa-lg"></i> twitter</a></li>
+                    <li class="list-group-item"><a href="https://www.facebook.com/takuro.tokushige"><i class="fa fa-facebook-square fa-lg"></i> facebook</a></li>
+                  </ul>
+                </li>
+
+
+
+                <li class="list-group-item"><a href="http://tkr0429.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                    <ul class="list-group " id="tags">
+                    </ul>
+                </li>    
+
+        </ul>
+    </section>
+
+</aside>        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2014 tkr0429
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://tkr0429.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://tkr0429.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://tkr0429.github.io/theme/js/respond.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja"
+>
+<head>
+    <title>ansibleでパスワード認証&suでのroot実行 - tkr0429 blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://tkr0429.github.io/ansibledepasuwadoren-zheng-sudenorootshi-xing.html">
+
+        <meta name="author" content="tkr0429" />
+        <meta name="description" content="Tags ansible, python Author: tkr0429 パスワード認証ありのサーバに接続する必要があり、 且つ踏み台（こちらもパスワード認証）を越える必要があった。 この時の作業メモ パスワード認証を通るためには sshpassが必要なので入れておく。 # yum -y install --enablerepo=epel sshpass ansible.cfgを使って回避する。 [ssh_connection] scp_if_ssh = True # 下記に記載の&lt;gateway-server&gt;を踏み台サーバIPに書き換えてください。 ssh_args = -o ProxyCommand=&#39;sshpass -f passfile ssh -l %r &lt;gateway-server&gt; -W %h:%p&#39; passfileにsshログインパスワードを書いておく loginpasswd プレイブックの中身 - hosts: all gather_facts: False su: True remote_user: loginuser ..." />
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://tkr0429.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://tkr0429.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://tkr0429.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://tkr0429.github.io/theme/css/style.css" type="text/css"/>
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://tkr0429.github.io/" class="navbar-brand">
+tkr0429 blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="http://tkr0429.github.io/category/blog.html">Blog</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://tkr0429.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://tkr0429.github.io/ansibledepasuwadoren-zheng-sudenorootshi-xing.html"
+                       rel="bookmark"
+                       title="Permalink to ansibleでパスワード認証&suでのroot実行">
+                        ansibleでパスワード認証&suでのroot実行
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-09-08T20:00:00"> 月 08 9月 2014</time>
+    </span>
+
+
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Tags ansible, python 
+Author: tkr0429</p>
+<p>パスワード認証ありのサーバに接続する必要があり、
+且つ踏み台（こちらもパスワード認証）を越える必要があった。</p>
+<p>この時の作業メモ</p>
+<p>パスワード認証を通るためには
+sshpassが必要なので入れておく。</p>
+<div class="highlight"><pre><span class="c"># yum -y install --enablerepo=epel sshpass</span>
+</pre></div>
+
+
+<p>ansible.cfgを使って回避する。</p>
+<div class="highlight"><pre><span class="k">[ssh_connection]</span>
+<span class="na">scp_if_ssh</span> <span class="o">=</span> <span class="s">True</span>
+
+<span class="c1"># 下記に記載の&lt;gateway-server&gt;を踏み台サーバIPに書き換えてください。</span>
+<span class="na">ssh_args</span> <span class="o">=</span> <span class="s">-o ProxyCommand=&#39;sshpass -f passfile ssh -l %r &lt;gateway-server&gt; -W %h:%p&#39;</span>
+</pre></div>
+
+
+<p>passfileにsshログインパスワードを書いておく</p>
+<div class="highlight"><pre><span class="n">loginpasswd</span>
+</pre></div>
+
+
+<p>プレイブックの中身</p>
+<div class="highlight"><pre><span class="o">-</span> <span class="n">hosts</span><span class="o">:</span> <span class="n">all</span>
+  <span class="nl">gather_facts:</span> <span class="n">False</span>
+  <span class="nl">su:</span> <span class="n">True</span>
+  <span class="nl">remote_user:</span> <span class="n">loginuser</span>
+  <span class="nl">su_user:</span> <span class="n">root</span>
+
+  <span class="nl">tasks:</span>
+    <span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">command</span> <span class="n">whoami</span>
+      <span class="nl">command:</span> <span class="n">whoami</span>
+      <span class="nl">register:</span> <span class="n">result</span>
+
+    <span class="o">-</span> <span class="n">debug</span><span class="o">:</span> <span class="n">msg</span><span class="o">=</span><span class="p">{{</span><span class="n">result</span><span class="p">.</span><span class="n">stdout</span><span class="p">}}</span>
+</pre></div>
+
+
+<p>で、実行。
+ansible実行時に頭にLANG=Cを付けないと固まる。</p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">LANG</span><span class="o">=</span><span class="n">C</span> <span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span> <span class="o">-</span><span class="n">i</span> <span class="n">host</span> <span class="n">site</span><span class="p">.</span><span class="n">yml</span> <span class="o">-</span><span class="n">k</span> <span class="o">--</span><span class="n">ask</span><span class="o">-</span><span class="n">su</span><span class="o">-</span><span class="n">pass</span>
+<span class="n">SSH</span> <span class="n">password</span><span class="o">:</span>
+<span class="n">su</span> <span class="n">password</span><span class="o">:</span>
+
+<span class="n">PLAY</span> <span class="p">[</span><span class="n">all</span><span class="p">]</span> <span class="o">********************************************************************</span>
+
+<span class="nl">TASK:</span> <span class="p">[</span><span class="n">command</span> <span class="n">whoami</span><span class="p">]</span> <span class="o">********************************************************</span>
+<span class="nl">changed:</span> <span class="p">[</span><span class="n">client1</span><span class="p">]</span>
+
+<span class="nl">TASK:</span> <span class="p">[</span><span class="n">debug</span> <span class="n">msg</span><span class="o">=</span><span class="p">{{</span><span class="n">result</span><span class="p">.</span><span class="n">stdout</span><span class="p">}}]</span> <span class="o">*******************************************</span>
+<span class="nl">ok:</span> <span class="p">[</span><span class="n">clinet1</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="s">&quot;msg&quot;</span><span class="o">:</span> <span class="s">&quot;root&quot;</span>
+<span class="p">}</span>
+
+<span class="n">PLAY</span> <span class="n">RECAP</span> <span class="o">********************************************************************</span>
+<span class="n">client1</span>                      <span class="o">:</span> <span class="n">ok</span><span class="o">=</span><span class="mi">2</span>    <span class="n">changed</span><span class="o">=</span><span class="mi">1</span>    <span class="n">unreachable</span><span class="o">=</span><span class="mi">0</span>    <span class="n">failed</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3 well well-sm" id="sidebar">
+
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+                  <ul class="list-group" id="social">
+                    <li class="list-group-item"><a href="https://twitter.com/tkr0429"><i class="fa fa-twitter-square fa-lg"></i> twitter</a></li>
+                    <li class="list-group-item"><a href="https://www.facebook.com/takuro.tokushige"><i class="fa fa-facebook-square fa-lg"></i> facebook</a></li>
+                  </ul>
+                </li>
+
+
+
+                <li class="list-group-item"><a href="http://tkr0429.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                    <ul class="list-group " id="tags">
+                    </ul>
+                </li>    
+
+        </ul>
+    </section>
+
+</aside>        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2014 tkr0429
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://tkr0429.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://tkr0429.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://tkr0429.github.io/theme/js/respond.min.js"></script>
+
+</body>
+</html>
