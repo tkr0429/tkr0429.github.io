@@ -28,37 +28,7 @@ sshpassが必要なので入れておく。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;hosts&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;all&lt;/span&gt;
   &lt;span class="nl"&gt;gather_facts:&lt;/span&gt; &lt;span class="n"&gt;False&lt;/span&gt;
   &lt;span class="nl"&gt;su:&lt;/span&gt; &lt;span class="n"&gt;True&lt;/span&gt;
-  &lt;span class="nl"&gt;remote_user:&lt;/span&gt; &lt;span class="n"&gt;loginuser&lt;/span&gt;
-  &lt;span class="nl"&gt;su_user:&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;
-
-  &lt;span class="nl"&gt;tasks:&lt;/span&gt;
-    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;command&lt;/span&gt; &lt;span class="n"&gt;whoami&lt;/span&gt;
-      &lt;span class="nl"&gt;command:&lt;/span&gt; &lt;span class="n"&gt;whoami&lt;/span&gt;
-      &lt;span class="nl"&gt;register:&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;
-
-    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;debug&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;msg&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;}}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;p&gt;で、実行。
-ansible実行時に頭にLANG=Cを付けないと固まる。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;LANG&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;C&lt;/span&gt; &lt;span class="n"&gt;ansible&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;playbook&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;host&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;yml&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;ask&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;su&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;pass&lt;/span&gt;
-&lt;span class="n"&gt;SSH&lt;/span&gt; &lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="n"&gt;su&lt;/span&gt; &lt;span class="n"&gt;password&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-
-&lt;span class="n"&gt;PLAY&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;********************************************************************&lt;/span&gt;
-
-&lt;span class="nl"&gt;TASK:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;command&lt;/span&gt; &lt;span class="n"&gt;whoami&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;********************************************************&lt;/span&gt;
-&lt;span class="nl"&gt;changed:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;client1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
-
-&lt;span class="nl"&gt;TASK:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;debug&lt;/span&gt; &lt;span class="n"&gt;msg&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;{{&lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;stdout&lt;/span&gt;&lt;span class="p"&gt;}}]&lt;/span&gt; &lt;span class="o"&gt;*******************************************&lt;/span&gt;
-&lt;span class="nl"&gt;ok:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;clinet1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
-    &lt;span class="s"&gt;&amp;quot;msg&amp;quot;&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;root&amp;quot;&lt;/span&gt;
-&lt;span class="p"&gt;}&lt;/span&gt;
-
-&lt;span class="n"&gt;PLAY&lt;/span&gt; &lt;span class="n"&gt;RECAP&lt;/span&gt; &lt;span class="o"&gt;********************************************************************&lt;/span&gt;
-&lt;span class="n"&gt;client1&lt;/span&gt;                      &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ok&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="n"&gt;changed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="n"&gt;unreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="n"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 20:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:ansibledepasuwadoren-zheng-sudenorootshi-xing.html</guid></item><item><title>YAPC::Asia 2014 Tokyoに行った話</title><link>http://tkr0429.github.io/yapcasia-2014-tokyonixing-tsutahua.html</link><description>&lt;p&gt;Tags perl
+  &lt;span class="nl"&gt;remote_user:&lt;/span&gt; &lt;span class="n"&gt;loginuser ...&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 20:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:ansibledepasuwadoren-zheng-sudenorootshi-xing.html</guid></item><item><title>YAPC::Asia 2014 Tokyoに行った話</title><link>http://tkr0429.github.io/yapcasia-2014-tokyonixing-tsutahua.html</link><description>&lt;p&gt;Tags perl
 Author: tkr0429&lt;/p&gt;
 
 &lt;h1 id="yapcasia-2014-tokyo"&gt;YAPC:Asia 2014 Tokyo&lt;/h1&gt;
@@ -86,17 +56,7 @@ Author: tkr0429&lt;/p&gt;
 &lt;p&gt;なんと無くperlってあまり好きじゃないと思ってたけど、&lt;br/&gt;
 完全に自分の食わず嫌いで、やってみたら面白かった。&lt;br/&gt;
 今までなんでもシェルスクリプト or Pythonでやろうとしてたけど、 
-1日目のセッションで見た@kentaroさんの  &lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;「いろんな言語を適材適所で使おう」&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;とはこういうことなんだなぁーと言うのを感じた。  &lt;/p&gt;
-&lt;hr/&gt;
-&lt;p&gt;LTも「TDD(Twitter Driven Datsu-Syoshinsya) / Twitter駆動脱初心者」が面白かった
-@typestarさんのキーノートに関してはアウトプットの必要性やエンジニアとしての生き方を考えさせられた。&lt;/p&gt;
-&lt;hr/&gt;
-&lt;h2 id="_1"&gt;最後に&lt;/h2&gt;
-&lt;p&gt;YAPC:Asiaは参加するまでperlのイベントってイメージが強かったんですが、&lt;br/&gt;
-perlに限らずともIT系エンジニアであれば誰でも楽しめる内容だったと思います。&lt;br/&gt;
-来年も是非参加したいと思える濃い内容で大変満足でした。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 17:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:yapcasia-2014-tokyonixing-tsutahua.html</guid></item><item><title>ブログはじめます。</title><link>http://tkr0429.github.io/buroguhazimemasu.html</link><description>&lt;p&gt;Tags pelican, python 
+1日目のセッションで見た@kentaroさんの ...&lt;/br/&gt;&lt;/br/&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 17:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:yapcasia-2014-tokyonixing-tsutahua.html</guid></item><item><title>ブログはじめます。</title><link>http://tkr0429.github.io/buroguhazimemasu.html</link><description>&lt;p&gt;Tags pelican, python 
 Slug: first-post
 Author: tkr0429&lt;/p&gt;
 &lt;p&gt;ブログはじめます。&lt;/p&gt;
