@@ -60,12 +60,14 @@ ansible実行時に頭にLANG=Cを付けないと固まる。&lt;/p&gt;
 &lt;span class="n"&gt;client1&lt;/span&gt;                      &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;ok&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;    &lt;span class="n"&gt;changed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;    &lt;span class="n"&gt;unreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;    &lt;span class="n"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>YAPC::Asia 2014 Tokyoに行った話</title><link href="http://tkr0429.github.io/yapcasia-2014-tokyonixing-tsutahua.html" rel="alternate"></link><updated>2014-09-08T17:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:yapcasia-2014-tokyonixing-tsutahua.html</id><summary type="html">&lt;p&gt;Tags perl
 Author: tkr0429&lt;/p&gt;
-&lt;p&gt;今年はじめてYAPC:Asiaに@laugh_kさんの誘いで行って来ました。&lt;br /&gt;
+
+&lt;h1 id="yapcasia-2014-tokyo"&gt;YAPC:Asia 2014 Tokyo&lt;/h1&gt;
+&lt;p&gt;今年はじめてYAPC:Asiaに@laugh_kさんの誘いで行って来ました。&lt;br/&gt;
 0日目の前夜祭には仕事で残念ながら参加出来なかった。  &lt;/p&gt;
-&lt;p&gt;まず最初に感想から書いてしまうと、&lt;br /&gt;
-何故もっと早くにこんなイベントに参加しなかったんだ。。。&lt;br /&gt;
+&lt;p&gt;まず最初に感想から書いてしまうと、&lt;br/&gt;
+何故もっと早くにこんなイベントに参加しなかったんだ。。。&lt;br/&gt;
 と後悔すら覚える程、衝撃を受けました。  &lt;/p&gt;
-&lt;h2&gt;1日目&lt;/h2&gt;
+&lt;h2 id="1"&gt;1日目&lt;/h2&gt;
 &lt;p&gt;色々なセッションをふらふらと見ていたが、
 自分がインフラ系のエンジニアをやらせてもらっていることもあり、
 それに関連するセッションを選んで聞いていた。
@@ -74,26 +76,26 @@ Author: tkr0429&lt;/p&gt;
 &lt;p&gt;にはグサリと刺さる物を感じた。&lt;/p&gt;
 &lt;p&gt;自分の現状を言われているようで、苦しく思う部分が多く
 改めてコードを読み書きが出来るか否かの重要性を強く感じた。&lt;/p&gt;
-&lt;h2&gt;2日目&lt;/h2&gt;
-&lt;p&gt;せっかくのperlのイベントなのでperlに触れたくなり飛び入りで&lt;br /&gt;
-&lt;strong&gt;「Perl入学式 in YAPC::Asia Tokyo 2014」&lt;/strong&gt;&lt;br /&gt;
+&lt;h2 id="2"&gt;2日目&lt;/h2&gt;
+&lt;p&gt;せっかくのperlのイベントなのでperlに触れたくなり飛び入りで&lt;br/&gt;
+&lt;strong&gt;「Perl入学式 in YAPC::Asia Tokyo 2014」&lt;/strong&gt;&lt;br/&gt;
 に参加してきた。  &lt;/p&gt;
-&lt;p&gt;perlでbotシステムを作成するまでを学習してきたが、&lt;br /&gt;
-講師の方々の熱い説明と各グループに一人ついてくれていたので&lt;br /&gt;
+&lt;p&gt;perlでbotシステムを作成するまでを学習してきたが、&lt;br/&gt;
+講師の方々の熱い説明と各グループに一人ついてくれていたので&lt;br/&gt;
 戸惑うことも少なくスムーズに受講する事が出来た。  &lt;/p&gt;
-&lt;p&gt;なんと無くperlってあまり好きじゃないと思ってたけど、&lt;br /&gt;
-完全に自分の食わず嫌いで、やってみたら面白かった。&lt;br /&gt;
+&lt;p&gt;なんと無くperlってあまり好きじゃないと思ってたけど、&lt;br/&gt;
+完全に自分の食わず嫌いで、やってみたら面白かった。&lt;br/&gt;
 今までなんでもシェルスクリプト or Pythonでやろうとしてたけど、 
 1日目のセッションで見た@kentaroさんの  &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;「いろんな言語を適材適所で使おう」&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;とはこういうことなんだなぁーと言うのを感じた。  &lt;/p&gt;
-&lt;hr /&gt;
+&lt;hr/&gt;
 &lt;p&gt;LTも「TDD(Twitter Driven Datsu-Syoshinsya) / Twitter駆動脱初心者」が面白かった
 @typestarさんのキーノートに関してはアウトプットの必要性やエンジニアとしての生き方を考えさせられた。&lt;/p&gt;
-&lt;hr /&gt;
-&lt;h2&gt;最後に&lt;/h2&gt;
-&lt;p&gt;YAPC:Asiaは参加するまでperlのイベントってイメージが強かったんですが、&lt;br /&gt;
-perlに限らずともIT系エンジニアであれば誰でも楽しめる内容だったと思います。&lt;br /&gt;
+&lt;hr/&gt;
+&lt;h2 id="_1"&gt;最後に&lt;/h2&gt;
+&lt;p&gt;YAPC:Asiaは参加するまでperlのイベントってイメージが強かったんですが、&lt;br/&gt;
+perlに限らずともIT系エンジニアであれば誰でも楽しめる内容だったと思います。&lt;br/&gt;
 来年も是非参加したいと思える濃い内容で大変満足でした。&lt;/p&gt;</summary></entry><entry><title>ブログはじめます。</title><link href="http://tkr0429.github.io/buroguhazimemasu.html" rel="alternate"></link><updated>2014-09-08T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:buroguhazimemasu.html</id><summary type="html">&lt;p&gt;Tags pelican, python 
 Slug: first-post
 Author: tkr0429&lt;/p&gt;
