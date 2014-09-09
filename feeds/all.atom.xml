@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/all.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-08T20:00:00+09:00</updated><entry><title>ansibleでパスワード認証&amp;suでのroot実行</title><link href="http://tkr0429.github.io/ansibledepasuwadoren-zheng-sudenorootshi-xing.html" rel="alternate"></link><updated>2014-09-08T20:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:ansibledepasuwadoren-zheng-sudenorootshi-xing.html</id><summary type="html">&lt;p&gt;Tags ansible, python 
+<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/all.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-08T20:00:00+09:00</updated><entry><title>ansibleでパスワード認証&amp;suでのroot実行</title><link href="http://tkr0429.github.io/posts/2014/09/ansibledepasuwadoren-zheng-sudenorootshi-xing/" rel="alternate"></link><updated>2014-09-08T20:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:posts/2014/09/ansibledepasuwadoren-zheng-sudenorootshi-xing/</id><summary type="html">&lt;p&gt;Tags ansible, python 
 Author: tkr0429&lt;/p&gt;
 &lt;p&gt;パスワード認証ありのサーバに接続する必要があり、
 且つ踏み台（こちらもパスワード認証）を越える必要があった。&lt;/p&gt;
@@ -28,7 +28,7 @@ sshpassが必要なので入れておく。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;hosts&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;all&lt;/span&gt;
   &lt;span class="nl"&gt;gather_facts:&lt;/span&gt; &lt;span class="n"&gt;False&lt;/span&gt;
   &lt;span class="nl"&gt;su:&lt;/span&gt; &lt;span class="n"&gt;True&lt;/span&gt;
-  &lt;span class="nl"&gt;remote_user:&lt;/span&gt; &lt;span class="n"&gt;loginuser ...&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>YAPC::Asia 2014 Tokyoに行った話</title><link href="http://tkr0429.github.io/yapcasia-2014-tokyonixing-tsutahua.html" rel="alternate"></link><updated>2014-09-08T17:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:yapcasia-2014-tokyonixing-tsutahua.html</id><summary type="html">&lt;p&gt;Tags perl
+  &lt;span class="nl"&gt;remote_user:&lt;/span&gt; &lt;span class="n"&gt;loginuser ...&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</summary></entry><entry><title>YAPC::Asia 2014 Tokyoに行った話</title><link href="http://tkr0429.github.io/posts/2014/09/yapcasia-2014-tokyonixing-tsutahua/" rel="alternate"></link><updated>2014-09-08T17:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:posts/2014/09/yapcasia-2014-tokyonixing-tsutahua/</id><summary type="html">&lt;p&gt;Tags perl
 Author: tkr0429&lt;/p&gt;
 
 &lt;h1 id="yapcasia-2014-tokyo"&gt;YAPC:Asia 2014 Tokyo&lt;/h1&gt;
@@ -56,7 +56,7 @@ Author: tkr0429&lt;/p&gt;
 &lt;p&gt;なんと無くperlってあまり好きじゃないと思ってたけど、&lt;br/&gt;
 完全に自分の食わず嫌いで、やってみたら面白かった。&lt;br/&gt;
 今までなんでもシェルスクリプト or Pythonでやろうとしてたけど、 
-1日目のセッションで見た@kentaroさんの ...&lt;/br/&gt;&lt;/br/&gt;&lt;/p&gt;</summary></entry><entry><title>ブログはじめます。</title><link href="http://tkr0429.github.io/buroguhazimemasu.html" rel="alternate"></link><updated>2014-09-08T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:buroguhazimemasu.html</id><summary type="html">&lt;p&gt;Tags pelican, python 
+1日目のセッションで見た@kentaroさんの ...&lt;/br/&gt;&lt;/br/&gt;&lt;/p&gt;</summary></entry><entry><title>ブログはじめます。</title><link href="http://tkr0429.github.io/posts/2014/09/buroguhazimemasu/" rel="alternate"></link><updated>2014-09-08T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:posts/2014/09/buroguhazimemasu/</id><summary type="html">&lt;p&gt;Tags pelican, python 
 Slug: first-post
 Author: tkr0429&lt;/p&gt;
 &lt;p&gt;ブログはじめます。&lt;/p&gt;
