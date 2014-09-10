@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-08T20:00:00+09:00</updated><entry><title>ansibleでパスワード認証&amp;suでのroot実行</title><link href="http://tkr0429.github.io/posts/2014/09/ansible-pass-and-suroot/" rel="alternate"></link><updated>2014-09-08T20:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:posts/2014/09/ansible-pass-and-suroot/</id><summary type="html">&lt;p&gt;パスワード認証ありのサーバに接続する必要があり、
+<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-08T20:00:00+09:00</updated><entry><title>ansibleでパスワード認証&amp;suでのroot実行</title><link href="http://tkr0429.github.io/posts/2014/09/ansible-pass-and-suroot/" rel="alternate"></link><updated>2014-09-08T20:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:posts/2014/09/ansible-pass-and-suroot/</id><summary type="html">
+&lt;p&gt;パスワード認証ありのサーバに接続する必要があり、
 且つ踏み台（こちらもパスワード認証）を越える必要があった。&lt;/p&gt;
 &lt;p&gt;この時の作業メモ&lt;/p&gt;
 &lt;p&gt;パスワード認証を通るためには
 sshpassが必要なので入れておく。&lt;/p&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;h1 id="yum-y-install-enablerepoepel-sshpass"&gt;yum -y install --enablerepo=epel sshpass&lt;/h1&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;p&gt;ansible.cfgを使って回避する。&lt;/p&gt;
-&lt;p&gt;```
-[ssh_connection]
-scp_if_ssh = True&lt;/p&gt;
-&lt;h1 id="ip"&gt;下記に記載の&lt;gateway-server&gt;を踏み台サーバIPに書き換えてください。&lt;/h1&gt;
-&lt;p&gt;ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r &lt;gateway-server&gt; -W %h:%p'&lt;/p&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;p&gt;passfileにsshログインパスワードを書いておく&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;loginpasswd&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;yum -y install --enablerepo=epel sshpass
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ansible.cfgを使って回避する。  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[ssh_connection]
+scp_if_ssh = True
+# 下記に記載の&amp;lt;gateway-server&amp;gt;を踏み台サーバIPに書き換えてください.
+ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r &amp;lt;gateway-server&amp;gt; -W %h:%p'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;passfileにsshログインパスワードを書いておく  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;loginpasswd
+&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;プレイブックの中身&lt;/p&gt;
-&lt;p&gt;```
-- hosts: all
+&lt;pre&gt;&lt;code&gt;- hosts: all
   gather_facts: False
   su: True
   remote_user: loginuser
-  su_user: root&lt;/p&gt;
-&lt;p&gt;tasks:
-    - name: command whoami
-      command ...&lt;/p&gt;</summary><category term="ansible"></category><category term="python"></category></entry><entry><title>YAPC::Asia 2014 Tokyoに行った話</title><link href="http://tkr0429.github.io/posts/2014/09/yapc-asia/" rel="alternate"></link><updated>2014-09-08T17:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:posts/2014/09/yapc-asia/</id><summary type="html">
+  su_user: root
+
+  tasks:
+    - name: command ...&lt;/code&gt;&lt;/pre&gt;</summary><category term="ansible"></category><category term="python"></category></entry><entry><title>YAPC::Asia 2014 Tokyoに行った話</title><link href="http://tkr0429.github.io/posts/2014/09/yapc-asia/" rel="alternate"></link><updated>2014-09-08T17:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:posts/2014/09/yapc-asia/</id><summary type="html">
 &lt;h1 id="yapcasia-2014-tokyo"&gt;YAPC:Asia 2014 Tokyo&lt;/h1&gt;
 &lt;p&gt;今年はじめてYAPC:Asiaに@laugh_kさんの誘いで行って来ました。&lt;br/&gt;
 0日目の前夜祭には仕事で残念ながら参加出来なかった。  &lt;/p&gt;

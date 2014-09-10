@@ -15,7 +15,7 @@
 
         <meta name="author" content="tkr0429" />
         <meta name="keywords" content="ansible,python" />
-        <meta name="description" content="パスワード認証ありのサーバに接続する必要があり、 且つ踏み台（こちらもパスワード認証）を越える必要があった。 この時の作業メモ パスワード認証を通るためには sshpassが必要なので入れておく。 ``` yum -y install --enablerepo=epel sshpass ``` ansible.cfgを使って回避する。 ``` [ssh_connection] scp_if_ssh = True 下記に記載のを踏み台サーバIPに書き換えてください。 ssh_args = -o ProxyCommand=&#39;sshpass -f passfile ssh -l %r -W %h:%p&#39; ``` passfileにsshログインパスワードを書いておく loginpasswd プレイブックの中身 ``` - hosts: all gather_facts: False su: True remote_user: loginuser su_user: root tasks: - name: command whoami command ..." />
+        <meta name="description" content="パスワード認証ありのサーバに接続する必要があり、 且つ踏み台（こちらもパスワード認証）を越える必要があった。 この時の作業メモ パスワード認証を通るためには sshpassが必要なので入れておく。 yum -y install --enablerepo=epel sshpass ansible.cfgを使って回避する。 [ssh_connection] scp_if_ssh = True # 下記に記載の&lt;gateway-server&gt;を踏み台サーバIPに書き換えてください. ssh_args = -o ProxyCommand=&#39;sshpass -f passfile ssh -l %r &lt;gateway-server&gt; -W %h:%p&#39; passfileにsshログインパスワードを書いておく loginpasswd プレイブックの中身 - hosts: all gather_facts: False su: True remote_user: loginuser su_user: root tasks: - name: command ..." />
 
 
     <meta name="twitter:card" content="summary">
@@ -98,53 +98,56 @@ tkr0429 blog            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>パスワード認証ありのサーバに接続する必要があり、
+                
+<p>パスワード認証ありのサーバに接続する必要があり、
 且つ踏み台（こちらもパスワード認証）を越える必要があった。</p>
 <p>この時の作業メモ</p>
 <p>パスワード認証を通るためには
 sshpassが必要なので入れておく。</p>
-<p>```</p>
-<h1 id="yum-y-install-enablerepoepel-sshpass">yum -y install --enablerepo=epel sshpass</h1>
-<p>```</p>
-<p>ansible.cfgを使って回避する。</p>
-<p>```
-[ssh_connection]
-scp_if_ssh = True</p>
-<h1 id="ip">下記に記載の<gateway-server>を踏み台サーバIPに書き換えてください。</h1>
-<p>ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r <gateway-server> -W %h:%p'</p>
-<p>```</p>
-<p>passfileにsshログインパスワードを書いておく</p>
-<p><code>loginpasswd</code></p>
+<pre><code>yum -y install --enablerepo=epel sshpass
+</code></pre>
+<p>ansible.cfgを使って回避する。  </p>
+<pre><code>[ssh_connection]
+scp_if_ssh = True
+# 下記に記載の&lt;gateway-server&gt;を踏み台サーバIPに書き換えてください.
+ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r &lt;gateway-server&gt; -W %h:%p'
+</code></pre>
+<p>passfileにsshログインパスワードを書いておく  </p>
+<pre><code>loginpasswd
+</code></pre>
 <p>プレイブックの中身</p>
-<p>```
-- hosts: all
+<pre><code>- hosts: all
   gather_facts: False
   su: True
   remote_user: loginuser
-  su_user: root</p>
-<p>tasks:
+  su_user: root
+
+  tasks:
     - name: command whoami
       command: whoami
-      register: result</p>
-<pre><code>- debug: msg={{result.stdout}}
+      register: result
+
+    - debug: msg={{result.stdout}}
 </code></pre>
-<p>```</p>
 <p>で、実行。
 ansible実行時に頭にLANG=Cを付けないと固まる。</p>
-<p>```
-$ LANG=C ansible-playbook -i host site.yml -k --ask-su-pass
+<pre><code>$ LANG=C ansible-playbook -i host site.yml -k --ask-su-pass
 SSH password:
-su password:</p>
-<p>PLAY [all] <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong></p>
-<p>TASK: [command whoami] <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>
-changed: [client1]</p>
-<p>TASK: [debug msg={{result.stdout}}] <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong>*
+su password:
+
+PLAY [all] ********************************************************************
+
+TASK: [command whoami] ********************************************************
+changed: [client1]
+
+TASK: [debug msg={{result.stdout}}] *******************************************
 ok: [clinet1] =&gt; {
     "msg": "root"
-}</p>
-<p>PLAY RECAP <strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong><em>*</em></strong><strong>*</strong>
+}
+
+PLAY RECAP ********************************************************************
 client1                      : ok=2    changed=1    unreachable=0    failed=0
-```</p>
+</code></pre>
             </div>
             <!-- /.entry-content -->
 <div class="social_tools">
@@ -244,13 +247,13 @@ client1                      : ok=2    changed=1    unreachable=0    failed=0
                 <li class="list-group-item"><a href="http://tkr0429.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                     <ul class="list-group " id="tags">
                         <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/python.html">
-                                python
+                            <a href="http://tkr0429.github.io/tag/perl.html">
+                                perl
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/perl.html">
-                                perl
+                            <a href="http://tkr0429.github.io/tag/python.html">
+                                python
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
