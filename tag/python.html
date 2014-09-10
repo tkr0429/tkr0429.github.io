@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Authors - tkr0429 blog</title>
+    <title>python - tkr0429 blog</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -12,7 +12,8 @@
 
 
 
-        <meta name="author" content="tkr0429" />
+    <meta name="author" content="tkr0429" />
+    <meta name="keywords" content="python" />
 
     <!-- Open Graph tags -->
         <meta property="og:site_name" content="tkr0429 blog" />
@@ -72,8 +73,44 @@ tkr0429 blog            </a>
     <div class="row">
         <div class="col-sm-9">
 
-    <h1>Authors on tkr0429 blog</h1>
-        <li><a href="http://tkr0429.github.io/author/tkr0429.html">tkr0429</a> (4)</li>
+            <article>
+                <span class="label label-default">Date</span>
+                <span class="published">
+                    <i class="fa fa-calendar"></i><time datetime="2014-09-08T20:00:00"> 2014-09-08(月)</time>
+                </span>
+                <h2><a href="http://tkr0429.github.io/posts/2014/09/ansible-pass-and-suroot/">ansibleでパスワード認証&suでのroot実行</a></h2>
+                <div class="summary"><p>パスワード認証ありのサーバに接続する必要があり、
+且つ踏み台（こちらもパスワード認証）を越える必要があった。</p>
+<p>この時の作業メモ</p>
+<p>パスワード認証を通るためには
+sshpassが必要なので入れておく。</p>
+<p>```</p>
+<h1 id="yum-y-install-enablerepoepel-sshpass">yum -y install --enablerepo=epel sshpass</h1>
+<p>```</p>
+<p>ansible.cfgを使って回避する。</p>
+<p>```
+[ssh_connection]
+scp_if_ssh = True</p>
+<h1 id="ip">下記に記載の<gateway-server>を踏み台サーバIPに書き換えてください。</h1>
+<p>ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r <gateway-server> -W %h:%p'</p>
+<p>```</p>
+<p>passfileにsshログインパスワードを書いておく</p>
+<p><code>loginpasswd</code></p>
+<p>プレイブックの中身</p>
+<p>```
+- hosts: all
+  gather_facts: False
+  su: True
+  remote_user: loginuser
+  su_user: root</p>
+<p>tasks:
+    - name: command whoami
+      command ...</p>
+                    <a class="btn btn-info btn-xs" href="http://tkr0429.github.io/posts/2014/09/ansible-pass-and-suroot/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+
         </div>
         <div class="col-sm-3 well well-sm" id="sidebar">
 

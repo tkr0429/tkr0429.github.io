@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>tkr0429 blog</title><link>http://tkr0429.github.io/</link><description></description><atom:link href="http://tkr0429.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 08 Sep 2014 20:00:00 +0900</lastBuildDate><item><title>ansibleでパスワード認証&amp;suでのroot実行</title><link>http://tkr0429.github.io/posts/2014/09/ansibledepasuwadoren-zheng-sudenorootshi-xing/</link><description>&lt;p&gt;Tags ansible, python 
-Author: tkr0429&lt;/p&gt;
-&lt;p&gt;パスワード認証ありのサーバに接続する必要があり、
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>tkr0429 blog</title><link>http://tkr0429.github.io/</link><description></description><atom:link href="http://tkr0429.github.io/feeds/all.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 08 Sep 2014 20:00:00 +0900</lastBuildDate><item><title>ansibleでパスワード認証&amp;suでのroot実行</title><link>http://tkr0429.github.io/posts/2014/09/ansible-pass-and-suroot/</link><description>&lt;p&gt;パスワード認証ありのサーバに接続する必要があり、
 且つ踏み台（こちらもパスワード認証）を越える必要があった。&lt;/p&gt;
 &lt;p&gt;この時の作業メモ&lt;/p&gt;
 &lt;p&gt;パスワード認証を通るためには
 sshpassが必要なので入れておく。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# yum -y install --enablerepo=epel sshpass&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
+&lt;p&gt;```&lt;/p&gt;
+&lt;h1 id="yum-y-install-enablerepoepel-sshpass"&gt;yum -y install --enablerepo=epel sshpass&lt;/h1&gt;
+&lt;p&gt;```&lt;/p&gt;
 &lt;p&gt;ansible.cfgを使って回避する。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;[ssh_connection]&lt;/span&gt;
-&lt;span class="na"&gt;scp_if_ssh&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;True&lt;/span&gt;
-
-&lt;span class="c1"&gt;# 下記に記載の&amp;lt;gateway-server&amp;gt;を踏み台サーバIPに書き換えてください。&lt;/span&gt;
-&lt;span class="na"&gt;ssh_args&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;-o ProxyCommand=&amp;#39;sshpass -f passfile ssh -l %r &amp;lt;gateway-server&amp;gt; -W %h:%p&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
+&lt;p&gt;```
+[ssh_connection]
+scp_if_ssh = True&lt;/p&gt;
+&lt;h1 id="ip"&gt;下記に記載の&lt;gateway-server&gt;を踏み台サーバIPに書き換えてください。&lt;/h1&gt;
+&lt;p&gt;ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r &lt;gateway-server&gt; -W %h:%p'&lt;/p&gt;
+&lt;p&gt;```&lt;/p&gt;
 &lt;p&gt;passfileにsshログインパスワードを書いておく&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;loginpasswd&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
+&lt;p&gt;&lt;code&gt;loginpasswd&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;プレイブックの中身&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;hosts&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;all&lt;/span&gt;
-  &lt;span class="nl"&gt;gather_facts:&lt;/span&gt; &lt;span class="n"&gt;False&lt;/span&gt;
-  &lt;span class="nl"&gt;su:&lt;/span&gt; &lt;span class="n"&gt;True&lt;/span&gt;
-  &lt;span class="nl"&gt;remote_user:&lt;/span&gt; &lt;span class="n"&gt;loginuser ...&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 20:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:posts/2014/09/ansibledepasuwadoren-zheng-sudenorootshi-xing/</guid></item><item><title>YAPC::Asia 2014 Tokyoに行った話</title><link>http://tkr0429.github.io/posts/2014/09/yapcasia-2014-tokyonixing-tsutahua/</link><description>&lt;p&gt;Tags perl
-Author: tkr0429&lt;/p&gt;
-
+&lt;p&gt;```
+- hosts: all
+  gather_facts: False
+  su: True
+  remote_user: loginuser
+  su_user: root&lt;/p&gt;
+&lt;p&gt;tasks:
+    - name: command whoami
+      command ...&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 20:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:posts/2014/09/ansible-pass-and-suroot/</guid><category>ansible</category><category>python</category></item><item><title>YAPC::Asia 2014 Tokyoに行った話</title><link>http://tkr0429.github.io/posts/2014/09/yapc-asia/</link><description>
 &lt;h1 id="yapcasia-2014-tokyo"&gt;YAPC:Asia 2014 Tokyo&lt;/h1&gt;
 &lt;p&gt;今年はじめてYAPC:Asiaに@laugh_kさんの誘いで行って来ました。&lt;br/&gt;
 0日目の前夜祭には仕事で残念ながら参加出来なかった。  &lt;/p&gt;
@@ -56,9 +51,15 @@ Author: tkr0429&lt;/p&gt;
 &lt;p&gt;なんと無くperlってあまり好きじゃないと思ってたけど、&lt;br/&gt;
 完全に自分の食わず嫌いで、やってみたら面白かった。&lt;br/&gt;
 今までなんでもシェルスクリプト or Pythonでやろうとしてたけど、 
-1日目のセッションで見た@kentaroさんの ...&lt;/br/&gt;&lt;/br/&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 17:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:posts/2014/09/yapcasia-2014-tokyonixing-tsutahua/</guid></item><item><title>ブログはじめます。</title><link>http://tkr0429.github.io/posts/2014/09/buroguhazimemasu/</link><description>&lt;p&gt;Tags pelican, python 
+1日目のセッションで見た@kentaroさんの  &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;「いろんな言語を適材適所で使おう」&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;とはこういうことなんだなぁーと言うのを感じた。  &lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;LTも「TDD ...&lt;/p&gt;&lt;/hr/&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 17:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:posts/2014/09/yapc-asia/</guid><category>perl</category></item><item><title>ブログはじめます。</title><link>http://tkr0429.github.io/posts/2014/09/buroguhazimemasu/</link><description>&lt;p&gt;Tags pelican, python 
 Slug: first-post
 Author: tkr0429&lt;/p&gt;
 &lt;p&gt;ブログはじめます。&lt;/p&gt;
 &lt;p&gt;pelicanって物を知ったのでブログ始めようかと思います。&lt;br /&gt;
-大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 13:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:posts/2014/09/buroguhazimemasu/</guid></item></channel></rss>
+大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 13:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:posts/2014/09/buroguhazimemasu/</guid></item><item><title>temp</title><link>http://tkr0429.github.io/posts/2013/12/temp/</link><description>&lt;p&gt;Tags pelican, python 
+Slug: template
+Author: tkr0429&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Tue, 03 Dec 2013 13:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2013-12-03:posts/2013/12/temp/</guid></item></channel></rss>

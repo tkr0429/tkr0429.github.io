@@ -77,38 +77,35 @@ tkr0429 blog            </a>
                 <span class="published">
                     <i class="fa fa-calendar"></i><time datetime="2014-09-08T20:00:00"> 2014-09-08(月)</time>
                 </span>
-                <h2><a href="http://tkr0429.github.io/posts/2014/09/ansibledepasuwadoren-zheng-sudenorootshi-xing/">ansibleでパスワード認証&suでのroot実行</a></h2>
-                <div class="summary"><p>Tags ansible, python 
-Author: tkr0429</p>
-<p>パスワード認証ありのサーバに接続する必要があり、
+                <h2><a href="http://tkr0429.github.io/posts/2014/09/ansible-pass-and-suroot/">ansibleでパスワード認証&suでのroot実行</a></h2>
+                <div class="summary"><p>パスワード認証ありのサーバに接続する必要があり、
 且つ踏み台（こちらもパスワード認証）を越える必要があった。</p>
 <p>この時の作業メモ</p>
 <p>パスワード認証を通るためには
 sshpassが必要なので入れておく。</p>
-<div class="highlight"><pre><span class="c"># yum -y install --enablerepo=epel sshpass</span>
-</pre></div>
-
-
+<p>```</p>
+<h1 id="yum-y-install-enablerepoepel-sshpass">yum -y install --enablerepo=epel sshpass</h1>
+<p>```</p>
 <p>ansible.cfgを使って回避する。</p>
-<div class="highlight"><pre><span class="k">[ssh_connection]</span>
-<span class="na">scp_if_ssh</span> <span class="o">=</span> <span class="s">True</span>
-
-<span class="c1"># 下記に記載の&lt;gateway-server&gt;を踏み台サーバIPに書き換えてください。</span>
-<span class="na">ssh_args</span> <span class="o">=</span> <span class="s">-o ProxyCommand=&#39;sshpass -f passfile ssh -l %r &lt;gateway-server&gt; -W %h:%p&#39;</span>
-</pre></div>
-
-
+<p>```
+[ssh_connection]
+scp_if_ssh = True</p>
+<h1 id="ip">下記に記載の<gateway-server>を踏み台サーバIPに書き換えてください。</h1>
+<p>ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r <gateway-server> -W %h:%p'</p>
+<p>```</p>
 <p>passfileにsshログインパスワードを書いておく</p>
-<div class="highlight"><pre><span class="n">loginpasswd</span>
-</pre></div>
-
-
+<p><code>loginpasswd</code></p>
 <p>プレイブックの中身</p>
-<div class="highlight"><pre><span class="o">-</span> <span class="n">hosts</span><span class="o">:</span> <span class="n">all</span>
-  <span class="nl">gather_facts:</span> <span class="n">False</span>
-  <span class="nl">su:</span> <span class="n">True</span>
-  <span class="nl">remote_user:</span> <span class="n">loginuser ...</span></pre></div>
-                    <a class="btn btn-info btn-xs" href="http://tkr0429.github.io/posts/2014/09/ansibledepasuwadoren-zheng-sudenorootshi-xing/">more ...</a>
+<p>```
+- hosts: all
+  gather_facts: False
+  su: True
+  remote_user: loginuser
+  su_user: root</p>
+<p>tasks:
+    - name: command whoami
+      command ...</p>
+                    <a class="btn btn-info btn-xs" href="http://tkr0429.github.io/posts/2014/09/ansible-pass-and-suroot/">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -117,10 +114,8 @@ sshpassが必要なので入れておく。</p>
                 <span class="published">
                     <i class="fa fa-calendar"></i><time datetime="2014-09-08T17:00:00"> 2014-09-08(月)</time>
                 </span>
-                <h2><a href="http://tkr0429.github.io/posts/2014/09/yapcasia-2014-tokyonixing-tsutahua/">YAPC::Asia 2014 Tokyoに行った話</a></h2>
-                <div class="summary"><p>Tags perl
-Author: tkr0429</p>
-
+                <h2><a href="http://tkr0429.github.io/posts/2014/09/yapc-asia/">YAPC::Asia 2014 Tokyoに行った話</a></h2>
+                <div class="summary">
 <h1 id="yapcasia-2014-tokyo">YAPC:Asia 2014 Tokyo</h1>
 <p>今年はじめてYAPC:Asiaに@laugh_kさんの誘いで行って来ました。<br/>
 0日目の前夜祭には仕事で残念ながら参加出来なかった。  </p>
@@ -146,8 +141,12 @@ Author: tkr0429</p>
 <p>なんと無くperlってあまり好きじゃないと思ってたけど、<br/>
 完全に自分の食わず嫌いで、やってみたら面白かった。<br/>
 今までなんでもシェルスクリプト or Pythonでやろうとしてたけど、 
-1日目のセッションで見た@kentaroさんの ...</br/></br/></p>
-                    <a class="btn btn-info btn-xs" href="http://tkr0429.github.io/posts/2014/09/yapcasia-2014-tokyonixing-tsutahua/">more ...</a>
+1日目のセッションで見た@kentaroさんの  </p>
+<p><strong>「いろんな言語を適材適所で使おう」</strong></p>
+<p>とはこういうことなんだなぁーと言うのを感じた。  </p>
+<hr/>
+<p>LTも「TDD ...</p></hr/>
+                    <a class="btn btn-info btn-xs" href="http://tkr0429.github.io/posts/2014/09/yapc-asia/">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -164,6 +163,19 @@ Author: tkr0429</p>
 <p>pelicanって物を知ったのでブログ始めようかと思います。<br />
 大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。</p>
                     <a class="btn btn-info btn-xs" href="http://tkr0429.github.io/posts/2014/09/buroguhazimemasu/">more ...</a>
+                </div>
+            </article>
+            <hr/>
+            <article>
+                <span class="label label-default">Date</span>
+                <span class="published">
+                    <i class="fa fa-calendar"></i><time datetime="2013-12-03T13:00:00"> 2013-12-03(火)</time>
+                </span>
+                <h2><a href="http://tkr0429.github.io/posts/2013/12/temp/">temp</a></h2>
+                <div class="summary"><p>Tags pelican, python 
+Slug: template
+Author: tkr0429</p>
+                    <a class="btn btn-info btn-xs" href="http://tkr0429.github.io/posts/2013/12/temp/">more ...</a>
                 </div>
             </article>
             <hr/>
@@ -185,6 +197,21 @@ Author: tkr0429</p>
 
                 <li class="list-group-item"><a href="http://tkr0429.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                     <ul class="list-group " id="tags">
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/ansible.html">
+                                ansible
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/perl.html">
+                                perl
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/python.html">
+                                python
+                            </a>
+                        </li>
                     </ul>
                 </li>    
 
