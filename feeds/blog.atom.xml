@@ -54,11 +54,6 @@ ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r &amp;lt;gateway-server
 &lt;p&gt;&lt;strong&gt;「いろんな言語を適材適所で使おう」&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;とはこういうことなんだなぁーと言うのを感じた。  &lt;/p&gt;
 &lt;hr/&gt;
-&lt;p&gt;LTも「TDD ...&lt;/p&gt;&lt;/hr/&gt;</summary><category term="perl"></category></entry><entry><title>ブログはじめます。</title><link href="http://tkr0429.github.io/posts/2014/09/buroguhazimemasu/" rel="alternate"></link><updated>2014-09-08T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:posts/2014/09/buroguhazimemasu/</id><summary type="html">&lt;p&gt;Tags pelican, python 
-Slug: first-post
-Author: tkr0429&lt;/p&gt;
-&lt;p&gt;ブログはじめます。&lt;/p&gt;
+&lt;p&gt;LTも「TDD ...&lt;/p&gt;&lt;/hr/&gt;</summary><category term="perl"></category></entry><entry><title>ブログはじめます。</title><link href="http://tkr0429.github.io/posts/2014/09/first-post/" rel="alternate"></link><updated>2014-09-08T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:posts/2014/09/first-post/</id><summary type="html">&lt;p&gt;ブログはじめます。&lt;/p&gt;
 &lt;p&gt;pelicanって物を知ったのでブログ始めようかと思います。&lt;br /&gt;
-大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。&lt;/p&gt;</summary></entry><entry><title>temp</title><link href="http://tkr0429.github.io/posts/2013/12/temp/" rel="alternate"></link><updated>2013-12-03T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2013-12-03:posts/2013/12/temp/</id><summary type="html">&lt;p&gt;Tags pelican, python 
-Slug: template
-Author: tkr0429&lt;/p&gt;</summary></entry></feed>
+大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。&lt;/p&gt;</summary><category term="python"></category></entry><entry><title>temp</title><link href="http://tkr0429.github.io/posts/2013/12/template/" rel="alternate"></link><updated>2013-12-03T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2013-12-03:posts/2013/12/template/</id><summary type="html"></summary><category term="blog"></category></entry></feed>
