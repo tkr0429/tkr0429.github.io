@@ -89,30 +89,5 @@ client1                      : ok=2    changed=1    unreachable=0    failed=0
 perlに限らずともIT系エンジニアであれば誰でも楽しめる内容だったと思います。&lt;br/&gt;
 来年も是非参加したいと思える濃い内容で大変満足でした。&lt;/p&gt;</summary><category term="perl"></category></entry><entry><title>ブログはじめます。</title><link href="http://tkr0429.github.io/2014/09/first-post/" rel="alternate"></link><updated>2014-09-08T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:2014/09/first-post/</id><summary type="html">&lt;p&gt;ブログはじめます。&lt;/p&gt;
 &lt;p&gt;pelicanって物を知ったのでブログ始めようかと思います。&lt;br /&gt;
-大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。&lt;/p&gt;</summary><category term="python"></category></entry><entry><title>temp</title><link href="http://tkr0429.github.io/2013/12/template/" rel="alternate"></link><updated>2013-12-03T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2013-12-03:2013/12/template/</id><summary type="html">
-&lt;h1 id="section-1"&gt;Section 1&lt;/h1&gt;
-&lt;h2 id="sub-section-1"&gt;Sub-section 1&lt;/h2&gt;
-&lt;h3 id="section-2"&gt;Section 2&lt;/h3&gt;
-&lt;h1 id="section-1_1"&gt;Section 1&lt;/h1&gt;
-&lt;p&gt;test 
-&lt;em&gt;test&lt;/em&gt;
-&lt;strong&gt;test&lt;/strong&gt;
-&lt;code&gt;markdown test pages&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;```  &lt;/p&gt;
-&lt;h1 id="usrbinpython"&gt;!/usr/bin/python&lt;/h1&gt;
-&lt;h1 id="code-goes-here"&gt;Code goes here ...&lt;/h1&gt;
-&lt;p&gt;def end(){
-    aaaa
-}
-```  &lt;/p&gt;
-&lt;p&gt;&lt;code&gt;&amp;lt;a href="#"&amp;gt;My code&amp;lt;/a&amp;gt;&lt;/code&gt;&lt;/p&gt;
-&lt;hr/&gt;
-&lt;blockquote&gt;
-&lt;p&gt;aaaa&lt;br/&gt;
-bbbb&lt;br/&gt;
-cccc  &lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;|table | col1 | col2|
-|------|------|-----|
-|span  | span1|span2|
-|span2 | span3|span4|&lt;/p&gt;</summary><category term="python"></category></entry></feed>
+大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。&lt;/p&gt;</summary><category term="python"></category></entry><entry><title>temp</title><link href="http://tkr0429.github.io/2013/12/template/" rel="alternate"></link><updated>2013-12-03T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2013-12-03:2013/12/template/</id><summary type="html">&lt;p&gt;[TOC]
+test pages&lt;/p&gt;</summary><category term="python"></category></entry></feed>
