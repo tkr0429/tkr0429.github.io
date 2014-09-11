@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/all.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-08T20:00:00+09:00</updated><entry><title>ansibleでパスワード認証&amp;suでのroot実行</title><link href="http://tkr0429.github.io/posts/2014/09/ansible-pass-and-suroot/" rel="alternate"></link><updated>2014-09-08T20:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:posts/2014/09/ansible-pass-and-suroot/</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/all.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-08T20:00:00+09:00</updated><entry><title>ansibleでパスワード認証&amp;suでのroot実行</title><link href="http://tkr0429.github.io/2014/09/ansible-pass-and-suroot/" rel="alternate"></link><updated>2014-09-08T20:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:2014/09/ansible-pass-and-suroot/</id><summary type="html">
+&lt;h2 id="_1"&gt;概要&lt;/h2&gt;
 &lt;p&gt;パスワード認証ありのサーバに接続する必要があり、
 且つ踏み台（こちらもパスワード認証）を越える必要があった。&lt;/p&gt;
 &lt;p&gt;この時の作業メモ&lt;/p&gt;
+&lt;h2 id="_2"&gt;前準備&lt;/h2&gt;
 &lt;p&gt;パスワード認証を通るためには
 sshpassが必要なので入れておく。&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;yum -y install --enablerepo=epel sshpass
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;yum -y install --enablerepo=epel sshpass&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;ansible.cfgを使って回避する。  &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;[ssh_connection]
 scp_if_ssh = True
+
 # 下記に記載の&amp;lt;gateway-server&amp;gt;を踏み台サーバIPに書き換えてください.
 ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r &amp;lt;gateway-server&amp;gt; -W %h:%p'
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;passfileにsshログインパスワードを書いておく  &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;loginpasswd
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;loginpasswd&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="playbook"&gt;playbookの作成&lt;/h2&gt;
 &lt;p&gt;プレイブックの中身&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;- hosts: all
   gather_facts: False
@@ -24,7 +26,32 @@ ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r &amp;lt;gateway-server
   su_user: root
 
   tasks:
-    - name: command ...&lt;/code&gt;&lt;/pre&gt;</summary><category term="ansible"></category><category term="python"></category></entry><entry><title>YAPC::Asia 2014 Tokyoに行った話</title><link href="http://tkr0429.github.io/posts/2014/09/yapc-asia/" rel="alternate"></link><updated>2014-09-08T17:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:posts/2014/09/yapc-asia/</id><summary type="html">
+    - name: command whoami
+      command: whoami
+      register: result
+
+    - debug: msg={{result.stdout}}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id="_3"&gt;実行&lt;/h2&gt;
+&lt;p&gt;ansible実行時に頭にLANG=Cを付けないと固まる。
+環境によってはLANG=Cつけようが固まる。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ LANG=C ansible-playbook -i host site.yml -k --ask-su-pass
+SSH password:
+su password:
+
+PLAY [all] ********************************************************************
+
+TASK: [command whoami] ********************************************************
+changed: [client1]
+
+TASK: [debug msg={{result.stdout}}] *******************************************
+ok: [clinet1] =&amp;gt; {
+   "msg": "root"
+}
+
+PLAY RECAP ********************************************************************
+client1                      : ok=2    changed=1    unreachable=0    failed=0
+&lt;/code&gt;&lt;/pre&gt;</summary><category term="ansible"></category><category term="python"></category></entry><entry><title>YAPC::Asia 2014 Tokyoに行った話</title><link href="http://tkr0429.github.io/2014/09/yapc-asia/" rel="alternate"></link><updated>2014-09-08T17:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:2014/09/yapc-asia/</id><summary type="html">
 &lt;h1 id="yapcasia-2014-tokyo"&gt;YAPC:Asia 2014 Tokyo&lt;/h1&gt;
 &lt;p&gt;今年はじめてYAPC:Asiaに@laugh_kさんの誘いで行って来ました。&lt;br/&gt;
 0日目の前夜祭には仕事で残念ながら参加出来なかった。  &lt;/p&gt;
@@ -54,6 +81,38 @@ ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r &amp;lt;gateway-server
 &lt;p&gt;&lt;strong&gt;「いろんな言語を適材適所で使おう」&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;とはこういうことなんだなぁーと言うのを感じた。  &lt;/p&gt;
 &lt;hr/&gt;
-&lt;p&gt;LTも「TDD ...&lt;/p&gt;&lt;/hr/&gt;</summary><category term="perl"></category></entry><entry><title>ブログはじめます。</title><link href="http://tkr0429.github.io/posts/2014/09/first-post/" rel="alternate"></link><updated>2014-09-08T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:posts/2014/09/first-post/</id><summary type="html">&lt;p&gt;ブログはじめます。&lt;/p&gt;
+&lt;p&gt;LTも「TDD(Twitter Driven Datsu-Syoshinsya) / Twitter駆動脱初心者」が面白かった
+@typestarさんのキーノートに関してはアウトプットの必要性やエンジニアとしての生き方を考えさせられた。&lt;/p&gt;
+&lt;hr/&gt;
+&lt;h2 id="_1"&gt;最後に&lt;/h2&gt;
+&lt;p&gt;YAPC:Asiaは参加するまでperlのイベントってイメージが強かったんですが、&lt;br/&gt;
+perlに限らずともIT系エンジニアであれば誰でも楽しめる内容だったと思います。&lt;br/&gt;
+来年も是非参加したいと思える濃い内容で大変満足でした。&lt;/p&gt;</summary><category term="perl"></category></entry><entry><title>ブログはじめます。</title><link href="http://tkr0429.github.io/2014/09/first-post/" rel="alternate"></link><updated>2014-09-08T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:2014/09/first-post/</id><summary type="html">&lt;p&gt;ブログはじめます。&lt;/p&gt;
 &lt;p&gt;pelicanって物を知ったのでブログ始めようかと思います。&lt;br /&gt;
-大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。&lt;/p&gt;</summary><category term="python"></category></entry><entry><title>temp</title><link href="http://tkr0429.github.io/posts/2013/12/template/" rel="alternate"></link><updated>2013-12-03T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2013-12-03:posts/2013/12/template/</id><summary type="html"></summary><category term="blog"></category></entry></feed>
+大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。&lt;/p&gt;</summary><category term="python"></category></entry><entry><title>temp</title><link href="http://tkr0429.github.io/2013/12/template/" rel="alternate"></link><updated>2013-12-03T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2013-12-03:2013/12/template/</id><summary type="html">
+&lt;h1 id="section-1"&gt;Section 1&lt;/h1&gt;
+&lt;h2 id="sub-section-1"&gt;Sub-section 1&lt;/h2&gt;
+&lt;h3 id="section-2"&gt;Section 2&lt;/h3&gt;
+&lt;h1 id="section-1_1"&gt;Section 1&lt;/h1&gt;
+&lt;p&gt;test 
+&lt;em&gt;test&lt;/em&gt;
+&lt;strong&gt;test&lt;/strong&gt;
+&lt;code&gt;markdown test pages&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;```  &lt;/p&gt;
+&lt;h1 id="usrbinpython"&gt;!/usr/bin/python&lt;/h1&gt;
+&lt;h1 id="code-goes-here"&gt;Code goes here ...&lt;/h1&gt;
+&lt;p&gt;def end(){
+    aaaa
+}
+```  &lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;a href="#"&amp;gt;My code&amp;lt;/a&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;hr/&gt;
+&lt;blockquote&gt;
+&lt;p&gt;aaaa&lt;br/&gt;
+bbbb&lt;br/&gt;
+cccc  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;|table | col1 | col2|
+|------|------|-----|
+|span  | span1|span2|
+|span2 | span3|span4|&lt;/p&gt;</summary><category term="python"></category></entry></feed>
