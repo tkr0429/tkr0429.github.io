@@ -89,5 +89,36 @@ client1                      : ok=2    changed=1    unreachable=0    failed=0
 perlに限らずともIT系エンジニアであれば誰でも楽しめる内容だったと思います。&lt;br/&gt;
 来年も是非参加したいと思える濃い内容で大変満足でした。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 17:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:2014/09/yapc-asia/</guid><category>perl</category></item><item><title>ブログはじめます。</title><link>http://tkr0429.github.io/2014/09/first-post/</link><description>&lt;p&gt;ブログはじめます。&lt;/p&gt;
 &lt;p&gt;pelicanって物を知ったのでブログ始めようかと思います。&lt;br /&gt;
-大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 13:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:2014/09/first-post/</guid><category>python</category></item><item><title>temp</title><link>http://tkr0429.github.io/2013/12/template/</link><description>&lt;p&gt;[TOC]
-test pages&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Tue, 03 Dec 2013 13:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2013-12-03:2013/12/template/</guid><category>python</category></item></channel></rss>
+大した事は書けないけど、技術メモ的な感じで使って行こうかと思います。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 13:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:2014/09/first-post/</guid><category>python</category></item><item><title>temp</title><link>http://tkr0429.github.io/2013/12/template/</link><description>
+&lt;h1 id="test-pages"&gt;test pages&lt;/h1&gt;
+&lt;p&gt;test contents&lt;/p&gt;
+&lt;h2 id="head2"&gt;head2&lt;/h2&gt;
+&lt;p&gt;aaa&lt;/p&gt;
+&lt;h3 id="head3"&gt;head3&lt;/h3&gt;
+&lt;p&gt;bbb&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;a&lt;/li&gt;
+&lt;li&gt;b&lt;/li&gt;
+&lt;li&gt;c&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr/&gt;
+&lt;ol&gt;
+&lt;li&gt;aa&lt;ol&gt;
+&lt;li&gt;ab&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;bb&lt;ol&gt;
+&lt;li&gt;bc&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;cc&lt;ol&gt;
+&lt;li&gt;cd&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr/&gt;
+&lt;h4 id="head4"&gt;head4&lt;/h4&gt;
+&lt;p&gt;First Header  | Second Header
+  ------------- | -------------
+  Content Cell  | Content Cell
+  Content Cell  | Content Cell&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Tue, 03 Dec 2013 13:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2013-12-03:2013/12/template/</guid><category>python</category></item></channel></rss>
