@@ -121,4 +121,11 @@ perlに限らずともIT系エンジニアであれば誰でも楽しめる内�
 &lt;p&gt;First Header  | Second Header
 ------------- | -------------
 Content Cell  | Content Cell
-Content Cell  | Content Cell&lt;/p&gt;</summary><category term="python"></category></entry></feed>
+Content Cell  | Content Cell&lt;/p&gt;
+&lt;hr/&gt;
+&lt;p&gt;```&lt;/p&gt;
+&lt;h1 id="binbash"&gt;!/bin/bash&lt;/h1&gt;
+&lt;p&gt;echo aaa
+echo bbb
+echo ccc
+```&lt;/p&gt;</summary><category term="python"></category></entry></feed>
