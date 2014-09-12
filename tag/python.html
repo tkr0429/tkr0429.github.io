@@ -79,15 +79,15 @@ tkr0429 blog            </a>
                 <div class="summary">
 <h1 id="ansible-su">Ansible で su</h1>
 <p>ansibleでsu使うと</p>
-<p><code>$ su 
+<p><code>$ su   
 パスワード:</code></p>
 <p>的な感じで日本語表記だと固まってしまう。<br/>
 どうしたものかと考えた結果,リモートユーザのホームディレクトリに.i18nファイルを
 作っちゃうのが手っ取り早いとなったので、
 playbookに処理を追加。</p>
-<p><code>- shell: "echo LANG=C &gt; ~/.i18n"
-  register: result
-  changed_when: result.rc != 0
+<p><code>- shell: "echo LANG=C &gt; ~/.i18n"  
+  register: result  
+  changed_when: result.rc != 0  
   su: False</code></p>
 <p>毎回chengedになっちゃうのも煩わしいのでchecnged_when使って回避</p>
                     <a class="btn btn-info btn-xs" href="http://tkr0429.github.io/2014/09/ansible-su/">more ...</a>
