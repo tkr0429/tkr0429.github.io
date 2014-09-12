@@ -15,7 +15,7 @@
 
         <meta name="author" content="tkr0429" />
         <meta name="keywords" content="python,ansible" />
-        <meta name="description" content="Ansible で su ansibleでsu使うと $ su パスワード: 的な感じで日本語表記だと固まってしまう。 どうしたものかと考えた結果,リモートユーザのホームディレクトリに.i18nファイルを 作っちゃうのが手っ取り早いとなったので、 playbookに処理を追加。 - shell: &#34;echo LANG=C &gt; ~/.i18n&#34; register: result changed_when: result.rc != 0 su: False 毎回chengedになっちゃうのも煩わしいのでchecnged_when使って回避" />
+        <meta name="description" content="Ansible suフリーズ問題" />
 
 
     <meta name="twitter:card" content="summary">
@@ -109,35 +109,36 @@ tkr0429 blog            </a>
                 
 <h1 id="ansible-su">Ansible で su</h1>
 <p>ansibleでsu使うと</p>
-<p><code>$ su   
-パスワード:</code></p>
+<pre><code>$ su   
+パスワード:
+</code></pre>
 <p>的な感じで日本語表記だと固まってしまう。<br/>
 どうしたものかと考えた結果,リモートユーザのホームディレクトリに.i18nファイルを
 作っちゃうのが手っ取り早いとなったので、
 playbookに処理を追加。</p>
-<p><code>- shell: "echo LANG=C &gt; ~/.i18n"  
+<pre><code>- shell: "echo LANG=C &gt; ~/.i18n"  
   register: result  
   changed_when: result.rc != 0  
-  su: False</code></p>
+  su: False
+</code></pre>
 <p>毎回chengedになっちゃうのも煩わしいのでchecnged_when使って回避</p>
             </div>
             <!-- /.entry-content -->
     <hr />
     <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style">
-            <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
-            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-            <a class="addthis_button_tweet"></a>
-            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-            <span>
-            <script type="text/javascript" src="//media.line.me/js/line-button.js?v=20140411" ></script>
-            <script type="text/javascript">
-                new media_line_me.LineButton({"pc":true,"lang":"ja","type":"a"});
-            </script>
-            </span>
+    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_preferred_5"></a>
+    <a class="addthis_button_preferred_6"></a>
+    <a class="addthis_button_compact"></a>
+
     </div>
         <script type="text/javascript">var addthis_config = {"data_track_addressbar": true};</script>
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=True"></script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid="></script>
     <!-- AddThis Button END -->
     <hr/>
     <section class="comments" id="comments">

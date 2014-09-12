@@ -76,20 +76,7 @@ tkr0429 blog            </a>
                     <i class="fa fa-calendar"></i><time datetime="2014-09-12T18:00:00"> 2014-09-12(金)</time>
                 </span>
                 <h2><a href="http://tkr0429.github.io/2014/09/ansible-su/">Ansible で su</a></h2>
-                <div class="summary">
-<h1 id="ansible-su">Ansible で su</h1>
-<p>ansibleでsu使うと</p>
-<p><code>$ su   
-パスワード:</code></p>
-<p>的な感じで日本語表記だと固まってしまう。<br/>
-どうしたものかと考えた結果,リモートユーザのホームディレクトリに.i18nファイルを
-作っちゃうのが手っ取り早いとなったので、
-playbookに処理を追加。</p>
-<p><code>- shell: "echo LANG=C &gt; ~/.i18n"  
-  register: result  
-  changed_when: result.rc != 0  
-  su: False</code></p>
-<p>毎回chengedになっちゃうのも煩わしいのでchecnged_when使って回避</p>
+                <div class="summary"><p>Ansible suフリーズ問題</p>
                     <a class="btn btn-info btn-xs" href="http://tkr0429.github.io/2014/09/ansible-su/">more ...</a>
                 </div>
             </article>
@@ -101,30 +88,6 @@ playbookに処理を追加。</p>
                 </span>
                 <h2><a href="http://tkr0429.github.io/2014/09/ansible-pass-and-suroot/">ansibleでパスワード認証&suでのroot実行</a></h2>
                 <div class="summary">
-<h2 id="_1">概要</h2>
-<p>パスワード認証ありのサーバに接続する必要があり、
-且つ踏み台（こちらもパスワード認証）を越える必要があった。</p>
-<p>この時の作業メモ</p>
-<h2 id="_2">前準備</h2>
-<p>パスワード認証を通るためには
-sshpassが必要なので入れておく。</p>
-<p><code>yum -y install --enablerepo=epel sshpass</code></p>
-<p>ansible.cfgを使って回避する。  </p>
-<pre><code>[ssh_connection]
-scp_if_ssh = True
-
-# 下記に記載の&lt;gateway-server&gt;を踏み台サーバIPに書き換えてください.
-ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r &lt;gateway-server&gt; -W %h:%p'
-</code></pre>
-<p>passfileにsshログインパスワードを書いておく  </p>
-<p><code>loginpasswd</code></p>
-<h2 id="playbook">playbookの作成</h2>
-<p>プレイブックの中身</p>
-<pre><code>- hosts: all
-  gather_facts: False
-  su: True
-  remote_user: loginuser
-  su_user: root ...</code></pre>
                     <a class="btn btn-info btn-xs" href="http://tkr0429.github.io/2014/09/ansible-pass-and-suroot/">more ...</a>
                 </div>
             </article>
@@ -136,36 +99,6 @@ ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r &lt;gateway-server&gt;
                 </span>
                 <h2><a href="http://tkr0429.github.io/2014/09/yapc-asia/">YAPC::Asia 2014 Tokyoに行った話</a></h2>
                 <div class="summary">
-<h1 id="yapcasia-2014-tokyo">YAPC:Asia 2014 Tokyo</h1>
-<p>今年はじめてYAPC:Asiaに@laugh_kさんの誘いで行って来ました。<br/>
-0日目の前夜祭には仕事で残念ながら参加出来なかった。  </p>
-<p>まず最初に感想から書いてしまうと、<br/>
-何故もっと早くにこんなイベントに参加しなかったんだ。。。<br/>
-と後悔すら覚える程、衝撃を受けました。  </p>
-<h2 id="1">1日目</h2>
-<p>色々なセッションをふらふらと見ていたが、
-自分がインフラ系のエンジニアをやらせてもらっていることもあり、
-それに関連するセッションを選んで聞いていた。
-なかでも@studio3104さん の</p>
-<p><strong>「インフラエンジニア(狭義)は死んだ」</strong></p>
-<p>にはグサリと刺さる物を感じた。</p>
-<p>自分の現状を言われているようで、苦しく思う部分が多く
-改めてコードを読み書きが出来るか否かの重要性を強く感じた。</p>
-<h2 id="2">2日目</h2>
-<p>せっかくのperlのイベントなのでperlに触れたくなり飛び入りで<br/>
-<strong>「Perl入学式 in YAPC::Asia Tokyo 2014」</strong><br/>
-に参加してきた。  </p>
-<p>perlでbotシステムを作成するまでを学習してきたが、<br/>
-講師の方々の熱い説明と各グループに一人ついてくれていたので<br/>
-戸惑うことも少なくスムーズに受講する事が出来た。  </p>
-<p>なんと無くperlってあまり好きじゃないと思ってたけど、<br/>
-完全に自分の食わず嫌いで、やってみたら面白かった。<br/>
-今までなんでもシェルスクリプト or Pythonでやろうとしてたけど、 
-1日目のセッションで見た@kentaroさんの  </p>
-<p><strong>「いろんな言語を適材適所で使おう」</strong></p>
-<p>とはこういうことなんだなぁーと言うのを感じた。  </p>
-<hr/>
-<p>LTも「TDD ...</p></hr/>
                     <a class="btn btn-info btn-xs" href="http://tkr0429.github.io/2014/09/yapc-asia/">more ...</a>
                 </div>
             </article>

@@ -15,7 +15,6 @@
 
         <meta name="author" content="tkr0429" />
         <meta name="keywords" content="ansible,python" />
-        <meta name="description" content="概要 パスワード認証ありのサーバに接続する必要があり、 且つ踏み台（こちらもパスワード認証）を越える必要があった。 この時の作業メモ 前準備 パスワード認証を通るためには sshpassが必要なので入れておく。 yum -y install --enablerepo=epel sshpass ansible.cfgを使って回避する。 [ssh_connection] scp_if_ssh = True # 下記に記載の&lt;gateway-server&gt;を踏み台サーバIPに書き換えてください. ssh_args = -o ProxyCommand=&#39;sshpass -f passfile ssh -l %r &lt;gateway-server&gt; -W %h:%p&#39; passfileにsshログインパスワードを書いておく loginpasswd playbookの作成 プレイブックの中身 - hosts: all gather_facts: False su: True remote_user: loginuser su_user: root ..." />
 
 
     <meta name="twitter:card" content="summary">
@@ -166,20 +165,19 @@ client1                      : ok=2    changed=1    unreachable=0    failed=0
             <!-- /.entry-content -->
     <hr />
     <!-- AddThis Button BEGIN -->
-    <div class="addthis_toolbox addthis_default_style">
-            <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="simple-balloon" title="このエントリーをはてなブックマークに追加"><img src="http://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="http://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
-            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-            <a class="addthis_button_tweet"></a>
-            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-            <span>
-            <script type="text/javascript" src="//media.line.me/js/line-button.js?v=20140411" ></script>
-            <script type="text/javascript">
-                new media_line_me.LineButton({"pc":true,"lang":"ja","type":"a"});
-            </script>
-            </span>
+    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_preferred_5"></a>
+    <a class="addthis_button_preferred_6"></a>
+    <a class="addthis_button_compact"></a>
+
     </div>
         <script type="text/javascript">var addthis_config = {"data_track_addressbar": true};</script>
-    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=True"></script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid="></script>
     <!-- AddThis Button END -->
     <hr/>
     <section class="comments" id="comments">
