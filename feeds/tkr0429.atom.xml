@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-08T20:00:00+09:00</updated><entry><title>ansibleでパスワード認証&amp;suでのroot実行</title><link href="http://tkr0429.github.io/2014/09/ansible-pass-and-suroot/" rel="alternate"></link><updated>2014-09-08T20:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:2014/09/ansible-pass-and-suroot/</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-12T18:00:00+09:00</updated><entry><title>Ansible で su</title><link href="http://tkr0429.github.io/2014/09/ansible-su/" rel="alternate"></link><updated>2014-09-12T18:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-12:2014/09/ansible-su/</id><summary type="html">
+&lt;h1 id="ansible-su"&gt;Ansible で su&lt;/h1&gt;
+&lt;p&gt;ansibleでsu使うと&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ su 
+パスワード:&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;的な感じで日本語表記だと固まってしまう。&lt;br/&gt;
+どうしたものかと考えた結果,リモートユーザのホームディレクトリに.i18nファイルを
+作っちゃうのが手っ取り早いとなったので、
+playbookに処理を追加。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;- shell: "echo LANG=C &amp;gt; ~/.i18n"
+  register: result
+  changed_when: result.rc != 0
+  su: False&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;毎回chengedになっちゃうのも煩わしいのでchecnged_when使って回避&lt;/p&gt;</summary><category term="python"></category><category term="ansible"></category></entry><entry><title>ansibleでパスワード認証&amp;suでのroot実行</title><link href="http://tkr0429.github.io/2014/09/ansible-pass-and-suroot/" rel="alternate"></link><updated>2014-09-08T20:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-08:2014/09/ansible-pass-and-suroot/</id><summary type="html">
 &lt;h2 id="_1"&gt;概要&lt;/h2&gt;
 &lt;p&gt;パスワード認証ありのサーバに接続する必要があり、
 且つ踏み台（こちらもパスワード認証）を越える必要があった。&lt;/p&gt;
