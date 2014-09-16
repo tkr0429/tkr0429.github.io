@@ -138,35 +138,35 @@ sysctl -w kernel.sched_wakeup_granularity_ns&lt;span class="o"&gt;=&lt;/span&gt;
 &lt;h3 id="_4"&gt;確認関係&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;peerの確認
-  &lt;code&gt;gluster peer status&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;peerの確認&lt;br/&gt;
+&lt;code&gt;gluster peer status&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;ボリュームのステータス確認
-  &lt;code&gt;gluster vol status vol01&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;ボリュームのステータス確認&lt;br/&gt;
+&lt;code&gt;gluster vol status vol01&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;ボリュームの設定確認
-  &lt;code&gt;gluster vol info vol01&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;ボリュームの設定確認&lt;br/&gt;
+&lt;code&gt;gluster vol info vol01&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;リバランスの確認
-  &lt;code&gt;gluster vol rebalance vol01 status&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;リバランスの確認&lt;br/&gt;
+&lt;code&gt;gluster vol rebalance vol01 status&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="brick"&gt;brick操作関係&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;brickの追加
-  &lt;code&gt;gluster vol add-brick vol01 \
+&lt;p&gt;brickの追加&lt;br/&gt;
+&lt;code&gt;gluster vol add-brick vol01 \
   replica 2 \
   vm03:/gfs/brick02/vol01 \
   vm04:/gfs/brick02/vol01&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;リバランス&lt;br/&gt;
-  これを実行しないとbrick追加しても新規配置されないっぽい。
-  &lt;code&gt;gluster vol rebalance vol01 start&lt;/code&gt;&lt;/p&gt;
+  これを実行しないとbrick追加しても新規配置されないっぽい。&lt;br/&gt;
+&lt;code&gt;gluster vol rebalance vol01 start&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Tue, 16 Sep 2014 14:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-16:2014/09/glusterfs1/</guid><category>glusterfs</category></item><item><title>Ansible で su</title><link>http://tkr0429.github.io/2014/09/ansible-su/</link><description>
 &lt;h1 id="ansible-su"&gt;Ansible で su&lt;/h1&gt;

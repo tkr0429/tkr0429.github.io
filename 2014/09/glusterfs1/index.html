@@ -253,35 +253,35 @@ sysctl -w kernel.sched_wakeup_granularity_ns<span class="o">=</span>15
 <h3 id="_4">確認関係</h3>
 <ul>
 <li>
-<p>peerの確認
-  <code>gluster peer status</code></p>
+<p>peerの確認<br/>
+<code>gluster peer status</code></p>
 </li>
 <li>
-<p>ボリュームのステータス確認
-  <code>gluster vol status vol01</code></p>
+<p>ボリュームのステータス確認<br/>
+<code>gluster vol status vol01</code></p>
 </li>
 <li>
-<p>ボリュームの設定確認
-  <code>gluster vol info vol01</code></p>
+<p>ボリュームの設定確認<br/>
+<code>gluster vol info vol01</code></p>
 </li>
 <li>
-<p>リバランスの確認
-  <code>gluster vol rebalance vol01 status</code></p>
+<p>リバランスの確認<br/>
+<code>gluster vol rebalance vol01 status</code></p>
 </li>
 </ul>
 <h3 id="brick">brick操作関係</h3>
 <ul>
 <li>
-<p>brickの追加
-  <code>gluster vol add-brick vol01 \
+<p>brickの追加<br/>
+<code>gluster vol add-brick vol01 \
   replica 2 \
   vm03:/gfs/brick02/vol01 \
   vm04:/gfs/brick02/vol01</code></p>
 </li>
 <li>
 <p>リバランス<br/>
-  これを実行しないとbrick追加しても新規配置されないっぽい。
-  <code>gluster vol rebalance vol01 start</code></p>
+  これを実行しないとbrick追加しても新規配置されないっぽい。<br/>
+<code>gluster vol rebalance vol01 start</code></p>
 </li>
 </ul>
             </div>
