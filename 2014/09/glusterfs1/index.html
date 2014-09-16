@@ -100,6 +100,11 @@ tkr0429 blog            </a>
 <li><a href="#_1">事前作業</a></li>
 <li><a href="#glusterfs_1">GlusterFSの設定</a></li>
 <li><a href="#_2">チューニング</a></li>
+<li><a href="#_3">各種確認</a><ul>
+<li><a href="#_4">確認関係</a></li>
+<li><a href="#brick">brick操作関係</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -244,6 +249,41 @@ sysctl -w kernel.sched_wakeup_granularity_ns<span class="o">=</span>15
     <span class="o">}</span>
 <span class="k">done</span>
 </pre></div>
+<h2 id="_3">各種確認</h2>
+<h3 id="_4">確認関係</h3>
+<ul>
+<li>
+<p>peerの確認
+  <code>gluster peer status</code></p>
+</li>
+<li>
+<p>ボリュームのステータス確認
+  <code>gluster vol status vol01</code></p>
+</li>
+<li>
+<p>ボリュームの設定確認
+  <code>gluster vol info vol01</code></p>
+</li>
+<li>
+<p>リバランスの確認
+  <code>gluster vol rebalance vol01 status</code></p>
+</li>
+</ul>
+<h3 id="brick">brick操作関係</h3>
+<ul>
+<li>
+<p>brickの追加
+  <code>gluster vol add-brick vol01 \
+  replica 2 \
+  vm03:/gfs/brick02/vol01 \
+  vm04:/gfs/brick02/vol01</code></p>
+</li>
+<li>
+<p>リバランス<br/>
+  これを実行しないとbrick追加しても新規配置されないっぽい。
+  <code>gluster vol rebalance vol01 start</code></p>
+</li>
+</ul>
             </div>
             <!-- /.entry-content -->
     <hr />
