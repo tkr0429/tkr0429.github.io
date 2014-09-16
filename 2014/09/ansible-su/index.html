@@ -109,18 +109,18 @@ tkr0429 blog            </a>
                 
 <h1 id="ansible-su">Ansible で su</h1>
 <p>ansibleでsu使うと</p>
-<pre><code>$ su   
-パスワード:
-</code></pre>
+<div class="highlight"><pre><span class="nv">$ </span>su   
+パスワード:  
+</pre></div>
 <p>的な感じで日本語表記だと固まってしまう。<br/>
 どうしたものかと考えた結果,リモートユーザのホームディレクトリに.i18nファイルを
 作っちゃうのが手っ取り早いとなったので、
 playbookに処理を追加。</p>
-<pre><code>- shell: "echo LANG=C &gt; ~/.i18n"  
-  register: result  
-  changed_when: result.rc != 0  
-  su: False
-</code></pre>
+<div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">shell</span><span class="p-Indicator">:</span> <span class="s">"echo</span><span class="nv"> </span><span class="s">LANG=C</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">~/.i18n"</span>  
+  <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">result</span>  
+  <span class="l-Scalar-Plain">changed_when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">result.rc != 0</span>  
+  <span class="l-Scalar-Plain">su</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+</pre></div>
 <p>毎回chengedになっちゃうのも煩わしいのでchecnged_when使って回避</p>
             </div>
             <!-- /.entry-content -->
@@ -199,6 +199,11 @@ playbookに処理を追加。</p>
                         <li class="list-group-item tag-2">
                             <a href="http://tkr0429.github.io/tag/ansible.html">
                                 ansible
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
+                                glusterfs
                             </a>
                         </li>
                         <li class="list-group-item tag-4">

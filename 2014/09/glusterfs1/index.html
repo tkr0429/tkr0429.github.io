@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="jp"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>GlusterFSのインストール - tkr0429 blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="http://tkr0429.github.io/2014/09/glusterfs1/">
+
+        <meta name="author" content="tkr0429" />
+        <meta name="keywords" content="glusterfs" />
+        <meta name="description" content="glusterfs 構築メモ" />
+
+
+    <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@tkr0429">
+        <meta name="twitter:creator" content="@tkr0429">
+    <meta name="twitter:domain" content="http://tkr0429.github.io">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://tkr0429.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://tkr0429.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://tkr0429.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://tkr0429.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="http://tkr0429.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="tkr0429 blog ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://tkr0429.github.io/" class="navbar-brand">
+tkr0429 blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="http://tkr0429.github.io/category/blog.html">Blog</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://tkr0429.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://tkr0429.github.io/2014/09/glusterfs1/"
+                       rel="bookmark"
+                       title="Permalink to GlusterFSのインストール">
+                        GlusterFSのインストール
+                    </a>
+                </h1>
+            </header>
+
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-09-16T14:00:00"> 2014-09-16(火)</time>
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://tkr0429.github.io/tag/glusterfs.html">glusterfs</a>
+
+
+    <nav class="toc">
+    <div class="toc">
+<ul>
+<li><a href="#glusterfs">glusterfsのインストール</a><ul>
+<li><a href="#_1">事前作業</a></li>
+<li><a href="#glusterfs_1">GlusterFSの設定</a></li>
+<li><a href="#_2">チューニング</a></li>
+</ul>
+</li>
+</ul>
+</div>
+    </nav>
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+<h1 id="glusterfs">glusterfsのインストール</h1>
+<p>glusterfsのインストール覚書です。</p>
+<h2 id="_1">事前作業</h2>
+<ul>
+<li>レポジトリの追加</li>
+</ul>
+<p>glusterfsのレポジトリを追加します。</p>
+<div class="highlight"><pre><span class="c"># curl -Ls http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo &gt; /etc/yum.repos.d/glusterfs-epel.repo</span>
+</pre></div>
+<ul>
+<li>パッケージのインストール</li>
+</ul>
+<p>yumコマンドで各種パッケージをインストール</p>
+<div class="highlight"><pre><span class="cp"># yum -y install glusterfs-server \</span>
+<span class="cp">                 glusterfs-libs \</span>
+<span class="cp">                 glusterfs-api \</span>
+<span class="cp">                 glusterfs-extra-xlators \</span>
+<span class="cp">                 glusterfs-fuse \</span>
+<span class="cp">                 glusterfs-geo-replication \</span>
+<span class="cp">                 glusterfs-rdma \</span>
+<span class="cp">                 glusterfs-resource-agents \</span>
+<span class="cp">                 glusterfs-cli \</span>
+<span class="cp">                 xfsprogs</span>
+</pre></div>
+<ul>
+<li>パーティション作成</li>
+</ul>
+<p>glusterfsのbrickを作成するための領域をOS領域とは別にパーティションを作ります。</p>
+<div class="highlight"><pre><span class="cp"># fdisk /dev/sda</span>
+<span class="err">コマンド</span> <span class="p">(</span><span class="n">m</span> <span class="err">でヘルプ</span><span class="p">)</span><span class="o">:</span> <span class="n">n</span>
+<span class="err">コマンドアクション</span>
+   <span class="n">e</span>   <span class="err">拡張</span>
+   <span class="n">p</span>   <span class="err">基本パーティション</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">p</span>
+<span class="err">パーティション番号</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span><span class="o">:</span> <span class="mi">4</span>
+<span class="err">最初</span> <span class="err">シリンダ</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">652</span><span class="p">,</span> <span class="err">初期値</span> <span class="mi">1</span><span class="p">)</span><span class="o">:</span>
+<span class="err">初期値</span> <span class="mi">1</span> <span class="err">を使います</span>
+<span class="n">Last</span> <span class="err">シリンダ</span><span class="p">,</span> <span class="o">+</span><span class="err">シリンダ数</span> <span class="n">or</span> <span class="o">+</span><span class="n">size</span><span class="p">{</span><span class="n">K</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">G</span><span class="p">}</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">652</span><span class="p">,</span> <span class="err">初期値</span> <span class="mi">652</span><span class="p">)</span><span class="o">:</span>
+<span class="err">初期値</span> <span class="mi">652</span> <span class="err">を使います</span>
+
+<span class="err">コマンド</span> <span class="p">(</span><span class="n">m</span> <span class="err">でヘルプ</span><span class="p">)</span><span class="o">:</span> <span class="n">w</span>
+<span class="err">パーティションテーブルは変更されました！</span>
+
+<span class="n">ioctl</span><span class="p">()</span> <span class="err">を呼び出してパーティションテーブルを再読込みします。</span>
+<span class="err">ディスクを同期しています。</span>
+</pre></div>
+<ul>
+<li>xfsでフォーマット</li>
+</ul>
+<div class="highlight"><pre><span class="cp"># mkfs.xfs -f -i size=512 /dev/sda3</span>
+<span class="n">meta</span><span class="o">-</span><span class="n">data</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span>              <span class="n">isize</span><span class="o">=</span><span class="mi">512</span>    <span class="n">agcount</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">agsize</span><span class="o">=</span><span class="mi">622878</span> <span class="n">blks</span>
+         <span class="o">=</span>                       <span class="n">sectsz</span><span class="o">=</span><span class="mi">512</span>   <span class="n">attr</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">projid32bit</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">data</span>     <span class="o">=</span>                       <span class="n">bsize</span><span class="o">=</span><span class="mi">4096</span>   <span class="n">blocks</span><span class="o">=</span><span class="mi">2491510</span><span class="p">,</span> <span class="n">imaxpct</span><span class="o">=</span><span class="mi">25</span>
+         <span class="o">=</span>                       <span class="n">sunit</span><span class="o">=</span><span class="mi">0</span>      <span class="n">swidth</span><span class="o">=</span><span class="mi">0</span> <span class="n">blks</span>
+<span class="n">naming</span>   <span class="o">=</span><span class="n">version</span> <span class="mi">2</span>              <span class="n">bsize</span><span class="o">=</span><span class="mi">4096</span>   <span class="n">ascii</span><span class="o">-</span><span class="n">ci</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">log</span>      <span class="o">=</span><span class="n">internal</span> <span class="n">log</span>           <span class="n">bsize</span><span class="o">=</span><span class="mi">4096</span>   <span class="n">blocks</span><span class="o">=</span><span class="mi">2560</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">2</span>
+         <span class="o">=</span>                       <span class="n">sectsz</span><span class="o">=</span><span class="mi">512</span>   <span class="n">sunit</span><span class="o">=</span><span class="mi">0</span> <span class="n">blks</span><span class="p">,</span> <span class="n">lazy</span><span class="o">-</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">realtime</span> <span class="o">=</span><span class="n">none</span>                   <span class="n">extsz</span><span class="o">=</span><span class="mi">4096</span>   <span class="n">blocks</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rtextents</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+<ul>
+<li>マウント先ディレクトリの作成</li>
+</ul>
+<div class="highlight"><pre><span class="c"># mkdir -p /gfs/brick01</span>
+</pre></div>
+<ul>
+<li>fstab への記載
+起動時に自動マウントされるようにfstabにマウント設定を記載します。</li>
+</ul>
+<div class="highlight"><pre><span class="cp"># cat &lt;&lt; EOF &gt;&gt; /etc/fstab</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span>       <span class="o">/</span><span class="n">gfs</span><span class="o">/</span><span class="n">brick01</span>        <span class="n">xfs</span> <span class="n">defaults</span>    <span class="mi">0</span> <span class="mi">0</span>
+<span class="n">EOF</span>
+</pre></div>
+<h2 id="glusterfs_1">GlusterFSの設定</h2>
+<ul>
+<li>サービスの起動</li>
+</ul>
+<div class="highlight"><pre><span class="c"># service glusterd start</span>
+</pre></div>
+<ul>
+<li>Peerの設定</li>
+</ul>
+<div class="highlight"><pre><span class="cp"># gluster peer probe vm02</span>
+<span class="n">peer</span> <span class="n">probe</span><span class="o">:</span> <span class="n">success</span><span class="p">.</span>
+</pre></div>
+<ul>
+<li>GlusterFSボリュームの作成</li>
+</ul>
+<div class="highlight"><pre><span class="cp"># gluster vol create vol01 \</span>
+<span class="cp">          replica 2 \</span>
+<span class="cp">          vm01:/gfs/brick01/vol01 \</span>
+<span class="cp">          vm02:/gfs/brick01/vol01</span>
+<span class="n">volume</span> <span class="n">create</span><span class="o">:</span> <span class="n">vol01</span><span class="o">:</span> <span class="n">success</span><span class="o">:</span> <span class="n">please</span> <span class="n">start</span> <span class="n">the</span> <span class="n">volume</span> <span class="n">to</span> <span class="n">access</span> <span class="n">data</span>
+</pre></div>
+<ul>
+<li>volumeの開始</li>
+</ul>
+<div class="highlight"><pre><span class="cp"># gluster vol start vol01</span>
+<span class="n">volume</span> <span class="n">start</span><span class="o">:</span> <span class="n">vol01</span><span class="o">:</span> <span class="n">success</span>
+</pre></div>
+<h2 id="_2">チューニング</h2>
+<ul>
+<li>GlusterFSチューニング</li>
+</ul>
+<div class="highlight"><pre><span class="c"># gluster vol set vol01 performance.cache-size 8GB</span>
+<span class="c"># gluster vol set vol01 performance.cache-max-file-size 100MB</span>
+<span class="c"># gluster vol set vol01 performance.cache-min-file-size 1KB</span>
+<span class="c"># gluster vol set vol01 performance.cache-refresh-timeout 1</span>
+<span class="c"># gluster vol set vol01 performance.io-thread-count 32</span>
+<span class="c"># gluster vol set vol01 performance.flush-behind On</span>
+<span class="c"># gluster vol set vol01 performance.write-behind-window-size 5MB</span>
+<span class="c"># gluster vol set vol01 network.frame-timeout 1800</span>
+<span class="c"># gluster vol set vol01 network.ping-timeout 30</span>
+</pre></div>
+<ul>
+<li>Kernelチューニング</li>
+</ul>
+<div class="highlight"><pre><span class="c"># vi /etc/rc.local</span>
+sysctl -w vm.swappiness<span class="o">=</span>10;
+sysctl -w vm.dirty_background_ratio<span class="o">=</span>1;
+sysctl -w kernel.sched_wakeup_granularity_ns<span class="o">=</span>15
+<span class="k">for </span>i in <span class="k">$(</span>ls -d /sys/block/*/queue/iosched 2&gt;/dev/null<span class="k">)</span>; <span class="k">do</span>
+<span class="k">    </span><span class="nv">iosched_dir</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$i</span> | awk <span class="s1">'/iosched/ {print $1}'</span><span class="k">)</span>
+    <span class="o">[</span> -z <span class="nv">$iosched_dir</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span>
+    <span class="k">continue</span>
+    <span class="o">}</span>
+    <span class="nv">path</span><span class="o">=</span><span class="k">$(</span>dirname <span class="nv">$iosched_dir</span><span class="k">)</span>
+    <span class="o">[</span> -f <span class="nv">$path</span>/scheduler <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">"deadline"</span> &gt; <span class="nv">$path</span>/scheduler
+    <span class="o">}</span>
+    <span class="o">[</span> -f <span class="nv">$path</span>/nr_requests <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span>
+    <span class="nb">echo</span> <span class="s2">"256"</span> &gt; <span class="nv">$path</span>/nr_requests
+    <span class="o">}</span>
+<span class="k">done</span>
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_preferred_5"></a>
+    <a class="addthis_button_preferred_6"></a>
+    <a class="addthis_button_compact"></a>
+
+    </div>
+        <script type="text/javascript">var addthis_config = {"data_track_addressbar": true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid="></script>
+    <!-- AddThis Button END -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'tkr0429blog'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = 'glusterfs1';
+                var disqus_url = 'http://tkr0429.github.io/2014/09/glusterfs1/';
+
+            var disqus_config = function () {
+                this.language = "jp";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3 well well-sm" id="sidebar">
+
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+                  <ul class="list-group" id="social">
+                    <li class="list-group-item"><a href="https://twitter.com/tkr0429"><i class="fa fa-twitter-square fa-lg"></i> twitter</a></li>
+                    <li class="list-group-item"><a href="https://www.facebook.com/takuro.tokushige"><i class="fa fa-facebook-square fa-lg"></i> facebook</a></li>
+                    <li class="list-group-item"><a href="http://tkr0429.github.io/rss/index.xml"><i class="fa fa-rss-square fa-lg"></i> RSS</a></li>
+                  </ul>
+                </li>
+
+
+
+                <li class="list-group-item"><a href="http://tkr0429.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                    <ul class="list-group " id="tags">
+                        <li class="list-group-item tag-1">
+                            <a href="http://tkr0429.github.io/tag/python.html">
+                                python
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-2">
+                            <a href="http://tkr0429.github.io/tag/ansible.html">
+                                ansible
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
+                                glusterfs
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/perl.html">
+                                perl
+                            </a>
+                        </li>
+                    </ul>
+                </li>    
+
+    <li class="list-group-item"><h4><i class="fa fa-twitter fa-lg"></i><span class="icon-label">Latest Tweets</span></h4></li>
+    <div id="twitter_timeline">
+        <a class="twitter-timeline" data-chrome="noheader" href="https://twitter.com/tkr0429" data-widget-id="508988314523676672">Tweets by tkr0429</a>
+    </div>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://python.org/" target="_blank">
+                Python.org
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://jinja.pocoo.org/" target="_blank">
+                Jinja2
+            </a>
+        </li>
+      </ul>
+    </li>
+
+        </ul>
+    </section>
+
+</aside>        </div>
+    </div>
+</div>
+<footer>
+        
+   <div class="container">
+      <hr>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- tkr0429 blog 01 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-8109962781637704"
+     data-ad-slot="4562099277"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2014 tkr0429
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<!--<script src="http://tkr0429.github.io/theme/js/jquery.min.js"></script>-->
+<script src="http://code.jquery.com/jquery.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://tkr0429.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://tkr0429.github.io/theme/js/respond.min.js"></script>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'tkr0429blog'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-54608190-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+</body>
+</html>

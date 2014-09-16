@@ -116,51 +116,53 @@ tkr0429 blog            </a>
 <h2 id="_2">前準備</h2>
 <p>パスワード認証を通るためには
 sshpassが必要なので入れておく。</p>
-<p><code>yum -y install --enablerepo=epel sshpass</code></p>
+<div class="highlight"><pre>yum -y install --enablerepo<span class="o">=</span>epel sshpass
+</pre></div>
 <p>ansible.cfgを使って回避する。  </p>
-<pre><code>[ssh_connection]
-scp_if_ssh = True
+<div class="highlight"><pre><span class="k">[ssh_connection]</span>
+<span class="na">scp_if_ssh</span> <span class="o">=</span> <span class="s">True</span>
 
-# 下記に記載の&lt;gateway-server&gt;を踏み台サーバIPに書き換えてください.
-ssh_args = -o ProxyCommand='sshpass -f passfile ssh -l %r &lt;gateway-server&gt; -W %h:%p'
-</code></pre>
+<span class="c1"># 下記に記載の&lt;gateway-server&gt;を踏み台サーバIPに書き換えてください.</span>
+<span class="na">ssh_args</span> <span class="o">=</span> <span class="s">-o ProxyCommand='sshpass -f passfile ssh -l %r &lt;gateway-server&gt; -W %h:%p'</span>
+</pre></div>
 <p>passfileにsshログインパスワードを書いておく  </p>
-<p><code>loginpasswd</code></p>
+<div class="highlight"><pre>loginpasswd
+</pre></div>
 <h2 id="playbook">playbookの作成</h2>
 <p>プレイブックの中身</p>
-<pre><code>- hosts: all
-  gather_facts: False
-  su: True
-  remote_user: loginuser
-  su_user: root
+<div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">all</span>
+  <span class="l-Scalar-Plain">gather_facts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+  <span class="l-Scalar-Plain">su</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">True</span>
+  <span class="l-Scalar-Plain">remote_user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">loginuser</span>
+  <span class="l-Scalar-Plain">su_user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
 
-  tasks:
-    - name: command whoami
-      command: whoami
-      register: result
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">command whoami</span>
+      <span class="l-Scalar-Plain">command</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">whoami</span>
+      <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">result</span>
 
-    - debug: msg={{result.stdout}}
-</code></pre>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">debug</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">msg={{result.stdout}}</span>
+</pre></div>
 <h2 id="_3">実行</h2>
 <p>ansible実行時に頭にLANG=Cを付けないと固まる。
 環境によってはLANG=Cつけようが固まる。</p>
-<pre><code>$ LANG=C ansible-playbook -i host site.yml -k --ask-su-pass
+<div class="highlight"><pre><span class="nv">$ LANG</span><span class="o">=</span>C ansible-playbook -i host site.yml -k --ask-su-pass
 SSH password:
 su password:
 
-PLAY [all] ********************************************************************
+PLAY <span class="o">[</span>all<span class="o">]</span> ********************************************************************
 
-TASK: [command whoami] ********************************************************
-changed: [client1]
+TASK: <span class="o">[</span><span class="nb">command </span>whoami<span class="o">]</span> ********************************************************
+changed: <span class="o">[</span>client1<span class="o">]</span>
 
-TASK: [debug msg={{result.stdout}}] *******************************************
-ok: [clinet1] =&gt; {
-   "msg": "root"
-}
+TASK: <span class="o">[</span>debug <span class="nv">msg</span><span class="o">={{</span>result.stdout<span class="o">}}]</span> *******************************************
+ok: <span class="o">[</span>clinet1<span class="o">]</span> <span class="o">=</span>&gt; <span class="o">{</span>
+   <span class="s2">"msg"</span>: <span class="s2">"root"</span>
+<span class="o">}</span>
 
 PLAY RECAP ********************************************************************
-client1                      : ok=2    changed=1    unreachable=0    failed=0
-</code></pre>
+client1                      : <span class="nv">ok</span><span class="o">=</span>2    <span class="nv">changed</span><span class="o">=</span>1    <span class="nv">unreachable</span><span class="o">=</span>0    <span class="nv">failed</span><span class="o">=</span>0
+</pre></div>
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -238,6 +240,11 @@ client1                      : ok=2    changed=1    unreachable=0    failed=0
                         <li class="list-group-item tag-2">
                             <a href="http://tkr0429.github.io/tag/ansible.html">
                                 ansible
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
+                                glusterfs
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
