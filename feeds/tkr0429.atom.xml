@@ -1,152 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-16T14:00:00+09:00</updated><entry><title>GlusterFSのインストール</title><link href="http://tkr0429.github.io/2014/09/glusterfs1/" rel="alternate"></link><updated>2014-09-16T14:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-16:2014/09/glusterfs1/</id><summary type="html">
-&lt;h1 id="glusterfs"&gt;glusterfsのインストール&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-16T14:00:00+09:00</updated><entry><title>GlusterFSのインストール</title><link href="http://tkr0429.github.io/2014/09/glusterfs1/" rel="alternate"></link><updated>2014-09-16T14:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-16:2014/09/glusterfs1/</id><summary type="html">&lt;h1&gt;glusterfsのインストール&lt;/h1&gt;
 &lt;p&gt;glusterfsのインストール覚書です。&lt;/p&gt;
-&lt;h2 id="_1"&gt;事前作業&lt;/h2&gt;
+&lt;h2&gt;事前作業&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;レポジトリの追加&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;glusterfsのレポジトリを追加します。&lt;/p&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;h1 id="curl-ls-httpdownloadglusterorgpubglusterglusterfslatestepelrepoglusterfs-epelrepo-etcyumreposdglusterfs-epelrepo"&gt;curl -Ls http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo &amp;gt; /etc/yum.repos.d/glusterfs-epel.repo&lt;/h1&gt;
-&lt;p&gt;```&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# curl -Ls http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo &amp;gt; /etc/yum.repos.d/glusterfs-epel.repo&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;ul&gt;
 &lt;li&gt;パッケージのインストール&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;yumコマンドで各種パッケージをインストール&lt;/p&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;h1 id="yum-y-install-glusterfs-server"&gt;yum -y install glusterfs-server \&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;             glusterfs-libs \
-             glusterfs-api \
-             glusterfs-extra-xlators \
-             glusterfs-fuse \
-             glusterfs-geo-replication \
-             glusterfs-rdma \
-             glusterfs-resource-agents \
-             glusterfs-cli \
-             xfsprogs
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;```&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# yum -y install glusterfs-server \&lt;/span&gt;
+&lt;span class="cp"&gt;                 glusterfs-libs \&lt;/span&gt;
+&lt;span class="cp"&gt;                 glusterfs-api \&lt;/span&gt;
+&lt;span class="cp"&gt;                 glusterfs-extra-xlators \&lt;/span&gt;
+&lt;span class="cp"&gt;                 glusterfs-fuse \&lt;/span&gt;
+&lt;span class="cp"&gt;                 glusterfs-geo-replication \&lt;/span&gt;
+&lt;span class="cp"&gt;                 glusterfs-rdma \&lt;/span&gt;
+&lt;span class="cp"&gt;                 glusterfs-resource-agents \&lt;/span&gt;
+&lt;span class="cp"&gt;                 glusterfs-cli \&lt;/span&gt;
+&lt;span class="cp"&gt;                 xfsprogs&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;ul&gt;
 &lt;li&gt;パーティション作成&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;glusterfsのbrickを作成するための領域をOS領域とは別にパーティションを作ります。
-```&lt;/p&gt;
-&lt;h1 id="fdisk-devsda"&gt;fdisk /dev/sda&lt;/h1&gt;
-&lt;p&gt;コマンド (m でヘルプ): n
-コマンドアクション
-   e   拡張
-   p   基本パーティション (1-4)
-p
-パーティション番号 (1-4): 4
-最初 シリンダ (1-652, 初期値 1):
-初期値 1 を使います
-Last シリンダ, +シリンダ数 or +size{K,M,G} (1-652, 初期値 652):
-初期値 652 を使います&lt;/p&gt;
-&lt;p&gt;コマンド (m でヘルプ): w
-パーティションテーブルは変更されました！&lt;/p&gt;
-&lt;p&gt;ioctl() を呼び出してパーティションテーブルを再読込みします。
-ディスクを同期しています。
-```&lt;/p&gt;
+&lt;p&gt;glusterfsのbrickを作成するための領域をOS領域とは別にパーティションを作ります。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# fdisk /dev/sda&lt;/span&gt;
+&lt;span class="err"&gt;コマンド&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="err"&gt;でヘルプ&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;
+&lt;span class="err"&gt;コマンドアクション&lt;/span&gt;
+   &lt;span class="n"&gt;e&lt;/span&gt;   &lt;span class="err"&gt;拡張&lt;/span&gt;
+   &lt;span class="n"&gt;p&lt;/span&gt;   &lt;span class="err"&gt;基本パーティション&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;p&lt;/span&gt;
+&lt;span class="err"&gt;パーティション番号&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;
+&lt;span class="err"&gt;最初&lt;/span&gt; &lt;span class="err"&gt;シリンダ&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;652&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;初期値&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="err"&gt;初期値&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="err"&gt;を使います&lt;/span&gt;
+&lt;span class="n"&gt;Last&lt;/span&gt; &lt;span class="err"&gt;シリンダ&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="err"&gt;シリンダ数&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;K&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;G&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;652&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;初期値&lt;/span&gt; &lt;span class="mi"&gt;652&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+&lt;span class="err"&gt;初期値&lt;/span&gt; &lt;span class="mi"&gt;652&lt;/span&gt; &lt;span class="err"&gt;を使います&lt;/span&gt;
+
+&lt;span class="err"&gt;コマンド&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="err"&gt;でヘルプ&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;
+&lt;span class="err"&gt;パーティションテーブルは変更されました！&lt;/span&gt;
+
+&lt;span class="n"&gt;ioctl&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="err"&gt;を呼び出してパーティションテーブルを再読込みします。&lt;/span&gt;
+&lt;span class="err"&gt;ディスクを同期しています。&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;ul&gt;
 &lt;li&gt;xfsでフォーマット&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;h1 id="mkfsxfs-f-i-size512-devsda3"&gt;mkfs.xfs -f -i size=512 /dev/sda3&lt;/h1&gt;
-&lt;p&gt;meta-data=/dev/sda3              isize=512    agcount=4, agsize=622878 blks
-         =                       sectsz=512   attr=2, projid32bit=0
-data     =                       bsize=4096   blocks=2491510, imaxpct=25
-         =                       sunit=0      swidth=0 blks
-naming   =version 2              bsize=4096   ascii-ci=0
-log      =internal log           bsize=4096   blocks=2560, version=2
-         =                       sectsz=512   sunit=0 blks, lazy-count=1
-realtime =none                   extsz=4096   blocks=0, rtextents=0
-```&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# mkfs.xfs -f -i size=512 /dev/sda3&lt;/span&gt;
+&lt;span class="n"&gt;meta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda3&lt;/span&gt;              &lt;span class="n"&gt;isize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;512&lt;/span&gt;    &lt;span class="n"&gt;agcount&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;agsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;622878&lt;/span&gt; &lt;span class="n"&gt;blks&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="n"&gt;sectsz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;512&lt;/span&gt;   &lt;span class="n"&gt;attr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;projid32bit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="n"&gt;data&lt;/span&gt;     &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="n"&gt;bsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;4096&lt;/span&gt;   &lt;span class="n"&gt;blocks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2491510&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;imaxpct&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="n"&gt;sunit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;      &lt;span class="n"&gt;swidth&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;blks&lt;/span&gt;
+&lt;span class="n"&gt;naming&lt;/span&gt;   &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;version&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;              &lt;span class="n"&gt;bsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;4096&lt;/span&gt;   &lt;span class="n"&gt;ascii&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ci&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="n"&gt;log&lt;/span&gt;      &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt;           &lt;span class="n"&gt;bsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;4096&lt;/span&gt;   &lt;span class="n"&gt;blocks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2560&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;version&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;
+         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="n"&gt;sectsz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;512&lt;/span&gt;   &lt;span class="n"&gt;sunit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;blks&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;lazy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;span class="n"&gt;realtime&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;none&lt;/span&gt;                   &lt;span class="n"&gt;extsz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;4096&lt;/span&gt;   &lt;span class="n"&gt;blocks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;rtextents&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;ul&gt;
 &lt;li&gt;マウント先ディレクトリの作成&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;h1 id="mkdir-p-gfsbrick01"&gt;mkdir -p /gfs/brick01&lt;/h1&gt;
-&lt;p&gt;```&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# mkdir -p /gfs/brick01&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;ul&gt;
 &lt;li&gt;fstab への記載
 起動時に自動マウントされるようにfstabにマウント設定を記載します。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;h1 id="cat-eof-etcfstab"&gt;cat &amp;lt;&amp;lt; EOF &amp;gt;&amp;gt; /etc/fstab&lt;/h1&gt;
-&lt;p&gt;/dev/sda3       /gfs/brick01        xfs defaults    0 0
-EOF
-```&lt;/p&gt;
-&lt;h2 id="glusterfs_1"&gt;GlusterFSの設定&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# cat &amp;lt;&amp;lt; EOF &amp;gt;&amp;gt; /etc/fstab&lt;/span&gt;
+&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda3&lt;/span&gt;       &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;gfs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;brick01&lt;/span&gt;        &lt;span class="n"&gt;xfs&lt;/span&gt; &lt;span class="n"&gt;defaults&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="n"&gt;EOF&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;GlusterFSの設定&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;サービスの起動&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;h1 id="service-glusterd-start"&gt;service glusterd start&lt;/h1&gt;
-&lt;p&gt;```&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# service glusterd start&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;ul&gt;
 &lt;li&gt;Peerの設定&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;h1 id="gluster-peer-probe-vm02"&gt;gluster peer probe vm02&lt;/h1&gt;
-&lt;p&gt;peer probe: success.
-```&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# gluster peer probe vm02&lt;/span&gt;
+&lt;span class="n"&gt;peer&lt;/span&gt; &lt;span class="n"&gt;probe&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;success&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;ul&gt;
 &lt;li&gt;GlusterFSボリュームの作成&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;h1 id="gluster-vol-create-vol01"&gt;gluster vol create vol01 \&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;      replica 2 \
-      vm01:/gfs/brick01/vol01 \
-      vm02:/gfs/brick01/vol01
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;volume create: vol01: success: please start the volume to access data
-```&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# gluster vol create vol01 \&lt;/span&gt;
+&lt;span class="cp"&gt;          replica 2 \&lt;/span&gt;
+&lt;span class="cp"&gt;          vm01:/gfs/brick01/vol01 \&lt;/span&gt;
+&lt;span class="cp"&gt;          vm02:/gfs/brick01/vol01&lt;/span&gt;
+&lt;span class="n"&gt;volume&lt;/span&gt; &lt;span class="n"&gt;create&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;vol01&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;success&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;please&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;volume&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;access&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;ul&gt;
 &lt;li&gt;volumeの開始&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;h1 id="gluster-vol-start-vol01"&gt;gluster vol start vol01&lt;/h1&gt;
-&lt;p&gt;volume start: vol01: success
-```&lt;/p&gt;
-&lt;h2 id="_2"&gt;チューニング&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# gluster vol start vol01&lt;/span&gt;
+&lt;span class="n"&gt;volume&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;vol01&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;success&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;チューニング&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;GlusterFSチューニング&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;h1 id="gluster-vol-set-vol01-performancecache-size-8gb"&gt;gluster vol set vol01 performance.cache-size 8GB&lt;/h1&gt;
-&lt;h1 id="gluster-vol-set-vol01-performancecache-max-file-size-100mb"&gt;gluster vol set vol01 performance.cache-max-file-size 100MB&lt;/h1&gt;
-&lt;h1 id="gluster-vol-set-vol01-performancecache-min-file-size-1kb"&gt;gluster vol set vol01 performance.cache-min-file-size 1KB&lt;/h1&gt;
-&lt;h1 id="gluster-vol-set-vol01-performancecache-refresh-timeout-1"&gt;gluster vol set vol01 performance.cache-refresh-timeout 1&lt;/h1&gt;
-&lt;h1 id="gluster-vol-set-vol01-performanceio-thread-count-32"&gt;gluster vol set vol01 performance.io-thread-count 32&lt;/h1&gt;
-&lt;h1 id="gluster-vol-set-vol01-performanceflush-behind-on"&gt;gluster vol set vol01 performance.flush-behind On&lt;/h1&gt;
-&lt;h1 id="gluster-vol-set-vol01-performancewrite-behind-window-size-5mb"&gt;gluster vol set vol01 performance.write-behind-window-size 5MB&lt;/h1&gt;
-&lt;h1 id="gluster-vol-set-vol01-networkframe-timeout-1800"&gt;gluster vol set vol01 network.frame-timeout 1800&lt;/h1&gt;
-&lt;h1 id="gluster-vol-set-vol01-networkping-timeout-30"&gt;gluster vol set vol01 network.ping-timeout 30&lt;/h1&gt;
-&lt;p&gt;```&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# gluster vol set vol01 performance.cache-size 8GB&lt;/span&gt;
+&lt;span class="c"&gt;# gluster vol set vol01 performance.cache-max-file-size 100MB&lt;/span&gt;
+&lt;span class="c"&gt;# gluster vol set vol01 performance.cache-min-file-size 1KB&lt;/span&gt;
+&lt;span class="c"&gt;# gluster vol set vol01 performance.cache-refresh-timeout 1&lt;/span&gt;
+&lt;span class="c"&gt;# gluster vol set vol01 performance.io-thread-count 32&lt;/span&gt;
+&lt;span class="c"&gt;# gluster vol set vol01 performance.flush-behind On&lt;/span&gt;
+&lt;span class="c"&gt;# gluster vol set vol01 performance.write-behind-window-size 5MB&lt;/span&gt;
+&lt;span class="c"&gt;# gluster vol set vol01 network.frame-timeout 1800&lt;/span&gt;
+&lt;span class="c"&gt;# gluster vol set vol01 network.ping-timeout 30&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
 &lt;ul&gt;
 &lt;li&gt;Kernelチューニング&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;```&lt;/p&gt;
-&lt;h1 id="vi-etcrclocal"&gt;vi /etc/rc.local&lt;/h1&gt;
-&lt;p&gt;===========&lt;/p&gt;
-&lt;p&gt;sysctl -w vm.swappiness=10;
-sysctl -w vm.dirty_background_ratio=1;
-sysctl -w kernel.sched_wakeup_granularity_ns=15
-for i in $(ls -d /sys/block/*/queue/iosched 2&amp;gt;/dev/null); do
-    iosched_dir=$(echo $i | awk '/iosched/ {print $1}')
-    [ -z $iosched_dir ] &amp;amp;&amp;amp; {
-    continue
-    }
-    path=$(dirname $iosched_dir)
-    [ -f $path/scheduler ] &amp;amp;&amp;amp; {
-    echo "deadline" &amp;gt; $path/scheduler
-    }
-    [ -f $path/nr_requests ] &amp;amp;&amp;amp; {
-    echo "256" &amp;gt; $path/nr_requests
-    }
-done
-```&lt;/p&gt;</summary><category term="glusterfs"></category></entry><entry><title>Ansible で su</title><link href="http://tkr0429.github.io/2014/09/ansible-su/" rel="alternate"></link><updated>2014-09-12T18:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-12:2014/09/ansible-su/</id><summary type="html">
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# vi /etc/rc.local&lt;/span&gt;
+&lt;span class="o"&gt;===========&lt;/span&gt;
+
+&lt;span class="n"&gt;sysctl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="n"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;swappiness&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;sysctl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="n"&gt;vm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dirty_background_ratio&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="n"&gt;sysctl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;w&lt;/span&gt; &lt;span class="n"&gt;kernel&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sched_wakeup_granularity_ns&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;15&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ls&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sys&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;block&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;*/&lt;/span&gt;&lt;span class="n"&gt;queue&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;iosched&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;null&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="n"&gt;iosched_dir&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;awk&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;iosched&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;z&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;iosched_dir&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;continue&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;dirname&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;iosched_dir&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;scheduler&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;deadline&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;scheduler&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nr_requests&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="n"&gt;echo&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;256&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;nr_requests&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;done&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="glusterfs"></category></entry><entry><title>Ansible で su</title><link href="http://tkr0429.github.io/2014/09/ansible-su/" rel="alternate"></link><updated>2014-09-12T18:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-12:2014/09/ansible-su/</id><summary type="html">
 &lt;h1 id="ansible-su"&gt;Ansible で su&lt;/h1&gt;
 &lt;p&gt;ansibleでsu使うと&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;$ su   
