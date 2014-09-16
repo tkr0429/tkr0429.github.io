@@ -15,6 +15,7 @@
 
         <meta name="author" content="tkr0429" />
         <meta name="keywords" content="glusterfs" />
+        <meta name="description" content="glusterfs 構築メモ" />
 
 
     <meta name="twitter:card" content="summary">
@@ -92,48 +93,11 @@ tkr0429 blog            </a>
 	<a href="http://tkr0429.github.io/tag/glusterfs.html">glusterfs</a>
 
 
-    <nav class="toc">
-    <div class="toc">
-<ul>
-<li><a href="#glusterfs">glusterfsのインストール</a><ul>
-<li><a href="#_1">事前作業</a></li>
-</ul>
-</li>
-<li><a href="#curl-ls-httpdownloadglusterorgpubglusterglusterfslatestepelrepoglusterfs-epelrepo-etcyumreposdglusterfs-epelrepo">curl -Ls http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo &gt; /etc/yum.repos.d/glusterfs-epel.repo</a></li>
-<li><a href="#yum-y-install-glusterfs-server">yum -y install glusterfs-server \</a></li>
-<li><a href="#fdisk-devsda">fdisk /dev/sda</a></li>
-<li><a href="#mkfsxfs-f-i-size512-devsda3">mkfs.xfs -f -i size=512 /dev/sda3</a></li>
-<li><a href="#mkdir-p-gfsbrick01">mkdir -p /gfs/brick01</a></li>
-<li><a href="#cat-eof-etcfstab">cat &lt;&lt; EOF &gt;&gt; /etc/fstab</a><ul>
-<li><a href="#glusterfs_1">GlusterFSの設定</a></li>
-</ul>
-</li>
-<li><a href="#service-glusterd-start">service glusterd start</a></li>
-<li><a href="#gluster-peer-probe-vm02">gluster peer probe vm02</a></li>
-<li><a href="#gluster-vol-create-vol01">gluster vol create vol01 \</a></li>
-<li><a href="#gluster-vol-start-vol01">gluster vol start vol01</a><ul>
-<li><a href="#_2">チューニング</a></li>
-</ul>
-</li>
-<li><a href="#gluster-vol-set-vol01-performancecache-size-8gb">gluster vol set vol01 performance.cache-size 8GB</a></li>
-<li><a href="#gluster-vol-set-vol01-performancecache-max-file-size-100mb">gluster vol set vol01 performance.cache-max-file-size 100MB</a></li>
-<li><a href="#gluster-vol-set-vol01-performancecache-min-file-size-1kb">gluster vol set vol01 performance.cache-min-file-size 1KB</a></li>
-<li><a href="#gluster-vol-set-vol01-performancecache-refresh-timeout-1">gluster vol set vol01 performance.cache-refresh-timeout 1</a></li>
-<li><a href="#gluster-vol-set-vol01-performanceio-thread-count-32">gluster vol set vol01 performance.io-thread-count 32</a></li>
-<li><a href="#gluster-vol-set-vol01-performanceflush-behind-on">gluster vol set vol01 performance.flush-behind On</a></li>
-<li><a href="#gluster-vol-set-vol01-performancewrite-behind-window-size-5mb">gluster vol set vol01 performance.write-behind-window-size 5MB</a></li>
-<li><a href="#gluster-vol-set-vol01-networkframe-timeout-1800">gluster vol set vol01 network.frame-timeout 1800</a></li>
-<li><a href="#gluster-vol-set-vol01-networkping-timeout-30">gluster vol set vol01 network.ping-timeout 30</a></li>
-<li><a href="#vi-etcrclocal">vi /etc/rc.local</a></li>
-</ul>
-</div>
-    </nav>
 
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                
-<h1 id="glusterfs">glusterfsのインストール</h1>
+                <h1 id="glusterfs">glusterfsのインストール</h1>
 <p>glusterfsのインストール覚書です。</p>
 <h2 id="_1">事前作業</h2>
 <ul>
