@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-16T14:00:00+09:00</updated><entry><title>GlusterFSのインストール</title><link href="http://tkr0429.github.io/2014/09/glusterfs1/" rel="alternate"></link><updated>2014-09-16T14:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-16:2014/09/glusterfs1/</id><summary type="html">&lt;h1 id="glusterfs"&gt;glusterfsのインストール&lt;/h1&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-16T14:00:00+09:00</updated><entry><title>GlusterFSのインストール</title><link href="http://tkr0429.github.io/2014/09/glusterfs1/" rel="alternate"></link><updated>2014-09-16T14:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-16:2014/09/glusterfs1/</id><summary type="html">
+&lt;h1 id="glusterfs"&gt;glusterfsのインストール&lt;/h1&gt;
 &lt;p&gt;glusterfsのインストール覚書です。&lt;/p&gt;
 &lt;h2 id="_1"&gt;事前作業&lt;/h2&gt;
 &lt;ul&gt;
