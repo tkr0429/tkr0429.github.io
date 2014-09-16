@@ -252,38 +252,40 @@ sysctl -w kernel.sched_wakeup_granularity_ns<span class="o">=</span>15
 <h2 id="_3">各種確認</h2>
 <h3 id="_4">確認関係</h3>
 <ul>
-<li>
-<p>peerの確認<br/>
-<code>gluster peer status</code></p>
-</li>
-<li>
-<p>ボリュームのステータス確認<br/>
-<code>gluster vol status vol01</code></p>
-</li>
-<li>
-<p>ボリュームの設定確認<br/>
-<code>gluster vol info vol01</code></p>
-</li>
-<li>
-<p>リバランスの確認<br/>
-<code>gluster vol rebalance vol01 status</code></p>
-</li>
+<li>peerの確認  </li>
 </ul>
+<div class="highlight"><pre><span class="n">gluster</span> <span class="n">peer</span> <span class="n">status</span>
+</pre></div>
+<ul>
+<li>ボリュームのステータス確認  </li>
+</ul>
+<div class="highlight"><pre><span class="n">gluster</span> <span class="n">vol</span> <span class="n">status</span> <span class="n">vol01</span> 
+</pre></div>
+<ul>
+<li>ボリュームの設定確認  </li>
+</ul>
+<div class="highlight"><pre><span class="n">gluster</span> <span class="n">vol</span> <span class="n">info</span> <span class="n">vol01</span>
+</pre></div>
+<ul>
+<li>リバランスの確認  </li>
+</ul>
+<div class="highlight"><pre><span class="n">gluster</span> <span class="n">vol</span> <span class="n">rebalance</span> <span class="n">vol01</span> <span class="n">status</span>
+</pre></div>
 <h3 id="brick">brick操作関係</h3>
 <ul>
-<li>
-<p>brickの追加<br/>
-<code>gluster vol add-brick vol01 \
-  replica 2 \
-  vm03:/gfs/brick02/vol01 \
-  vm04:/gfs/brick02/vol01</code></p>
-</li>
-<li>
-<p>リバランス<br/>
-  これを実行しないとbrick追加しても新規配置されないっぽい。<br/>
-<code>gluster vol rebalance vol01 start</code></p>
-</li>
+<li>brickの追加  </li>
 </ul>
+<div class="highlight"><pre><span class="n">gluster</span> <span class="n">vol</span> <span class="n">add</span><span class="o">-</span><span class="n">brick</span> <span class="n">vol01</span> \
+<span class="n">replica</span> <span class="mi">2</span> \
+<span class="nl">vm03:</span><span class="o">/</span><span class="n">gfs</span><span class="o">/</span><span class="n">brick02</span><span class="o">/</span><span class="n">vol01</span> \
+<span class="nl">vm04:</span><span class="o">/</span><span class="n">gfs</span><span class="o">/</span><span class="n">brick02</span><span class="o">/</span><span class="n">vol01</span>
+</pre></div>
+<ul>
+<li>リバランス<br/>
+  これを実行しないとbrick追加しても新規配置されないっぽい。  </li>
+</ul>
+<div class="highlight"><pre><span class="n">gluster</span> <span class="n">vol</span> <span class="n">rebalance</span> <span class="n">vol01</span> <span class="n">start</span>
+</pre></div>
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -364,13 +366,13 @@ sysctl -w kernel.sched_wakeup_granularity_ns<span class="o">=</span>15
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
-                                glusterfs
+                            <a href="http://tkr0429.github.io/tag/perl.html">
+                                perl
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/perl.html">
-                                perl
+                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
+                                glusterfs
                             </a>
                         </li>
                     </ul>
