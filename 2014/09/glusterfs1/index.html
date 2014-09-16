@@ -254,37 +254,37 @@ sysctl -w kernel.sched_wakeup_granularity_ns<span class="o">=</span>15
 <ul>
 <li>peerの確認  </li>
 </ul>
-<div class="highlight"><pre><span class="n">gluster</span> <span class="n">peer</span> <span class="n">status</span>
+<div class="highlight"><pre>gluster peer status
 </pre></div>
 <ul>
 <li>ボリュームのステータス確認  </li>
 </ul>
-<div class="highlight"><pre><span class="n">gluster</span> <span class="n">vol</span> <span class="n">status</span> <span class="n">vol01</span> 
+<div class="highlight"><pre>gluster vol status vol01 
 </pre></div>
 <ul>
 <li>ボリュームの設定確認  </li>
 </ul>
-<div class="highlight"><pre><span class="n">gluster</span> <span class="n">vol</span> <span class="n">info</span> <span class="n">vol01</span>
+<div class="highlight"><pre>gluster vol info vol01
 </pre></div>
 <ul>
 <li>リバランスの確認  </li>
 </ul>
-<div class="highlight"><pre><span class="n">gluster</span> <span class="n">vol</span> <span class="n">rebalance</span> <span class="n">vol01</span> <span class="n">status</span>
+<div class="highlight"><pre>gluster vol rebalance vol01 status
 </pre></div>
 <h3 id="brick">brick操作関係</h3>
 <ul>
 <li>brickの追加  </li>
 </ul>
-<div class="highlight"><pre><span class="n">gluster</span> <span class="n">vol</span> <span class="n">add</span><span class="o">-</span><span class="n">brick</span> <span class="n">vol01</span> \
-<span class="n">replica</span> <span class="mi">2</span> \
-<span class="nl">vm03:</span><span class="o">/</span><span class="n">gfs</span><span class="o">/</span><span class="n">brick02</span><span class="o">/</span><span class="n">vol01</span> \
-<span class="nl">vm04:</span><span class="o">/</span><span class="n">gfs</span><span class="o">/</span><span class="n">brick02</span><span class="o">/</span><span class="n">vol01</span>
+<div class="highlight"><pre>gluster vol add-brick vol01 <span class="se">\</span>
+replica 2 <span class="se">\</span>
+vm03:/gfs/brick02/vol01 <span class="se">\</span>
+vm04:/gfs/brick02/vol01
 </pre></div>
 <ul>
 <li>リバランス<br/>
   これを実行しないとbrick追加しても新規配置されないっぽい。  </li>
 </ul>
-<div class="highlight"><pre><span class="n">gluster</span> <span class="n">vol</span> <span class="n">rebalance</span> <span class="n">vol01</span> <span class="n">start</span>
+<div class="highlight"><pre>gluster vol rebalance vol01 start
 </pre></div>
             </div>
             <!-- /.entry-content -->
