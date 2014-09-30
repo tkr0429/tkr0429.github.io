@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Ansible で su - tkr0429 blog</title>
+    <title>bashの脆弱性 - tkr0429 blog</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -12,11 +12,10 @@
 
     <link href="http://tkr0429.github.io//images/tkr0429-logo.png" rel="icon">
 
-<link rel="canonical" href="http://tkr0429.github.io/2014/09/ansible-su/">
+<link rel="canonical" href="http://tkr0429.github.io/2014/09/shellshock/">
 
         <meta name="author" content="tkr0429" />
-        <meta name="keywords" content="python,ansible" />
-        <meta name="description" content="Ansible suフリーズ問題" />
+        <meta name="keywords" content="linux,bash" />
 
 
     <meta name="twitter:card" content="summary">
@@ -72,10 +71,10 @@ tkr0429 blog            </a>
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="http://tkr0429.github.io/2014/09/ansible-su/"
+                    <a href="http://tkr0429.github.io/2014/09/shellshock/"
                        rel="bookmark"
-                       title="Permalink to Ansible で su">
-                        Ansible で su
+                       title="Permalink to bashの脆弱性">
+                        bashの脆弱性
                     </a>
                 </h1>
             </header>
@@ -86,21 +85,26 @@ tkr0429 blog            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-12T18:00:00"> 2014-09-12(金)</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-30T13:35:00"> 2014-09-30(火)</time>
     </span>
 
 
 
 <span class="label label-default">Tags</span>
-	<a href="http://tkr0429.github.io/tag/python.html">python</a>
+	<a href="http://tkr0429.github.io/tag/linux.html">linux</a>
         /
-	<a href="http://tkr0429.github.io/tag/ansible.html">ansible</a>
+	<a href="http://tkr0429.github.io/tag/bash.html">bash</a>
 
 
     <nav class="toc">
     <div class="toc">
 <ul>
-<li><a href="#ansible-su">Ansible で su</a></li>
+<li><a href="#bash">bashの脆弱性</a><ul>
+<li><a href="#_1">脆弱性の確認</a></li>
+<li><a href="#_2">対応方法</a></li>
+</ul>
+</li>
+<li><a href="#msp">MSPとしての対応</a></li>
 </ul>
 </div>
     </nav>
@@ -109,21 +113,82 @@ tkr0429 blog            </a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 
-<h1 id="ansible-su">Ansible で su</h1>
-<p>ansibleでsu使うと</p>
-<div class="highlight"><pre><span class="nv">$ </span>su   
-パスワード:  
+<h1 id="bash">bashの脆弱性</h1>
+<p>既に色々な方がblogに掲載していますが、<br/>
+今回発見されたbashのバグについて感想を書きます。</p>
+<h2 id="_1">脆弱性の確認</h2>
+<p>下記のコマンドを実行した際に[vulnerable]が表示される場合は本脆弱性の対象です。</p>
+<div class="highlight"><pre><span class="cp"># env x='() { :;}; echo vulnerable' bash -c "echo this is a test"</span>
+<span class="n">vulnerable</span>
+<span class="n">this</span> <span class="n">is</span> <span class="n">a</span> <span class="n">test</span>
 </pre></div>
-<p>的な感じで日本語表記だと固まってしまう。<br/>
-どうしたものかと考えた結果,リモートユーザのホームディレクトリに.i18nファイルを
-作っちゃうのが手っ取り早いとなったので、
-playbookに処理を追加。</p>
-<div class="highlight"><pre><span class="p-Indicator">-</span> <span class="l-Scalar-Plain">shell</span><span class="p-Indicator">:</span> <span class="s">"echo</span><span class="nv"> </span><span class="s">LANG=C</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">~/.i18n"</span>  
-  <span class="l-Scalar-Plain">register</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">result</span>  
-  <span class="l-Scalar-Plain">changed_when</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">result.rc != 0</span>  
-  <span class="l-Scalar-Plain">su</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">False</span>
+<p>既に対策済みであれば下記の様にエラー出力や、[this is a test]のみの出力になるかと思います。</p>
+<div class="highlight"><pre><span class="err">#</span> <span class="nx">env</span> <span class="nx">x</span><span class="o">=</span><span class="s1">'() { :;}; echo vulnerable'</span> <span class="nx">bash</span> <span class="o">-</span><span class="nx">c</span> <span class="s2">"echo this is a test"</span>
+<span class="nx">bash</span><span class="o">:</span> <span class="nx">warning</span><span class="o">:</span> <span class="nx">x</span><span class="o">:</span> <span class="nx">ignoring</span> <span class="kd">function</span> <span class="nx">definition</span> <span class="nx">attempt</span>
+<span class="nx">bash</span><span class="o">:</span> <span class="nx">error</span> <span class="nx">importing</span> <span class="kd">function</span> <span class="nx">definition</span> <span class="k">for</span> <span class="err">`</span><span class="nx">x</span><span class="err">'</span>
+<span class="k">this</span> <span class="nx">is</span> <span class="nx">a</span> <span class="nx">test</span>
 </pre></div>
-<p>毎回chengedになっちゃうのも煩わしいのでchecnged_when使って回避</p>
+<h2 id="_2">対応方法</h2>
+<p>殆どの各ディストリビューションのupdateにて既に対策済みパッケージが配布されています。</p>
+<p>例えばCentOSであれば下記の方法にて対応可能です。</p>
+<ul>
+<li>
+<p>CentOS 5
+  http://lists.centos.org/pipermail/centos-announce/2014-September/020591.html</p>
+</li>
+<li>
+<p>CentOS 6
+  http://lists.centos.org/pipermail/centos-announce/2014-September/020593.html</p>
+</li>
+<li>
+<p>CentOS 7
+  http://lists.centos.org/pipermail/centos-announce/2014-September/020592.html</p>
+</li>
+</ul>
+<p>影響は少ないと言っていたAppleでも既に対応パッケージがダウンロード出来る
+- Lion
+  http://support.apple.com/kb/DL1767
+- Mountain Lion
+  http://support.apple.com/kb/DL1768
+- Mavericks
+  http://support.apple.com/kb/DL1769</p>
+<p>また、色々な大人の事情でupdateを適用出来ない場合などは下記を実施しておいた方が良いでしょう。</p>
+<p>ダウンロード: <a href="https://access.redhat.com/sites/default/files/attachments/bash_ld_preload.c">bash_ld_preload.c</a></p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">wget</span> <span class="n">https</span><span class="o">:</span><span class="c1">//access.redhat.com/sites/default/files/attachments/bash_ld_preload.c</span>
+</pre></div>
+<p>チェックサムの確認</p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">sha256sum</span> <span class="n">bash_ld_preload</span><span class="p">.</span><span class="n">c</span>
+<span class="mi">28</span><span class="n">cb0ab767a95dc2f50a515106f6a9be0f4167f9e5dbc47db9b7788798eef153</span> <span class="n">bash_ld_preload</span><span class="p">.</span><span class="n">c</span>
+</pre></div>
+<p>コンパイル</p>
+<div class="highlight"><pre><span class="err">$</span> <span class="n">gcc</span> <span class="n">bash_ld_preload</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">fPIC</span> <span class="o">-</span><span class="n">shared</span> <span class="o">-</span><span class="n">Wl</span><span class="p">,</span><span class="o">-</span><span class="n">soname</span><span class="p">,</span><span class="n">bash_ld_preload</span><span class="p">.</span><span class="n">so</span><span class="mf">.1</span> <span class="o">-</span><span class="n">o</span> <span class="n">bash_ld_preload</span><span class="p">.</span><span class="n">so</span>
+</pre></div>
+<p>コンパイル済みライブラリの配置</p>
+<div class="highlight"><pre><span class="c"># cp bash_ld_preload.so /lib/</span>
+</pre></div>
+<p>ld.so.preloadファイルの作成</p>
+<div class="highlight"><pre><span class="cp"># vi /etc/ld.so.preload</span>
+<span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">bash_ld_preload</span><span class="p">.</span><span class="n">so</span>
+</pre></div>
+<p>ライブラリの再読み込み</p>
+<div class="highlight"><pre><span class="c"># ldconfig</span>
+</pre></div>
+<p>Apacheの再起動</p>
+<div class="highlight"><pre><span class="c"># service httpd restart</span>
+</pre></div>
+<p>可能であればOS再起動するのが望ましいと思います。</p>
+<h1 id="msp">MSPとしての対応</h1>
+<p>OpenSSLで発見されたHeartbleedの問題もそうでしたが、意識の薄い人は対応しない。<br/>
+bashのshellshockについても同様で、脆弱性を残したまま放置されるサーバが多いのだろうなと思います。</p>
+<p>サービス事業者であれば最低限、注意発起文を掲載するなどの対応が必要だと思います。</p>
+<ul>
+<li>「何も情報を掲載しない」= ここのサービスは該当しない。</li>
+</ul>
+<p>と認識している顧客も多いと思う。</p>
+<p>MSP事業主自体あまり今回の問題の重大性を理解していない。<br/>
+インフラしか見ていない様なところで「sshログイン出来ないなら影響ないね！」なんて言ってる人も居て呆れる。</p>
+<p>リモートでコマンド実行出来ちゃうから厄介で、
+更に潜在的なバグなどがあれば簡単にrootを奪取することも可能なのに。</p>
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -165,8 +230,8 @@ playbookに処理を追加。</p>
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = 'tkr0429blog'; // required: replace example with your forum shortname
 
-                    var disqus_identifier = 'ansible-su';
-                var disqus_url = 'http://tkr0429.github.io/2014/09/ansible-su/';
+                    var disqus_identifier = 'shellshock';
+                var disqus_url = 'http://tkr0429.github.io/2014/09/shellshock/';
 
             var disqus_config = function () {
                 this.language = "jp";

@@ -1,5 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/blog.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-16T14:00:00+09:00</updated><entry><title>GlusterFSのインストール</title><link href="http://tkr0429.github.io/2014/09/glusterfs1/" rel="alternate"></link><updated>2014-09-16T14:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-16:2014/09/glusterfs1/</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/blog.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-30T13:35:00+09:00</updated><entry><title>bashの脆弱性</title><link href="http://tkr0429.github.io/2014/09/shellshock/" rel="alternate"></link><updated>2014-09-30T13:35:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-30:2014/09/shellshock/</id><summary type="html">
+&lt;h1 id="bash"&gt;bashの脆弱性&lt;/h1&gt;
+&lt;p&gt;既に色々な方がblogに掲載していますが、&lt;br/&gt;
+今回発見されたbashのバグについて感想を書きます。&lt;/p&gt;
+&lt;h2 id="_1"&gt;脆弱性の確認&lt;/h2&gt;
+&lt;p&gt;下記のコマンドを実行した際に[vulnerable]が表示される場合は本脆弱性の対象です。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# env x='() { :;}; echo vulnerable' bash -c "echo this is a test"&lt;/span&gt;
+&lt;span class="n"&gt;vulnerable&lt;/span&gt;
+&lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;既に対策済みであれば下記の様にエラー出力や、[this is a test]のみの出力になるかと思います。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;env&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'() { :;}; echo vulnerable'&lt;/span&gt; &lt;span class="nx"&gt;bash&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="s2"&gt;"echo this is a test"&lt;/span&gt;
+&lt;span class="nx"&gt;bash&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;warning&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;ignoring&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;definition&lt;/span&gt; &lt;span class="nx"&gt;attempt&lt;/span&gt;
+&lt;span class="nx"&gt;bash&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;error&lt;/span&gt; &lt;span class="nx"&gt;importing&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;definition&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;
+&lt;span class="k"&gt;this&lt;/span&gt; &lt;span class="nx"&gt;is&lt;/span&gt; &lt;span class="nx"&gt;a&lt;/span&gt; &lt;span class="nx"&gt;test&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="_2"&gt;対応方法&lt;/h2&gt;
+&lt;p&gt;殆どの各ディストリビューションのupdateにて既に対策済みパッケージが配布されています。&lt;/p&gt;
+&lt;p&gt;例えばCentOSであれば下記の方法にて対応可能です。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;CentOS 5
+  http://lists.centos.org/pipermail/centos-announce/2014-September/020591.html&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CentOS 6
+  http://lists.centos.org/pipermail/centos-announce/2014-September/020593.html&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;CentOS 7
+  http://lists.centos.org/pipermail/centos-announce/2014-September/020592.html&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;影響は少ないと言っていたAppleでも既に対応パッケージがダウンロード出来る
+- Lion
+  http://support.apple.com/kb/DL1767
+- Mountain Lion
+  http://support.apple.com/kb/DL1768
+- Mavericks
+  http://support.apple.com/kb/DL1769&lt;/p&gt;
+&lt;p&gt;また、色々な大人の事情でupdateを適用出来ない場合などは下記を実施しておいた方が良いでしょう。&lt;/p&gt;
+&lt;p&gt;ダウンロード: &lt;a href="https://access.redhat.com/sites/default/files/attachments/bash_ld_preload.c"&gt;bash_ld_preload.c&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//access.redhat.com/sites/default/files/attachments/bash_ld_preload.c&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;チェックサムの確認&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;sha256sum&lt;/span&gt; &lt;span class="n"&gt;bash_ld_preload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;
+&lt;span class="mi"&gt;28&lt;/span&gt;&lt;span class="n"&gt;cb0ab767a95dc2f50a515106f6a9be0f4167f9e5dbc47db9b7788798eef153&lt;/span&gt; &lt;span class="n"&gt;bash_ld_preload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;コンパイル&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;gcc&lt;/span&gt; &lt;span class="n"&gt;bash_ld_preload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fPIC&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;shared&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Wl&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;soname&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;bash_ld_preload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;so&lt;/span&gt;&lt;span class="mf"&gt;.1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="n"&gt;bash_ld_preload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;so&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;コンパイル済みライブラリの配置&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# cp bash_ld_preload.so /lib/&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ld.so.preloadファイルの作成&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# vi /etc/ld.so.preload&lt;/span&gt;
+&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bash_ld_preload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;so&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;ライブラリの再読み込み&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# ldconfig&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Apacheの再起動&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# service httpd restart&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;可能であればOS再起動するのが望ましいと思います。&lt;/p&gt;
+&lt;h1 id="msp"&gt;MSPとしての対応&lt;/h1&gt;
+&lt;p&gt;OpenSSLで発見されたHeartbleedの問題もそうでしたが、意識の薄い人は対応しない。&lt;br/&gt;
+bashのshellshockについても同様で、脆弱性を残したまま放置されるサーバが多いのだろうなと思います。&lt;/p&gt;
+&lt;p&gt;サービス事業者であれば最低限、注意発起文を掲載するなどの対応が必要だと思います。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;「何も情報を掲載しない」= ここのサービスは該当しない。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;と認識している顧客も多いと思う。&lt;/p&gt;
+&lt;p&gt;MSP事業主自体あまり今回の問題の重大性を理解していない。&lt;br/&gt;
+インフラしか見ていない様なところで「sshログイン出来ないなら影響ないね！」なんて言ってる人も居て呆れる。&lt;/p&gt;
+&lt;p&gt;リモートでコマンド実行出来ちゃうから厄介で、
+更に潜在的なバグなどがあれば簡単にrootを奪取することも可能なのに。&lt;/p&gt;</summary><category term="linux"></category><category term="bash"></category></entry><entry><title>GlusterFSのインストール</title><link href="http://tkr0429.github.io/2014/09/glusterfs1/" rel="alternate"></link><updated>2014-09-16T14:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-16:2014/09/glusterfs1/</id><summary type="html">
 &lt;h1 id="glusterfs"&gt;glusterfsのインストール&lt;/h1&gt;
 &lt;p&gt;glusterfsのインストール覚書です。&lt;/p&gt;
 &lt;h2 id="_1"&gt;事前作業&lt;/h2&gt;

@@ -5,29 +5,36 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://tkr0429.github.io/index.html</loc>
-<lastmod>2014-09-24T19:16:19-00:00</lastmod>
+<lastmod>2014-09-30T14:14:57-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/archives.html</loc>
-<lastmod>2014-09-24T19:16:19-00:00</lastmod>
+<lastmod>2014-09-30T14:14:57-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/tags.html</loc>
-<lastmod>2014-09-24T19:16:19-00:00</lastmod>
+<lastmod>2014-09-30T14:14:57-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/categories.html</loc>
-<lastmod>2014-09-24T19:16:19-00:00</lastmod>
+<lastmod>2014-09-30T14:14:57-00:00</lastmod>
 <changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://tkr0429.github.io/2014/09/shellshock/</loc>
+<lastmod>2014-09-30T13:35:00-00:00</lastmod>
+<changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
@@ -68,7 +75,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://tkr0429.github.io/category/blog.html</loc>
-<lastmod>2014-09-16T14:00:00-00:00</lastmod>
+<lastmod>2014-09-30T13:35:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -76,6 +83,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://tkr0429.github.io/tag/python.html</loc>
 <lastmod>2014-09-12T18:00:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://tkr0429.github.io/tag/perl.html</loc>
+<lastmod>2014-09-08T17:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -95,15 +109,22 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://tkr0429.github.io/tag/perl.html</loc>
-<lastmod>2014-09-08T17:00:00-00:00</lastmod>
+<loc>http://tkr0429.github.io/tag/linux.html</loc>
+<lastmod>2014-09-30T13:35:00-00:00</lastmod>
+<changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://tkr0429.github.io/tag/bash.html</loc>
+<lastmod>2014-09-30T13:35:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/author/tkr0429.html</loc>
-<lastmod>2014-09-16T14:00:00-00:00</lastmod>
+<lastmod>2014-09-30T13:35:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
