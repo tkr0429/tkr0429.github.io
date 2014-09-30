@@ -20,25 +20,27 @@
 &lt;p&gt;例えばCentOSであれば下記の方法にて対応可能です。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;CentOS 5
-  http://lists.centos.org/pipermail/centos-announce/2014-September/020591.html&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://lists.centos.org/pipermail/centos-announce/2014-September/020591.html"&gt;CentOS 5&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;CentOS 6
-  http://lists.centos.org/pipermail/centos-announce/2014-September/020593.html&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://lists.centos.org/pipermail/centos-announce/2014-September/020593.html"&gt;CentOS 6&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;CentOS 7
-  http://lists.centos.org/pipermail/centos-announce/2014-September/020592.html&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://lists.centos.org/pipermail/centos-announce/2014-September/020592.html"&gt;CentOS 7&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;影響は少ないと言っていたAppleでも既に対応パッケージがダウンロード出来る
-- Lion
-  http://support.apple.com/kb/DL1767
-- Mountain Lion
-  http://support.apple.com/kb/DL1768
-- Mavericks
-  http://support.apple.com/kb/DL1769&lt;/p&gt;
+&lt;p&gt;影響は少ないと言っていたAppleでも既に対応パッケージがダウンロード出来る&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://support.apple.com/kb/DL1767"&gt;Lion&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://support.apple.com/kb/DL1768"&gt;Mountain Lion&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="http://support.apple.com/kb/DL1769"&gt;Mavericks&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;また、色々な大人の事情でupdateを適用出来ない場合などは下記を実施しておいた方が良いでしょう。&lt;/p&gt;
 &lt;p&gt;ダウンロード: &lt;a href="https://access.redhat.com/sites/default/files/attachments/bash_ld_preload.c"&gt;bash_ld_preload.c&lt;/a&gt;&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//access.redhat.com/sites/default/files/attachments/bash_ld_preload.c&lt;/span&gt;
