@@ -126,21 +126,37 @@ RAIDカードが正常に見えないようでDiskが表示されない。</p>
 <p>インストールが終わってもデフォルトkernelはCCISSドライバを正常にロードしてくれない。
 レスキューモードで再度bootしてGRUB_CMDLINE_LINUXに「hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1」を
 追記する必要があるようです。</p>
-<p>なお、レスキューモードで起動する際も同様に「hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1」を付けます。</p>
-<div class="highlight"><pre><span class="n">hpsa</span><span class="p">.</span><span class="n">hpsa_simple_mode</span><span class="o">=</span><span class="mi">1</span> <span class="n">hpsa</span><span class="p">.</span><span class="n">hpsa_allow_any</span><span class="o">=</span><span class="mi">1</span>
-</pre></div>
+<p>再度インストールメディアでbootさせてrescueモードで起動させます。</p>
+<p>「Trubleshooting」を選択します。</p>
+<p><img alt="rescue1" src="/images/rescue1.png"/></p>
+<p>「Rescue a CentOS system」を選択して「Tab」を押します。</p>
+<p><img alt="rescue2" src="/images/rescue2.png"/></p>
+<p>「hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1」を追記して「Enter」を押します。</p>
+<p><img alt="rescue3" src="/images/rescue3.png"/></p>
+<p>「Continue」を押します。</p>
+<p><img alt="rescue4" src="/images/rescue4.png"/></p>
+<p>「OK」を押します。</p>
+<p><img alt="rescue5" src="/images/rescue5.png"/></p>
+<p>「OK」を押します。</p>
+<p><img alt="rescue5" src="/images/rescue5.png"/></p>
+<p>ここまで進むとコマンドプロンプトの画面になります。  </p>
 <p>レスキューモードで起動させたら/mnt/sysimageをchrootします。</p>
 <div class="highlight"><pre><span class="n">chroot</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">sysimage</span>
 </pre></div>
 <p>viで/etc/default/grubを変更します。<br/>
 GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。</p>
-<div class="highlight"><pre><span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s">"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"</span>
-<span class="err">↓</span>
-<span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s">"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"</span>
+<ul>
+<li>GRUB_CMDLINE_LINUX
+  カーネルのコマンドラインオプションに追加したい場合に指定するためのパラメータです。 </li>
+</ul>
+<p>```
+GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"
+↓
+GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"</p>
+<div class="highlight"><pre><span class="n">grub2</span><span class="o">-</span><span class="n">mkconfig</span><span class="err">で</span><span class="n">grub</span><span class="p">.</span><span class="n">conf</span><span class="err">を生成します。</span>
 </pre></div>
-<p>grub2-mkconfigでgrub.confを生成します。</p>
-<div class="highlight"><pre><span class="n">grub2</span><span class="o">-</span><span class="n">mkconfig</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">grub2</span><span class="o">/</span><span class="n">grub</span><span class="p">.</span><span class="n">cfg</span>
-</pre></div>
+<p>grub2-mkconfig -o /boot/grub2/grub.cfg
+```</p>
 <p>※参考URL
 - <a href="http://serverfault.com/questions/611182/centos-7-x64-and-hp-proliant-dl360-g5-scsi-controller-compatibility">StackOverflow</a></p>
             </div>
@@ -227,13 +243,13 @@ GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。</p>
                 <li class="list-group-item"><a href="http://tkr0429.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                     <ul class="list-group " id="tags">
                         <li class="list-group-item tag-1">
-                            <a href="http://tkr0429.github.io/tag/python.html">
-                                python
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-2">
                             <a href="http://tkr0429.github.io/tag/linux.html">
                                 linux
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-1">
+                            <a href="http://tkr0429.github.io/tag/python.html">
+                                python
                             </a>
                         </li>
                         <li class="list-group-item tag-2">
@@ -242,8 +258,8 @@ GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。</p>
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/bash.html">
-                                bash
+                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
+                                glusterfs
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
@@ -252,8 +268,8 @@ GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。</p>
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
-                                glusterfs
+                            <a href="http://tkr0429.github.io/tag/bash.html">
+                                bash
                             </a>
                         </li>
                     </ul>

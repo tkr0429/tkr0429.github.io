@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/blog.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-10-06T19:59:00+09:00</updated><entry><title>CentOS7をDL360G5にインストールメモ</title><link href="http://tkr0429.github.io/2014/10/p400i/" rel="alternate"></link><updated>2014-10-06T19:59:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-10-06:2014/10/p400i/</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/blog.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-10-07T00:29:32+09:00</updated><entry><title>CentOS7 デフォルトランレベルの設定</title><link href="http://tkr0429.github.io/2014/10/centos7-runlevel/" rel="alternate"></link><updated>2014-10-07T00:29:32+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-10-07:2014/10/centos7-runlevel/</id><summary type="html">
+&lt;p&gt;既存設定の確認&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;systemctl&lt;/span&gt; &lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;
+&lt;span class="n"&gt;graphical&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;target&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;multi-userモードを設定する&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;systemctl&lt;/span&gt; &lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt; &lt;span class="n"&gt;multi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;target&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;再度確認&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;systemctl&lt;/span&gt; &lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;
+&lt;span class="n"&gt;multi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;target&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;これでrebootしてCUIで起動することを確認。&lt;/p&gt;</summary><category term="linux"></category></entry><entry><title>CentOS7をDL360G5にインストールメモ</title><link href="http://tkr0429.github.io/2014/10/p400i/" rel="alternate"></link><updated>2014-10-06T19:59:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-10-06:2014/10/p400i/</id><summary type="html">
 &lt;h1 id="centos7"&gt;CentOS7のインストール&lt;/h1&gt;
 &lt;h2 id="_1"&gt;障壁となった理由&lt;/h2&gt;
 &lt;p&gt;HP Prolient DL360G5にCentos7をインストールしようと思ったが、&lt;br/&gt;
@@ -15,21 +27,37 @@ RAIDカードが正常に見えないようでDiskが表示されない。&lt;/p
 &lt;p&gt;インストールが終わってもデフォルトkernelはCCISSドライバを正常にロードしてくれない。
 レスキューモードで再度bootしてGRUB_CMDLINE_LINUXに「hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1」を
 追記する必要があるようです。&lt;/p&gt;
-&lt;p&gt;なお、レスキューモードで起動する際も同様に「hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1」を付けます。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;hpsa&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hpsa_simple_mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;hpsa&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hpsa_allow_any&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;再度インストールメディアでbootさせてrescueモードで起動させます。&lt;/p&gt;
+&lt;p&gt;「Trubleshooting」を選択します。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="rescue1" src="/images/rescue1.png"/&gt;&lt;/p&gt;
+&lt;p&gt;「Rescue a CentOS system」を選択して「Tab」を押します。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="rescue2" src="/images/rescue2.png"/&gt;&lt;/p&gt;
+&lt;p&gt;「hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1」を追記して「Enter」を押します。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="rescue3" src="/images/rescue3.png"/&gt;&lt;/p&gt;
+&lt;p&gt;「Continue」を押します。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="rescue4" src="/images/rescue4.png"/&gt;&lt;/p&gt;
+&lt;p&gt;「OK」を押します。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="rescue5" src="/images/rescue5.png"/&gt;&lt;/p&gt;
+&lt;p&gt;「OK」を押します。&lt;/p&gt;
+&lt;p&gt;&lt;img alt="rescue5" src="/images/rescue5.png"/&gt;&lt;/p&gt;
+&lt;p&gt;ここまで進むとコマンドプロンプトの画面になります。  &lt;/p&gt;
 &lt;p&gt;レスキューモードで起動させたら/mnt/sysimageをchrootします。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;chroot&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mnt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sysimage&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;viで/etc/default/grubを変更します。&lt;br/&gt;
 GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;GRUB_CMDLINE_LINUX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"&lt;/span&gt;
-&lt;span class="err"&gt;↓&lt;/span&gt;
-&lt;span class="n"&gt;GRUB_CMDLINE_LINUX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"&lt;/span&gt;
+&lt;ul&gt;
+&lt;li&gt;GRUB_CMDLINE_LINUX
+  カーネルのコマンドラインオプションに追加したい場合に指定するためのパラメータです。 &lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;```
+GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"
+↓
+GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;grub2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mkconfig&lt;/span&gt;&lt;span class="err"&gt;で&lt;/span&gt;&lt;span class="n"&gt;grub&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="err"&gt;を生成します。&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;grub2-mkconfigでgrub.confを生成します。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;grub2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mkconfig&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grub2&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grub&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfg&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;grub2-mkconfig -o /boot/grub2/grub.cfg
+```&lt;/p&gt;
 &lt;p&gt;※参考URL
 - &lt;a href="http://serverfault.com/questions/611182/centos-7-x64-and-hp-proliant-dl360-g5-scsi-controller-compatibility"&gt;StackOverflow&lt;/a&gt;&lt;/p&gt;</summary><category term="linux"></category></entry><entry><title>bashの脆弱性</title><link href="http://tkr0429.github.io/2014/09/shellshock/" rel="alternate"></link><updated>2014-09-30T13:35:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-30:2014/09/shellshock/</id><summary type="html">
 &lt;h1 id="bash"&gt;bashの脆弱性&lt;/h1&gt;
