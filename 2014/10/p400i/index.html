@@ -120,8 +120,8 @@ RAIDカードが正常に見えないようでDiskが表示されない。</p>
 インストールメディアからのbootオプションで下記を追記</p>
 <div class="highlight"><pre><span class="n">hpsa</span><span class="p">.</span><span class="n">hpsa_simple_mode</span><span class="o">=</span><span class="mi">1</span> <span class="n">hpsa</span><span class="p">.</span><span class="n">hpsa_allow_any</span><span class="o">=</span><span class="mi">1</span>
 </pre></div>
-<p><img alt="boot" src="/images/boot.png"/>
-後は通常通りDiskパーティションを設定したりパッケージを選択したりして終了。</p>
+<p><img alt="boot" src="/images/boot.png"/></p>
+<p>後は通常通りDiskパーティションを設定したりパッケージを選択したりして終了。</p>
 <h2 id="_3">インストール後の作業</h2>
 <p>インストールが終わってもデフォルトkernelはCCISSドライバを正常にロードしてくれない。
 レスキューモードで再度bootしてGRUB_CMDLINE_LINUXに「hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1」を
@@ -232,18 +232,13 @@ GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。</p>
                             </a>
                         </li>
                         <li class="list-group-item tag-2">
-                            <a href="http://tkr0429.github.io/tag/ansible.html">
-                                ansible
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-2">
                             <a href="http://tkr0429.github.io/tag/linux.html">
                                 linux
                             </a>
                         </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
-                                glusterfs
+                        <li class="list-group-item tag-2">
+                            <a href="http://tkr0429.github.io/tag/ansible.html">
+                                ansible
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
@@ -254,6 +249,11 @@ GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。</p>
                         <li class="list-group-item tag-4">
                             <a href="http://tkr0429.github.io/tag/perl.html">
                                 perl
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
+                                glusterfs
                             </a>
                         </li>
                     </ul>
