@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-09-30T13:35:00+09:00</updated><entry><title>bashの脆弱性</title><link href="http://tkr0429.github.io/2014/09/shellshock/" rel="alternate"></link><updated>2014-09-30T13:35:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-30:2014/09/shellshock/</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2014-10-06T19:59:00+09:00</updated><entry><title>CentOS7をDL360G5にインストールメモ</title><link href="http://tkr0429.github.io/2014/10/p400i/" rel="alternate"></link><updated>2014-10-06T19:59:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-10-06:2014/10/p400i/</id><summary type="html">
+&lt;h1 id="centos7"&gt;CentOS7のインストール&lt;/h1&gt;
+&lt;p&gt;dl360g5にCentos7をインストールしようと思ったが、
+Diskが見えないと怒られた。&lt;/p&gt;
+&lt;p&gt;起動画面で「Install CentOS 7」を選択した状態で「Tab」を押し
+インストールメディアからのbootオプションで下記を追記&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;hpsa&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hpsa_simple_mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;hpsa&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hpsa_allow_any&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;後は通常通りDiskパーティションを設定したりパッケージを選択したりして終了。&lt;/p&gt;</summary><category term="linux"></category></entry><entry><title>bashの脆弱性</title><link href="http://tkr0429.github.io/2014/09/shellshock/" rel="alternate"></link><updated>2014-09-30T13:35:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-30:2014/09/shellshock/</id><summary type="html">
 &lt;h1 id="bash"&gt;bashの脆弱性&lt;/h1&gt;
 &lt;p&gt;既に色々な方がblogに掲載していますが、&lt;br/&gt;
 今回発見されたbashのバグについて感想を書きます。&lt;/p&gt;
