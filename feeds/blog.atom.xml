@@ -47,17 +47,16 @@ RAIDカードが正常に見えないようでDiskが表示されない。&lt;/p
 &lt;p&gt;viで/etc/default/grubを変更します。&lt;br/&gt;
 GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;GRUB_CMDLINE_LINUX
+&lt;li&gt;GRUB_CMDLINE_LINUX&lt;br/&gt;
   カーネルのコマンドラインオプションに追加したい場合に指定するためのパラメータです。 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;```
-GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"
-↓
-GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;grub2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mkconfig&lt;/span&gt;&lt;span class="err"&gt;で&lt;/span&gt;&lt;span class="n"&gt;grub&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="err"&gt;を生成します。&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;GRUB_CMDLINE_LINUX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"&lt;/span&gt;
+&lt;span class="err"&gt;↓&lt;/span&gt;
+&lt;span class="n"&gt;GRUB_CMDLINE_LINUX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;grub2-mkconfig -o /boot/grub2/grub.cfg
-```&lt;/p&gt;
+&lt;p&gt;grub2-mkconfigでgrub.confを生成します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;grub2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mkconfig&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grub2&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grub&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfg&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;※参考URL
 - &lt;a href="http://serverfault.com/questions/611182/centos-7-x64-and-hp-proliant-dl360-g5-scsi-controller-compatibility"&gt;StackOverflow&lt;/a&gt;&lt;/p&gt;</summary><category term="linux"></category></entry><entry><title>bashの脆弱性</title><link href="http://tkr0429.github.io/2014/09/shellshock/" rel="alternate"></link><updated>2014-09-30T13:35:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-09-30:2014/09/shellshock/</id><summary type="html">
 &lt;h1 id="bash"&gt;bashの脆弱性&lt;/h1&gt;

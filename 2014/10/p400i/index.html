@@ -146,17 +146,16 @@ RAIDカードが正常に見えないようでDiskが表示されない。</p>
 <p>viで/etc/default/grubを変更します。<br/>
 GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。</p>
 <ul>
-<li>GRUB_CMDLINE_LINUX
+<li>GRUB_CMDLINE_LINUX<br/>
   カーネルのコマンドラインオプションに追加したい場合に指定するためのパラメータです。 </li>
 </ul>
-<p>```
-GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"
-↓
-GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"</p>
-<div class="highlight"><pre><span class="n">grub2</span><span class="o">-</span><span class="n">mkconfig</span><span class="err">で</span><span class="n">grub</span><span class="p">.</span><span class="n">conf</span><span class="err">を生成します。</span>
+<div class="highlight"><pre><span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s">"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"</span>
+<span class="err">↓</span>
+<span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s">"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"</span>
 </pre></div>
-<p>grub2-mkconfig -o /boot/grub2/grub.cfg
-```</p>
+<p>grub2-mkconfigでgrub.confを生成します。</p>
+<div class="highlight"><pre><span class="n">grub2</span><span class="o">-</span><span class="n">mkconfig</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">grub2</span><span class="o">/</span><span class="n">grub</span><span class="p">.</span><span class="n">cfg</span>
+</pre></div>
 <p>※参考URL
 - <a href="http://serverfault.com/questions/611182/centos-7-x64-and-hp-proliant-dl360-g5-scsi-controller-compatibility">StackOverflow</a></p>
             </div>
@@ -258,11 +257,6 @@ GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcy
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
-                                glusterfs
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
                             <a href="http://tkr0429.github.io/tag/perl.html">
                                 perl
                             </a>
@@ -270,6 +264,11 @@ GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcy
                         <li class="list-group-item tag-4">
                             <a href="http://tkr0429.github.io/tag/bash.html">
                                 bash
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
+                                glusterfs
                             </a>
                         </li>
                     </ul>
