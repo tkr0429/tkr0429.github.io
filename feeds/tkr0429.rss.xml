@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>tkr0429 blog</title><link>http://tkr0429.github.io/</link><description></description><atom:link href="http://tkr0429.github.io/feeds/tkr0429.rss.xml" rel="self"></atom:link><lastBuildDate>Mon, 06 Oct 2014 19:59:00 +0900</lastBuildDate><item><title>CentOS7をDL360G5にインストールメモ</title><link>http://tkr0429.github.io/2014/10/p400i/</link><description>
 &lt;h1 id="centos7"&gt;CentOS7のインストール&lt;/h1&gt;
-&lt;p&gt;dl360g5にCentos7をインストールしようと思ったが、
-Diskが見えないと怒られた。&lt;/p&gt;
-&lt;p&gt;起動画面で「Install CentOS 7」を選択した状態で「Tab」を押し
+&lt;h2 id="_1"&gt;障壁となった理由&lt;/h2&gt;
+&lt;p&gt;HP Prolient DL360G5にCentos7をインストールしようと思ったが、&lt;br/&gt;
+RAIDカードが正常に見えないようでDiskが表示されない。&lt;/p&gt;
+&lt;h2 id="_2"&gt;インストール&lt;/h2&gt;
+&lt;p&gt;起動画面で「Install CentOS 7」を選択した状態で「Tab」を押し&lt;br/&gt;
 インストールメディアからのbootオプションで下記を追記&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;hpsa&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hpsa_simple_mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;hpsa&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hpsa_allow_any&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;後は通常通りDiskパーティションを設定したりパッケージを選択したりして終了。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 06 Oct 2014 19:59:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-10-06:2014/10/p400i/</guid><category>linux</category></item><item><title>bashの脆弱性</title><link>http://tkr0429.github.io/2014/09/shellshock/</link><description>
+&lt;p&gt;&lt;img alt="boot" src="{filename}/Parallels\" title="Picture.png"/&gt;
+後は通常通りDiskパーティションを設定したりパッケージを選択したりして終了。&lt;/p&gt;
+&lt;h2 id="_3"&gt;インストール後の作業&lt;/h2&gt;
+&lt;p&gt;インストールが終わってもデフォルトkernelはCCISSドライバを正常にロードしてくれない。
+レスキューモードで再度bootしてGRUB_CMDLINE_LINUXに「hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1」を
+追記する必要があるようです。&lt;/p&gt;
+&lt;p&gt;なお、レスキューモードで起動する際も同様に「hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1」を付けます。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;hpsa&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hpsa_simple_mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;hpsa&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hpsa_allow_any&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;レスキューモードで起動させたら/mnt/sysimageをchrootします。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;chroot&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mnt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sysimage&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;viで/etc/default/grubを変更します。&lt;br/&gt;
+GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;GRUB_CMDLINE_LINUX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"&lt;/span&gt;
+&lt;span class="err"&gt;↓&lt;/span&gt;
+&lt;span class="n"&gt;GRUB_CMDLINE_LINUX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;grub2-mkconfigでgrub.confを生成します。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;grub2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mkconfig&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grub2&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grub&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfg&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;※参考URL
+- &lt;a href="http://serverfault.com/questions/611182/centos-7-x64-and-hp-proliant-dl360-g5-scsi-controller-compatibility"&gt;StackOverflow&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 06 Oct 2014 19:59:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-10-06:2014/10/p400i/</guid><category>linux</category></item><item><title>bashの脆弱性</title><link>http://tkr0429.github.io/2014/09/shellshock/</link><description>
 &lt;h1 id="bash"&gt;bashの脆弱性&lt;/h1&gt;
 &lt;p&gt;既に色々な方がblogに掲載していますが、&lt;br/&gt;
 今回発見されたbashのバグについて感想を書きます。&lt;/p&gt;

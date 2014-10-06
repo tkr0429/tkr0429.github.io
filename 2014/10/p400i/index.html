@@ -97,7 +97,12 @@ tkr0429 blog            </a>
     <nav class="toc">
     <div class="toc">
 <ul>
-<li><a href="#centos7">CentOS7のインストール</a></li>
+<li><a href="#centos7">CentOS7のインストール</a><ul>
+<li><a href="#_1">障壁となった理由</a></li>
+<li><a href="#_2">インストール</a></li>
+<li><a href="#_3">インストール後の作業</a></li>
+</ul>
+</li>
 </ul>
 </div>
     </nav>
@@ -107,13 +112,37 @@ tkr0429 blog            </a>
                 </div>
                 
 <h1 id="centos7">CentOS7のインストール</h1>
-<p>dl360g5にCentos7をインストールしようと思ったが、
-Diskが見えないと怒られた。</p>
-<p>起動画面で「Install CentOS 7」を選択した状態で「Tab」を押し
+<h2 id="_1">障壁となった理由</h2>
+<p>HP Prolient DL360G5にCentos7をインストールしようと思ったが、<br/>
+RAIDカードが正常に見えないようでDiskが表示されない。</p>
+<h2 id="_2">インストール</h2>
+<p>起動画面で「Install CentOS 7」を選択した状態で「Tab」を押し<br/>
 インストールメディアからのbootオプションで下記を追記</p>
 <div class="highlight"><pre><span class="n">hpsa</span><span class="p">.</span><span class="n">hpsa_simple_mode</span><span class="o">=</span><span class="mi">1</span> <span class="n">hpsa</span><span class="p">.</span><span class="n">hpsa_allow_any</span><span class="o">=</span><span class="mi">1</span>
 </pre></div>
-<p>後は通常通りDiskパーティションを設定したりパッケージを選択したりして終了。</p>
+<p><img alt="boot" src="{filename}/Parallels\" title="Picture.png"/>
+後は通常通りDiskパーティションを設定したりパッケージを選択したりして終了。</p>
+<h2 id="_3">インストール後の作業</h2>
+<p>インストールが終わってもデフォルトkernelはCCISSドライバを正常にロードしてくれない。
+レスキューモードで再度bootしてGRUB_CMDLINE_LINUXに「hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1」を
+追記する必要があるようです。</p>
+<p>なお、レスキューモードで起動する際も同様に「hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1」を付けます。</p>
+<div class="highlight"><pre><span class="n">hpsa</span><span class="p">.</span><span class="n">hpsa_simple_mode</span><span class="o">=</span><span class="mi">1</span> <span class="n">hpsa</span><span class="p">.</span><span class="n">hpsa_allow_any</span><span class="o">=</span><span class="mi">1</span>
+</pre></div>
+<p>レスキューモードで起動させたら/mnt/sysimageをchrootします。</p>
+<div class="highlight"><pre><span class="n">chroot</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">sysimage</span>
+</pre></div>
+<p>viで/etc/default/grubを変更します。<br/>
+GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。</p>
+<div class="highlight"><pre><span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s">"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"</span>
+<span class="err">↓</span>
+<span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s">"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"</span>
+</pre></div>
+<p>grub2-mkconfigでgrub.confを生成します。</p>
+<div class="highlight"><pre><span class="n">grub2</span><span class="o">-</span><span class="n">mkconfig</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">grub2</span><span class="o">/</span><span class="n">grub</span><span class="p">.</span><span class="n">cfg</span>
+</pre></div>
+<p>※参考URL
+- <a href="http://serverfault.com/questions/611182/centos-7-x64-and-hp-proliant-dl360-g5-scsi-controller-compatibility">StackOverflow</a></p>
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -203,13 +232,13 @@ Diskが見えないと怒られた。</p>
                             </a>
                         </li>
                         <li class="list-group-item tag-2">
-                            <a href="http://tkr0429.github.io/tag/linux.html">
-                                linux
+                            <a href="http://tkr0429.github.io/tag/ansible.html">
+                                ansible
                             </a>
                         </li>
                         <li class="list-group-item tag-2">
-                            <a href="http://tkr0429.github.io/tag/ansible.html">
-                                ansible
+                            <a href="http://tkr0429.github.io/tag/linux.html">
+                                linux
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
