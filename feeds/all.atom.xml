@@ -9,7 +9,7 @@ RAIDカードが正常に見えないようでDiskが表示されない。&lt;/p
 インストールメディアからのbootオプションで下記を追記&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;hpsa&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hpsa_simple_mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;hpsa&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hpsa_allow_any&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img alt="boot" src="{filename}/boot.png"/&gt;
+&lt;p&gt;&lt;img alt="boot" src="/boot.png"/&gt;
 後は通常通りDiskパーティションを設定したりパッケージを選択したりして終了。&lt;/p&gt;
 &lt;h2 id="_3"&gt;インストール後の作業&lt;/h2&gt;
 &lt;p&gt;インストールが終わってもデフォルトkernelはCCISSドライバを正常にロードしてくれない。
