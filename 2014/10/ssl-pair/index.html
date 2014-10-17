@@ -106,8 +106,10 @@ tkr0429 blog            </a>
                 
 <p>SSL証明書の設置作業でどのCRTとKEYがペアだったか分からなくなるので、
 以下のコマンドでペアが正しいか確認するメモ</p>
-<p>md5の結果が一致していればペア
-- crtの確認</p>
+<p>md5の結果が一致していればペア</p>
+<ul>
+<li>crtの確認</li>
+</ul>
 <div class="highlight"><pre><span class="cp"># openssl x509 -noout -modulus -in server.crt | openssl md5</span>
 <span class="p">(</span><span class="n">stdin</span><span class="p">)</span><span class="o">=</span> <span class="mi">880</span><span class="n">a6ffb3daba7d98abf955003ad2e69</span>
 </pre></div>
@@ -232,11 +234,6 @@ tkr0429 blog            </a>
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/bash.html">
-                                bash
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
                             <a href="http://tkr0429.github.io/tag/perl.html">
                                 perl
                             </a>
@@ -244,6 +241,11 @@ tkr0429 blog            </a>
                         <li class="list-group-item tag-4">
                             <a href="http://tkr0429.github.io/tag/glusterfs.html">
                                 glusterfs
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/bash.html">
+                                bash
                             </a>
                         </li>
                     </ul>
