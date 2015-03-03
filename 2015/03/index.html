@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="jp"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>l2tp/ipsecでremote-access - tkr0429 blog</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="http://tkr0429.github.io//images/tkr0429-logo.png" rel="icon">
+
+<link rel="canonical" href="http://tkr0429.github.io/2015/03//">
+
+        <meta name="author" content="tkr0429" />
+        <meta name="keywords" content="" />
+        <meta name="description" content="l2tp/ipsec" />
+
+
+    <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@tkr0429">
+        <meta name="twitter:creator" content="@tkr0429">
+    <meta name="twitter:domain" content="http://tkr0429.github.io">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="http://tkr0429.github.io/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="http://tkr0429.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="http://tkr0429.github.io/theme/css/pygments/native.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://tkr0429.github.io/theme/css/style.css" type="text/css"/>
+        <link href="http://tkr0429.github.io/static/custom.css" rel="stylesheet">
+
+        <link href="http://tkr0429.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="tkr0429 blog ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://tkr0429.github.io/" class="navbar-brand">
+tkr0429 blog            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="http://tkr0429.github.io/category/blog.html">Blog</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://tkr0429.github.io/archives.html"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="http://tkr0429.github.io/2015/03//"
+                       rel="bookmark"
+                       title="Permalink to l2tp/ipsecでremote-access">
+                        l2tp/ipsecでremote-access
+                    </a>
+                </h1>
+            </header>
+
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-03-03T11:56:50"> 2015-03-03(火)</time>
+    </span>
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="http://tkr0429.github.io/tag/.html"></a>
+
+
+    <nav class="toc">
+    <div class="toc">
+<ul>
+<li><a href="#l2tpipsec-remoteaccess">l2tp/ipsec で RemoteAccess</a><ul>
+<li><a href="#_1">環境</a></li>
+<li><a href="#_2">パッケージインストール</a></li>
+<li><a href="#l2tp">l2tp設定</a></li>
+<li><a href="#ipsec">ipsecの設定</a></li>
+</ul>
+</li>
+</ul>
+</div>
+    </nav>
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+<h1 id="l2tpipsec-remoteaccess">l2tp/ipsec で RemoteAccess</h1>
+<p>VPNゲートウェイを当初VyOSでやろうと思ってたけど、上手くipsec通らず挫折<br/>
+それならばと思いCentOS6+openswan+xl2tpでやるも挫折<br/>
+行き着いたところが下記の通り。</p>
+<h2 id="_1">環境</h2>
+<ul>
+<li>
+<p>CentOS 6.6 x86_64</p>
+<ul>
+<li>libreswan-3.12-1.el6.x86_64</li>
+<li>xl2tpd-1.3.6-1.el6.x86_64</li>
+</ul>
+</li>
+<li>
+<p>iPhone5s(ios 8.1.3)</p>
+</li>
+</ul>
+<h2 id="_2">パッケージインストール</h2>
+<p>epelレポジトリが追加してあること前提です。</p>
+<div class="highlight"><pre><span class="n">yum</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">libreswan</span> <span class="n">xl2tpd</span> <span class="n">lsof</span>
+</pre></div>
+<h2 id="l2tp">l2tp設定</h2>
+<ul>
+<li>/etc/xl2tpd/xl2tpd.conf</li>
+</ul>
+<div class="highlight"><pre><span class="k">[global]</span>
+<span class="k">[lns default]</span>
+<span class="na">ip range</span> <span class="o">=</span> <span class="s">192.168.100.128-192.168.100.200</span>
+<span class="na">local ip</span> <span class="o">=</span> <span class="s">192.168.100.22</span>
+<span class="na">require chap</span> <span class="o">=</span> <span class="s">yes</span>
+<span class="na">refuse pap</span> <span class="o">=</span> <span class="s">yes</span>
+<span class="na">require authentication</span> <span class="o">=</span> <span class="s">yes</span>
+<span class="na">name</span> <span class="o">=</span> <span class="s">LinuxVPNserver</span>
+<span class="na">ppp debug</span> <span class="o">=</span> <span class="s">yes</span>
+<span class="na">pppoptfile</span> <span class="o">=</span> <span class="s">/etc/ppp/options.xl2tpd</span>
+<span class="na">length bit</span> <span class="o">=</span> <span class="s">yes</span>
+</pre></div>
+<ul>
+<li>/etc/ppp/options.xl2tpd</li>
+</ul>
+<div class="highlight"><pre><span class="n">name</span> <span class="n">xl2tpd</span>
+<span class="n">linkname</span> <span class="n">l2tp</span>
+<span class="n">ipcp</span><span class="o">-</span><span class="n">accept</span><span class="o">-</span><span class="n">local</span>
+<span class="n">ipcp</span><span class="o">-</span><span class="n">accept</span><span class="o">-</span><span class="n">remote</span>
+<span class="n">ms</span><span class="o">-</span><span class="n">dns</span> <span class="mf">192.168.100.1</span>
+<span class="n">ms</span><span class="o">-</span><span class="n">dns</span> <span class="mf">8.8.8.8</span>
+<span class="n">noccp</span>
+<span class="n">auth</span>
+<span class="n">crtscts</span>
+<span class="n">idle</span> <span class="mi">1800</span>
+<span class="n">mtu</span> <span class="mi">1426</span>
+<span class="n">mru</span> <span class="mi">1426</span>
+<span class="n">nodefaultroute</span>
+<span class="n">debug</span>
+<span class="n">lock</span>
+<span class="n">proxyarp</span>
+<span class="n">connect</span><span class="o">-</span><span class="n">delay</span> <span class="mi">5000</span>
+<span class="n">netmask</span> <span class="mf">255.255.255.0</span>
+<span class="n">persist</span>
+<span class="n">require</span><span class="o">-</span><span class="n">mschap</span><span class="o">-</span><span class="n">v2</span>
+<span class="n">logfile</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">xl2tpd</span><span class="p">.</span><span class="n">log</span>
+</pre></div>
+<h2 id="ipsec">ipsecの設定</h2>
+<ul>
+<li>/etc/ipsec.conf</li>
+</ul>
+<div class="highlight"><pre><span class="n">config</span> <span class="n">setup</span>
+    <span class="n">protostack</span><span class="o">=</span><span class="n">netkey</span>
+    <span class="n">dumpdir</span><span class="o">=/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">pluto</span><span class="o">/</span>
+    <span class="n">nat_traversal</span><span class="o">=</span><span class="n">yes</span>
+    <span class="n">virtual_private</span><span class="o">=%</span><span class="n">v4</span><span class="o">:</span><span class="mf">10.0.0.0</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span><span class="o">%</span><span class="n">v4</span><span class="o">:</span><span class="mf">192.168.0.0</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span><span class="o">%</span><span class="n">v4</span><span class="o">:</span><span class="mf">172.16.0.0</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span><span class="o">%</span><span class="n">v4</span><span class="o">:</span><span class="mf">25.0.0.0</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span><span class="o">%</span><span class="n">v4</span><span class="o">:</span><span class="mf">100.64.0.0</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span><span class="o">%</span><span class="n">v6</span><span class="o">:</span><span class="n">fd00</span><span class="o">::/</span><span class="mi">8</span><span class="p">,</span><span class="o">%</span><span class="n">v6</span><span class="o">:</span><span class="n">fe80</span><span class="o">::/</span><span class="mi">10</span>
+<span class="n">include</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ipsec</span><span class="p">.</span><span class="n">d</span><span class="o">/*</span><span class="p">.</span><span class="n">conf</span>
+</pre></div>
+<ul>
+<li>/etc/ipsec.d/ipsec.conf</li>
+</ul>
+<div class="highlight"><pre><span class="n">conn</span> <span class="n">L2TP</span><span class="o">-</span><span class="n">PSK</span><span class="o">-</span><span class="n">NAT</span>
+    <span class="n">rightsubnet</span><span class="o">=</span><span class="mf">0.0.0.0</span><span class="o">/</span><span class="mi">0</span>
+    <span class="n">forceencaps</span><span class="o">=</span><span class="n">yes</span>
+    <span class="n">also</span><span class="o">=</span><span class="n">L2TP</span><span class="o">-</span><span class="n">PSK</span><span class="o">-</span><span class="n">noNAT</span>
+
+<span class="n">conn</span> <span class="n">L2TP</span><span class="o">-</span><span class="n">PSK</span><span class="o">-</span><span class="n">noNAT</span>
+    <span class="n">dpddelay</span><span class="o">=</span><span class="mi">10</span>
+    <span class="n">dpdtimeout</span><span class="o">=</span><span class="mi">20</span>
+    <span class="n">dpdaction</span><span class="o">=</span><span class="n">clear</span>
+    <span class="n">authby</span><span class="o">=</span><span class="n">secret</span>
+    <span class="n">pfs</span><span class="o">=</span><span class="n">no</span>
+    <span class="k">auto</span><span class="o">=</span><span class="n">add</span>
+    <span class="n">keyingtries</span><span class="o">=</span><span class="mi">3</span>
+    <span class="n">rekey</span><span class="o">=</span><span class="n">no</span>
+    <span class="n">ikelifetime</span><span class="o">=</span><span class="mi">8</span><span class="n">h</span>
+    <span class="n">keylife</span><span class="o">=</span><span class="mi">1</span><span class="n">h</span>
+    <span class="n">type</span><span class="o">=</span><span class="n">transport</span>
+    <span class="n">left</span><span class="o">=%</span><span class="n">defaultroute</span>
+    <span class="n">leftprotoport</span><span class="o">=</span><span class="mi">17</span><span class="o">/</span><span class="mi">1701</span>
+    <span class="n">right</span><span class="o">=%</span><span class="n">any</span>
+    <span class="n">rightprotoport</span><span class="o">=</span><span class="mi">17</span><span class="o">/%</span><span class="n">any</span>
+</pre></div>
+<p>iOSは切断のシグナルを送らずに切ってくれるので<br/>
+以下の設定を/etc/ipsec.d/ipsec.confに入れておく。</p>
+<div class="highlight"><pre><span class="n">dpddelay</span><span class="o">=</span><span class="mi">10</span>
+<span class="n">dpdtimeout</span><span class="o">=</span><span class="mi">20</span>
+<span class="n">dpdaction</span><span class="o">=</span><span class="n">clear</span>
+</pre></div>
+<p>sysctl.confに下記を追記<br/>
+デバイスについては環境に合わせること。
+- /etc/sysctl.conf</p>
+<div class="highlight"><pre><span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">all</span><span class="p">.</span><span class="n">accept_redirects</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">accept_redirects</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">eth0</span><span class="p">.</span><span class="n">accept_redirects</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">lo</span><span class="p">.</span><span class="n">accept_redirects</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">all</span><span class="p">.</span><span class="n">send_redirects</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">send_redirects</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">eth0</span><span class="p">.</span><span class="n">send_redirects</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">lo</span><span class="p">.</span><span class="n">send_redirects</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">rp_filter</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">lo</span><span class="p">.</span><span class="n">rp_filter</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">eth0</span><span class="p">.</span><span class="n">rp_filter</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">eth1</span><span class="p">.</span><span class="n">rp_filter</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">all</span><span class="p">.</span><span class="n">rp_filter</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+<p>で、反映する。</p>
+<div class="highlight"><pre><span class="n">sysctl</span> <span class="o">-</span><span class="n">p</span>
+</pre></div>
+<p>自動起動するようにしておく</p>
+<div class="highlight"><pre><span class="n">chkconfig</span> <span class="n">ipsec</span> <span class="n">on</span>
+<span class="n">chkconfig</span> <span class="n">xl2tpd</span> <span class="n">on</span>
+</pre></div>
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <!-- AddThis Button BEGIN -->
+    <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+
+    <a class="addthis_button_preferred_1"></a>
+    <a class="addthis_button_preferred_2"></a>
+    <a class="addthis_button_preferred_3"></a>
+    <a class="addthis_button_preferred_4"></a>
+    <a class="addthis_button_preferred_5"></a>
+    <a class="addthis_button_preferred_6"></a>
+    <a class="addthis_button_compact"></a>
+
+    </div>
+        <script type="text/javascript">var addthis_config = {"data_track_addressbar": true};</script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid="></script>
+    <!-- AddThis Button END -->
+<hr>
+<style>
+.tkr0429-blog-02 { width: 320px; height: 100px; }
+@media(min-width: 500px) { .tkr0429-blog-02 { width: 468px; height: 60px; } }
+@media(min-width: 800px) { .tkr0429-blog-02 { width: 336px; height: 280px; } }
+</style>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- tkr0429 blog 02 -->
+<ins class="adsbygoogle tkr0429-blog-02"
+     style="display:inline-block"
+     data-ad-client="ca-pub-8109962781637704"
+     data-ad-slot="2176722471"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'tkr0429blog'; // required: replace example with your forum shortname
+
+                    var disqus_identifier = '';
+                var disqus_url = 'http://tkr0429.github.io/2015/03//';
+
+            var disqus_config = function () {
+                this.language = "jp";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3 well well-sm" id="sidebar">
+
+<aside>
+    <section>
+        <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+                  <ul class="list-group" id="social">
+                    <li class="list-group-item"><a href="https://twitter.com/tkr0429"><i class="fa fa-twitter-square fa-lg"></i> twitter</a></li>
+                    <li class="list-group-item"><a href="https://www.facebook.com/takuro.tokushige"><i class="fa fa-facebook-square fa-lg"></i> facebook</a></li>
+                    <li class="list-group-item"><a href="http://tkr0429.github.io/feeds/tkr0429.rss.xml"><i class="fa fa-rss-square fa-lg"></i> RSS</a></li>
+                  </ul>
+                </li>
+
+
+
+                <li class="list-group-item"><a href="http://tkr0429.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
+                    <ul class="list-group " id="tags">
+                        <li class="list-group-item tag-1">
+                            <a href="http://tkr0429.github.io/tag/linux.html">
+                                linux
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-1">
+                            <a href="http://tkr0429.github.io/tag/python.html">
+                                python
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-2">
+                            <a href="http://tkr0429.github.io/tag/ansible.html">
+                                ansible
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/perl.html">
+                                perl
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/bash.html">
+                                bash
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
+                                glusterfs
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/.html">
+                                
+                            </a>
+                        </li>
+                    </ul>
+                </li>    
+
+    <li class="list-group-item"><h4><i class="fa fa-twitter fa-lg"></i><span class="icon-label">Latest Tweets</span></h4></li>
+    <div id="twitter_timeline">
+        <a class="twitter-timeline" data-chrome="noheader" href="https://twitter.com/tkr0429" data-widget-id="508988314523676672">Tweets by tkr0429</a>
+    </div>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="http://getpelican.com/" target="_blank">
+                Pelican
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://python.org/" target="_blank">
+                Python.org
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="http://jinja.pocoo.org/" target="_blank">
+                Jinja2
+            </a>
+        </li>
+      </ul>
+    </li>
+
+        </ul>
+    </section>
+
+</aside>        </div>
+    </div>
+</div>
+<footer>
+        
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2015 tkr0429
+            &middot; Powered by <a href="https://github.com/DandyDev/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<!--<script src="http://tkr0429.github.io/theme/js/jquery.min.js"></script>-->
+<script src="http://code.jquery.com/jquery.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="http://tkr0429.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="http://tkr0429.github.io/theme/js/respond.min.js"></script>
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'tkr0429blog'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-54608190-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+    <!-- Piwik -->
+    <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(["trackPageView"]);
+        _paq.push(["enableLinkTracking"]);
+
+        (function() {
+            var u=(("https:" == document.location.protocol) ? "https://tkr.mydns.jp/piwik//" : "http://tkr.mydns.jp/piwik//");
+            _paq.push(["setTrackerUrl", u+"piwik.php"]);
+            _paq.push(["setSiteId", "3"]);
+            var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+            g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    <!-- End Piwik Code -->
+</body>
+</html>
