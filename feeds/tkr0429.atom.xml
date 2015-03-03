@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2015-03-03T11:56:50+09:00</updated><entry><title>l2tp/ipsecでremote-access</title><link href="http://tkr0429.github.io/2015/03//" rel="alternate"></link><updated>2015-03-03T11:56:50+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2015-03-03:2015/03//</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2015-03-03T11:56:50+09:00</updated><entry><title>l2tp/ipsecでremote-access</title><link href="http://tkr0429.github.io/2015/03/l2tpipsec/" rel="alternate"></link><updated>2015-03-03T11:56:50+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2015-03-03:2015/03/l2tpipsec/</id><summary type="html">
 &lt;h1 id="l2tpipsec-remoteaccess"&gt;l2tp/ipsec で RemoteAccess&lt;/h1&gt;
 &lt;p&gt;VPNゲートウェイを当初VyOSでやろうと思ってたけど、上手くipsec通らず挫折&lt;br/&gt;
 それならばと思いCentOS6+openswan+xl2tpでやるも挫折&lt;br/&gt;
@@ -105,8 +105,10 @@
 &lt;span class="n"&gt;dpdaction&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;clear&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;sysctl.confに下記を追記&lt;br/&gt;
-デバイスについては環境に合わせること。
-- /etc/sysctl.conf&lt;/p&gt;
+デバイスについては環境に合わせること。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/etc/sysctl.conf&lt;/li&gt;
+&lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accept_redirects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
 &lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accept_redirects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
 &lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;eth0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accept_redirects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
@@ -128,7 +130,7 @@
 &lt;p&gt;自動起動するようにしておく&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;chkconfig&lt;/span&gt; &lt;span class="n"&gt;ipsec&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt;
 &lt;span class="n"&gt;chkconfig&lt;/span&gt; &lt;span class="n"&gt;xl2tpd&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term=""></category></entry><entry><title>SSL証明書のペアを確認する</title><link href="http://tkr0429.github.io/2014/10/ssl-pair/" rel="alternate"></link><updated>2014-10-17T13:02:15+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-10-16:2014/10/ssl-pair/</id><summary type="html">
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="linux"></category></entry><entry><title>SSL証明書のペアを確認する</title><link href="http://tkr0429.github.io/2014/10/ssl-pair/" rel="alternate"></link><updated>2014-10-17T13:02:15+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-10-16:2014/10/ssl-pair/</id><summary type="html">
 &lt;p&gt;SSL証明書の設置作業でどのCRTとKEYがペアだったか分からなくなるので、
 以下のコマンドでペアが正しいか確認するメモ&lt;/p&gt;
 &lt;p&gt;md5の結果が一致していればペア&lt;/p&gt;

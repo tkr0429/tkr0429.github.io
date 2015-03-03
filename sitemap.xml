@@ -5,34 +5,34 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://tkr0429.github.io/index.html</loc>
-<lastmod>2015-03-04T00:46:09-00:00</lastmod>
+<lastmod>2015-03-04T00:48:03-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/archives.html</loc>
-<lastmod>2015-03-04T00:46:09-00:00</lastmod>
+<lastmod>2015-03-04T00:48:03-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/tags.html</loc>
-<lastmod>2015-03-04T00:46:09-00:00</lastmod>
+<lastmod>2015-03-04T00:48:03-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/categories.html</loc>
-<lastmod>2015-03-04T00:46:09-00:00</lastmod>
+<lastmod>2015-03-04T00:48:03-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>http://tkr0429.github.io/2015/03//</loc>
+<loc>http://tkr0429.github.io/2015/03/l2tpipsec/</loc>
 <lastmod>2015-03-03T11:56:50-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
@@ -109,13 +109,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://tkr0429.github.io/tag/.html</loc>
-<lastmod>2015-03-03T11:56:50-00:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
 <loc>http://tkr0429.github.io/tag/python.html</loc>
 <lastmod>2014-09-12T18:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
@@ -145,7 +138,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://tkr0429.github.io/tag/linux.html</loc>
-<lastmod>2014-10-17T13:02:15-00:00</lastmod>
+<lastmod>2015-03-03T11:56:50-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
