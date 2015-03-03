@@ -103,6 +103,11 @@ tkr0429 blog            </a>
 <li><a href="#_2">パッケージインストール</a></li>
 <li><a href="#l2tp">l2tp設定</a></li>
 <li><a href="#ipsec">ipsecの設定</a></li>
+<li><a href="#_3">システム設定</a><ul>
+<li><a href="#os">OS起動時の自動起動とサービス起動</a></li>
+</ul>
+</li>
+<li><a href="#iphone">iPhone側</a></li>
 </ul>
 </li>
 </ul>
@@ -175,6 +180,12 @@ tkr0429 blog            </a>
 <span class="n">require</span><span class="o">-</span><span class="n">mschap</span><span class="o">-</span><span class="n">v2</span>
 <span class="n">logfile</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">xl2tpd</span><span class="p">.</span><span class="n">log</span>
 </pre></div>
+<ul>
+<li>/etc/ppp/chap-secrets</li>
+</ul>
+<div class="highlight"><pre><span class="s">"username"</span> <span class="o">*</span> <span class="s">"password"</span> <span class="o">*</span>
+</pre></div>
+<p>usernameとpasswordは書き換えてね。</p>
 <h2 id="ipsec">ipsecの設定</h2>
 <ul>
 <li>/etc/ipsec.conf</li>
@@ -217,6 +228,12 @@ tkr0429 blog            </a>
 <span class="n">dpdtimeout</span><span class="o">=</span><span class="mi">20</span>
 <span class="n">dpdaction</span><span class="o">=</span><span class="n">clear</span>
 </pre></div>
+<p>シークレットパスワードの設定<br/>
+仮でvpnにしてます。
+- /etc/ipsec.d/ipsec.secrets</p>
+<div class="highlight"><pre><span class="o">:</span> <span class="n">PSK</span> <span class="s">"vpn"</span>
+</pre></div>
+<h2 id="_3">システム設定</h2>
 <p>sysctl.confに下記を追記<br/>
 デバイスについては環境に合わせること。</p>
 <ul>
@@ -240,10 +257,14 @@ tkr0429 blog            </a>
 <p>で、反映する。</p>
 <div class="highlight"><pre><span class="n">sysctl</span> <span class="o">-</span><span class="n">p</span>
 </pre></div>
-<p>自動起動するようにしておく</p>
+<h3 id="os">OS起動時の自動起動とサービス起動</h3>
 <div class="highlight"><pre><span class="n">chkconfig</span> <span class="n">ipsec</span> <span class="n">on</span>
 <span class="n">chkconfig</span> <span class="n">xl2tpd</span> <span class="n">on</span>
+<span class="n">service</span> <span class="n">ipsec</span> <span class="n">start</span>
+<span class="n">service</span> <span class="n">xl2tpd</span> <span class="n">start</span>
 </pre></div>
+<h2 id="iphone">iPhone側</h2>
+<p>めんどくなったので後日書きます。</p>
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -343,6 +364,11 @@ tkr0429 blog            </a>
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
+                            <a href="http://tkr0429.github.io/tag/perl.html">
+                                perl
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-4">
                             <a href="http://tkr0429.github.io/tag/glusterfs.html">
                                 glusterfs
                             </a>
@@ -350,11 +376,6 @@ tkr0429 blog            </a>
                         <li class="list-group-item tag-4">
                             <a href="http://tkr0429.github.io/tag/bash.html">
                                 bash
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/perl.html">
-                                perl
                             </a>
                         </li>
                     </ul>

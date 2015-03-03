@@ -62,6 +62,12 @@
 &lt;span class="n"&gt;require&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mschap&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v2&lt;/span&gt;
 &lt;span class="n"&gt;logfile&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;xl2tpd&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;/etc/ppp/chap-secrets&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="s"&gt;"username"&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="s"&gt;"password"&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;usernameとpasswordは書き換えてね。&lt;/p&gt;
 &lt;h2 id="ipsec"&gt;ipsecの設定&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;/etc/ipsec.conf&lt;/li&gt;
@@ -104,6 +110,12 @@
 &lt;span class="n"&gt;dpdtimeout&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;
 &lt;span class="n"&gt;dpdaction&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;clear&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;シークレットパスワードの設定&lt;br/&gt;
+仮でvpnにしてます。
+- /etc/ipsec.d/ipsec.secrets&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;PSK&lt;/span&gt; &lt;span class="s"&gt;"vpn"&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="_3"&gt;システム設定&lt;/h2&gt;
 &lt;p&gt;sysctl.confに下記を追記&lt;br/&gt;
 デバイスについては環境に合わせること。&lt;/p&gt;
 &lt;ul&gt;
@@ -127,10 +139,14 @@
 &lt;p&gt;で、反映する。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sysctl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;自動起動するようにしておく&lt;/p&gt;
+&lt;h3 id="os"&gt;OS起動時の自動起動とサービス起動&lt;/h3&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;chkconfig&lt;/span&gt; &lt;span class="n"&gt;ipsec&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt;
 &lt;span class="n"&gt;chkconfig&lt;/span&gt; &lt;span class="n"&gt;xl2tpd&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;</summary><category term="linux"></category></entry><entry><title>SSL証明書のペアを確認する</title><link href="http://tkr0429.github.io/2014/10/ssl-pair/" rel="alternate"></link><updated>2014-10-17T13:02:15+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-10-16:2014/10/ssl-pair/</id><summary type="html">
+&lt;span class="n"&gt;service&lt;/span&gt; &lt;span class="n"&gt;ipsec&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;
+&lt;span class="n"&gt;service&lt;/span&gt; &lt;span class="n"&gt;xl2tpd&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id="iphone"&gt;iPhone側&lt;/h2&gt;
+&lt;p&gt;めんどくなったので後日書きます。&lt;/p&gt;</summary><category term="linux"></category></entry><entry><title>SSL証明書のペアを確認する</title><link href="http://tkr0429.github.io/2014/10/ssl-pair/" rel="alternate"></link><updated>2014-10-17T13:02:15+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2014-10-16:2014/10/ssl-pair/</id><summary type="html">
 &lt;p&gt;SSL証明書の設置作業でどのCRTとKEYがペアだったか分からなくなるので、
 以下のコマンドでペアが正しいか確認するメモ&lt;/p&gt;
 &lt;p&gt;md5の結果が一致していればペア&lt;/p&gt;
