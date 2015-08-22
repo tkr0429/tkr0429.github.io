@@ -9,7 +9,7 @@
 インフラエンジニアな自分としてはconsul,stretcherは抑えておきたいなと。
 特にconsulのDNS機能を内部DNSとして使ってる事例を多く見かけて大変興味をそそられた。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;[辛いことをやめる！から始まる業務改善とInfrastructure as Code][http://yapcasia.org/2015/talk/show/53aacc02-faca-11e4-8c2e-8ab37d574c3a]
+&lt;li&gt;&lt;a href="http://yapcasia.org/2015/talk/show/53aacc02-faca-11e4-8c2e-8ab37d574c3a"&gt;辛いことをやめる！から始まる業務改善とInfrastructure as Code&lt;/a&gt;
 自分が抱えてる悩みに近いものがあり、すごく良い話を聞けた。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;なかなか社外の方と交流することも少ないので、
