@@ -1,24 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>tkr0429 blog</title><link>http://tkr0429.github.io/</link><description></description><atom:link href="http://tkr0429.github.io/feeds/tkr0429.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 23 Aug 2015 21:00:00 +0900</lastBuildDate><item><title>YAPC::Asia 2015 Tokyoに行った話</title><link>http://tkr0429.github.io/2015/08/yapc-asia2015/</link><description>
-&lt;h1 id="yapcasia-2015-tokyo"&gt;YAPC::Asia 2015 Tokyo&lt;/h1&gt;
-&lt;p&gt;昨年初めて参加させて頂いて、今年も是非!!と思っていたので参加してきました。
-前々から今年でYAPC::Asiaは最後です。と聞いていたので是が非でもと思っていた。&lt;/p&gt;
-&lt;p&gt;社内に引き篭もってると市場動向もわからなくなるし、
-井の中の蛙になってしまう。&lt;/p&gt;
-&lt;h2 id="_1"&gt;ざっくり感想を。&lt;/h2&gt;
-&lt;p&gt;インフラエンジニアな自分としてはconsul,stretcherは抑えておきたいなと。
-特にconsulのDNS機能を内部DNSとして使ってる事例を多く見かけて大変興味をそそられた。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="http://yapcasia.org/2015/talk/show/53aacc02-faca-11e4-8c2e-8ab37d574c3a"&gt;辛いことをやめる！から始まる業務改善とInfrastructure as Code&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;自分が抱えてる悩みに近いものがあり、すごく良い話を聞けた。&lt;/p&gt;
-&lt;p&gt;なかなか社外の方と交流することも少ないので、
-凄く刺激になるし自分も日々精進していかないと行けないなと
-モチベーションを取り戻すきっかけにもなります。&lt;/p&gt;
-&lt;h2 id="_2"&gt;最後に&lt;/h2&gt;
-&lt;p&gt;YAPC::Asia 楽しかったです。
-スピーカーをはじめ運営のみなさま、お疲れ様でした。
-そして、ありがとうございました。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Sun, 23 Aug 2015 21:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2015-08-23:2015/08/yapc-asia2015/</guid><category>perl</category></item><item><title>l2tp/ipsecでremote-access</title><link>http://tkr0429.github.io/2015/03/l2tpipsec/</link><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>tkr0429 blog</title><link>http://tkr0429.github.io/</link><description></description><atom:link href="http://tkr0429.github.io/feeds/tkr0429.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 03 Mar 2015 11:56:50 +0900</lastBuildDate><item><title>l2tp/ipsecでremote-access</title><link>http://tkr0429.github.io/2015/03/l2tpipsec/</link><description>
 &lt;h1 id="l2tpipsec-remoteaccess"&gt;l2tp/ipsec で RemoteAccess&lt;/h1&gt;
 &lt;p&gt;VPNゲートウェイを当初VyOSでやろうと思ってたけど、上手くipsec通らず挫折&lt;br/&gt;
 それならばと思いCentOS6+openswan+xl2tpでやるも挫折&lt;br/&gt;
