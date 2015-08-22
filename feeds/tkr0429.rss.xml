@@ -5,8 +5,8 @@
 前々から今年でYAPC::Asiaは最後です。と聞いていたので是が非でもと思っていた。&lt;/p&gt;
 &lt;p&gt;社内に引き篭もってると市場動向もわからなくなるし、
 井の中の蛙になってしまう。&lt;/p&gt;
-&lt;p&gt;ざっくり感想を。
-インフラエンジニアな自分としてはconsul,stretcherは抑えておきたいなと。
+&lt;h2 id="_1"&gt;ざっくり感想を。&lt;/h2&gt;
+&lt;p&gt;インフラエンジニアな自分としてはconsul,stretcherは抑えておきたいなと。
 特にconsulのDNS機能を内部DNSとして使ってる事例を多く見かけて大変興味をそそられた。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="http://yapcasia.org/2015/talk/show/53aacc02-faca-11e4-8c2e-8ab37d574c3a"&gt;辛いことをやめる！から始まる業務改善とInfrastructure as Code&lt;/a&gt;&lt;/li&gt;
@@ -15,7 +15,7 @@
 &lt;p&gt;なかなか社外の方と交流することも少ないので、
 凄く刺激になるし自分も日々精進していかないと行けないなと
 モチベーションを取り戻すきっかけにもなります。&lt;/p&gt;
-&lt;h2 id="_1"&gt;最後に&lt;/h2&gt;
+&lt;h2 id="_2"&gt;最後に&lt;/h2&gt;
 &lt;p&gt;YAPC::Asia 楽しかったです。
 スピーカーをはじめ運営のみなさま、お疲れ様でした。
 そして、ありがとうございました。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Sun, 23 Aug 2015 21:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2015-08-23:2015/08/yapc-asia2015/</guid><category>perl</category></item><item><title>l2tp/ipsecでremote-access</title><link>http://tkr0429.github.io/2015/03/l2tpipsec/</link><description>
