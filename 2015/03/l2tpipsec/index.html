@@ -274,7 +274,49 @@ tkr0429 blog            </a>
 <span class="n">service</span> <span class="n">xl2tpd</span> <span class="n">start</span>
 </pre></div>
 <h2 id="iphone">iPhone側</h2>
-<p>めんどくなったので後日書きます。</p>
+<p>設定 -&gt; 一般 -&gt; VPN -&gt; VPN構成を追加... </p>
+<table>
+<thead>
+<tr>
+<th>L2TP</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>説明</td>
+<td>わかりやすい任意の名称</td>
+</tr>
+<tr>
+<td>サーバ</td>
+<td>VPNサーバのGlobal-IP</td>
+</tr>
+<tr>
+<td>アカウント</td>
+<td>chap-secretsで記載したusername</td>
+</tr>
+<tr>
+<td>RSA SecurID</td>
+<td>オフ</td>
+</tr>
+<tr>
+<td>パスワード</td>
+<td>chap-secretsで記載したpassword</td>
+</tr>
+<tr>
+<td>シークレット</td>
+<td>default.secretsに記載したシークレットキー</td>
+</tr>
+<tr>
+<td>すべての暗号を送信</td>
+<td>VPN経由でインターネット通信する場合はオン</td>
+</tr>
+<tr>
+<td>プロキシ</td>
+<td>オフ</td>
+</tr>
+</tbody>
+</table>
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -359,13 +401,18 @@ tkr0429 blog            </a>
                 <li class="list-group-item"><a href="http://tkr0429.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                     <ul class="list-group " id="tags">
                         <li class="list-group-item tag-1">
+                            <a href="http://tkr0429.github.io/tag/python.html">
+                                python
+                            </a>
+                        </li>
+                        <li class="list-group-item tag-1">
                             <a href="http://tkr0429.github.io/tag/linux.html">
                                 linux
                             </a>
                         </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://tkr0429.github.io/tag/python.html">
-                                python
+                        <li class="list-group-item tag-2">
+                            <a href="http://tkr0429.github.io/tag/perl.html">
+                                perl
                             </a>
                         </li>
                         <li class="list-group-item tag-2">
@@ -374,18 +421,13 @@ tkr0429 blog            </a>
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/bash.html">
-                                bash
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
                             <a href="http://tkr0429.github.io/tag/glusterfs.html">
                                 glusterfs
                             </a>
                         </li>
                         <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/perl.html">
-                                perl
+                            <a href="http://tkr0429.github.io/tag/bash.html">
+                                bash
                             </a>
                         </li>
                     </ul>

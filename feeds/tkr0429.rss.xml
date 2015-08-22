@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>tkr0429 blog</title><link>http://tkr0429.github.io/</link><description></description><atom:link href="http://tkr0429.github.io/feeds/tkr0429.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 03 Mar 2015 11:56:50 +0900</lastBuildDate><item><title>l2tp/ipsecでremote-access</title><link>http://tkr0429.github.io/2015/03/l2tpipsec/</link><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>tkr0429 blog</title><link>http://tkr0429.github.io/</link><description></description><atom:link href="http://tkr0429.github.io/feeds/tkr0429.rss.xml" rel="self"></atom:link><lastBuildDate>Sat, 22 Aug 2015 21:00:00 +0900</lastBuildDate><item><title>YAPC::Asia 2015 Tokyoに行った話</title><link>http://tkr0429.github.io/2015/08/yapc-asia2015/</link><description>
+&lt;h1 id="yapcasia-2015-tokyo"&gt;YAPC::Asia 2015 Tokyo&lt;/h1&gt;
+&lt;p&gt;昨年初めて参加させて頂いて、今年も是非!!と思っていたので参加してきました。
+前々から今年でYAPC::Asiaは最後です。と聞いていたので是が非でもと思っていた。&lt;/p&gt;
+&lt;p&gt;社内に引き篭もってると市場動向もわからなくなるし、
+井の中の蛙になってしまう。&lt;/p&gt;
+&lt;p&gt;ざっくり感想を。
+インフラエンジニアな自分としてはconsul,stretcherは抑えておきたいなと。
+特にconsulのDNS機能を内部DNSとして使ってる事例を多く見かけて大変興味をそそられた。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;[辛いことをやめる！から始まる業務改善とInfrastructure as Code][http://yapcasia.org/2015/talk/show/53aacc02-faca-11e4-8c2e-8ab37d574c3a]
+自分が抱えてる悩みに近いものがあり、すごく良い話を聞けた。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;なかなか社外の方と交流することも少ないので、
+凄く刺激になるし自分も日々精進していかないと行けないなと
+モチベーションを取り戻すきっかけにもなります。&lt;/p&gt;
+&lt;h2 id="_1"&gt;最後に&lt;/h2&gt;
+&lt;p&gt;YAPC::Asia 楽しかったです。
+スピーカーをはじめ運営のみなさま、お疲れ様でした。
+そして、ありがとうございました。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Sat, 22 Aug 2015 21:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2015-08-22:2015/08/yapc-asia2015/</guid><category>perl</category></item><item><title>l2tp/ipsecでremote-access</title><link>http://tkr0429.github.io/2015/03/l2tpipsec/</link><description>
 &lt;h1 id="l2tpipsec-remoteaccess"&gt;l2tp/ipsec で RemoteAccess&lt;/h1&gt;
 &lt;p&gt;VPNゲートウェイを当初VyOSでやろうと思ってたけど、上手くipsec通らず挫折&lt;br/&gt;
 それならばと思いCentOS6+openswan+xl2tpでやるも挫折&lt;br/&gt;
@@ -151,7 +170,49 @@
 &lt;span class="n"&gt;service&lt;/span&gt; &lt;span class="n"&gt;xl2tpd&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id="iphone"&gt;iPhone側&lt;/h2&gt;
-&lt;p&gt;めんどくなったので後日書きます。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Tue, 03 Mar 2015 11:56:50 +0900</pubDate><guid>tag:tkr0429.github.io,2015-03-03:2015/03/l2tpipsec/</guid><category>linux</category></item><item><title>SSL証明書のペアを確認する</title><link>http://tkr0429.github.io/2014/10/ssl-pair/</link><description>
+&lt;p&gt;設定 -&amp;gt; 一般 -&amp;gt; VPN -&amp;gt; VPN構成を追加... &lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;L2TP&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;説明&lt;/td&gt;
+&lt;td&gt;わかりやすい任意の名称&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;サーバ&lt;/td&gt;
+&lt;td&gt;VPNサーバのGlobal-IP&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;アカウント&lt;/td&gt;
+&lt;td&gt;chap-secretsで記載したusername&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;RSA SecurID&lt;/td&gt;
+&lt;td&gt;オフ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;パスワード&lt;/td&gt;
+&lt;td&gt;chap-secretsで記載したpassword&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;シークレット&lt;/td&gt;
+&lt;td&gt;default.secretsに記載したシークレットキー&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;すべての暗号を送信&lt;/td&gt;
+&lt;td&gt;VPN経由でインターネット通信する場合はオン&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;プロキシ&lt;/td&gt;
+&lt;td&gt;オフ&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Tue, 03 Mar 2015 11:56:50 +0900</pubDate><guid>tag:tkr0429.github.io,2015-03-03:2015/03/l2tpipsec/</guid><category>linux</category></item><item><title>SSL証明書のペアを確認する</title><link>http://tkr0429.github.io/2014/10/ssl-pair/</link><description>
 &lt;p&gt;SSL証明書の設置作業でどのCRTとKEYがペアだったか分からなくなるので、
 以下のコマンドでペアが正しいか確認するメモ&lt;/p&gt;
 &lt;p&gt;md5の結果が一致していればペア&lt;/p&gt;
