@@ -85,7 +85,7 @@ tkr0429 blog            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-30T13:35:00"> 2014-09-30(火)</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-30T13:35:00+09:00"> 2014-09-30(火)</time>
     </span>
 
 
@@ -118,9 +118,9 @@ tkr0429 blog            </a>
 今回発見されたbashのバグについて感想を書きます。</p>
 <h2 id="_1">脆弱性の確認</h2>
 <p>下記のコマンドを実行した際に[vulnerable]が表示される場合は本脆弱性の対象です。</p>
-<div class="highlight"><pre><span class="cp"># env x='() { :;}; echo vulnerable' bash -c "echo this is a test"</span>
-<span class="n">vulnerable</span>
-<span class="n">this</span> <span class="n">is</span> <span class="n">a</span> <span class="n">test</span>
+<div class="highlight"><pre># env x='() { :;}; echo vulnerable' bash -c "echo this is a test"
+vulnerable
+this is a test
 </pre></div>
 <p>既に対策済みであれば下記の様にエラー出力や、[this is a test]のみの出力になるかと思います。</p>
 <div class="highlight"><pre><span class="err">#</span> <span class="nx">env</span> <span class="nx">x</span><span class="o">=</span><span class="s1">'() { :;}; echo vulnerable'</span> <span class="nx">bash</span> <span class="o">-</span><span class="nx">c</span> <span class="s2">"echo this is a test"</span>
@@ -156,27 +156,27 @@ tkr0429 blog            </a>
 </ul>
 <p>また、色々な大人の事情でupdateを適用出来ない場合などは下記を実施しておいた方が良いでしょう。</p>
 <p>ダウンロード: <a href="https://access.redhat.com/sites/default/files/attachments/bash_ld_preload.c">bash_ld_preload.c</a></p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">wget</span> <span class="n">https</span><span class="o">:</span><span class="c1">//access.redhat.com/sites/default/files/attachments/bash_ld_preload.c</span>
+<div class="highlight"><pre><span class="nv">$ </span>wget https://access.redhat.com/sites/default/files/attachments/bash_ld_preload.c
 </pre></div>
 <p>チェックサムの確認</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">sha256sum</span> <span class="n">bash_ld_preload</span><span class="p">.</span><span class="n">c</span>
-<span class="mi">28</span><span class="n">cb0ab767a95dc2f50a515106f6a9be0f4167f9e5dbc47db9b7788798eef153</span> <span class="n">bash_ld_preload</span><span class="p">.</span><span class="n">c</span>
+<div class="highlight"><pre><span class="nv">$ </span>sha256sum bash_ld_preload.c
+28cb0ab767a95dc2f50a515106f6a9be0f4167f9e5dbc47db9b7788798eef153 bash_ld_preload.c
 </pre></div>
 <p>コンパイル</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="n">gcc</span> <span class="n">bash_ld_preload</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">fPIC</span> <span class="o">-</span><span class="n">shared</span> <span class="o">-</span><span class="n">Wl</span><span class="p">,</span><span class="o">-</span><span class="n">soname</span><span class="p">,</span><span class="n">bash_ld_preload</span><span class="p">.</span><span class="n">so</span><span class="mf">.1</span> <span class="o">-</span><span class="n">o</span> <span class="n">bash_ld_preload</span><span class="p">.</span><span class="n">so</span>
+<div class="highlight"><pre><span class="nv">$ </span>gcc bash_ld_preload.c -fPIC -shared -Wl,-soname,bash_ld_preload.so.1 -o bash_ld_preload.so
 </pre></div>
 <p>コンパイル済みライブラリの配置</p>
-<div class="highlight"><pre><span class="c"># cp bash_ld_preload.so /lib/</span>
+<div class="highlight"><pre># cp bash_ld_preload.so /lib/
 </pre></div>
 <p>ld.so.preloadファイルの作成</p>
-<div class="highlight"><pre><span class="cp"># vi /etc/ld.so.preload</span>
-<span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">bash_ld_preload</span><span class="p">.</span><span class="n">so</span>
+<div class="highlight"><pre># vi /etc/ld.so.preload
+/lib/bash_ld_preload.so
 </pre></div>
 <p>ライブラリの再読み込み</p>
-<div class="highlight"><pre><span class="c"># ldconfig</span>
+<div class="highlight"><pre># ldconfig
 </pre></div>
 <p>Apacheの再起動</p>
-<div class="highlight"><pre><span class="c"># service httpd restart</span>
+<div class="highlight"><pre># service httpd restart
 </pre></div>
 <p>可能であればOS再起動するのが望ましいと思います。</p>
 <h1 id="msp">MSPとしての対応</h1>
@@ -274,36 +274,6 @@ bashのshellshockについても同様で、脆弱性を残したまま放置さ
 
                 <li class="list-group-item"><a href="http://tkr0429.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                     <ul class="list-group " id="tags">
-                        <li class="list-group-item tag-1">
-                            <a href="http://tkr0429.github.io/tag/python.html">
-                                python
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://tkr0429.github.io/tag/linux.html">
-                                linux
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-2">
-                            <a href="http://tkr0429.github.io/tag/ansible.html">
-                                ansible
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
-                                glusterfs
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/perl.html">
-                                perl
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/bash.html">
-                                bash
-                            </a>
-                        </li>
                     </ul>
                 </li>    
 

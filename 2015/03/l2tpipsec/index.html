@@ -86,7 +86,7 @@ tkr0429 blog            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2015-03-03T11:56:50"> 2015-03-03(火)</time>
+        <i class="fa fa-calendar"></i><time datetime="2015-03-03T11:56:50+09:00"> 2015-03-03(火)</time>
     </span>
 
 
@@ -147,7 +147,7 @@ tkr0429 blog            </a>
 <img alt="ネットワーク図" src="/images/ipsec1.png"/></p>
 <h2 id="_5">パッケージインストール</h2>
 <p>epelレポジトリが追加してあること前提です。</p>
-<div class="highlight"><pre><span class="n">yum</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">libreswan</span> <span class="n">xl2tpd</span> <span class="n">lsof</span>
+<div class="highlight"><pre>yum -y install libreswan xl2tpd lsof
 </pre></div>
 <h2 id="l2tp">l2tp設定</h2>
 <ul>
@@ -168,80 +168,80 @@ tkr0429 blog            </a>
 <ul>
 <li>/etc/ppp/options.xl2tpd</li>
 </ul>
-<div class="highlight"><pre><span class="n">name</span> <span class="n">xl2tpd</span>
-<span class="n">linkname</span> <span class="n">l2tp</span>
-<span class="n">ipcp</span><span class="o">-</span><span class="n">accept</span><span class="o">-</span><span class="n">local</span>
-<span class="n">ipcp</span><span class="o">-</span><span class="n">accept</span><span class="o">-</span><span class="n">remote</span>
-<span class="n">ms</span><span class="o">-</span><span class="n">dns</span> <span class="mf">192.168.100.1</span>
-<span class="n">ms</span><span class="o">-</span><span class="n">dns</span> <span class="mf">8.8.8.8</span>
-<span class="n">noccp</span>
-<span class="n">auth</span>
-<span class="n">crtscts</span>
-<span class="n">idle</span> <span class="mi">1800</span>
-<span class="n">mtu</span> <span class="mi">1426</span>
-<span class="n">mru</span> <span class="mi">1426</span>
-<span class="n">nodefaultroute</span>
-<span class="n">debug</span>
-<span class="n">lock</span>
-<span class="n">proxyarp</span>
-<span class="n">connect</span><span class="o">-</span><span class="n">delay</span> <span class="mi">5000</span>
-<span class="n">netmask</span> <span class="mf">255.255.255.0</span>
-<span class="n">persist</span>
-<span class="n">require</span><span class="o">-</span><span class="n">mschap</span><span class="o">-</span><span class="n">v2</span>
-<span class="n">logfile</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">xl2tpd</span><span class="p">.</span><span class="n">log</span>
+<div class="highlight"><pre>name xl2tpd
+linkname l2tp
+ipcp-accept-local
+ipcp-accept-remote
+ms-dns 192.168.100.1
+ms-dns 8.8.8.8
+noccp
+auth
+crtscts
+idle 1800
+mtu 1426
+mru 1426
+nodefaultroute
+debug
+lock
+proxyarp
+connect-delay 5000
+netmask 255.255.255.0
+persist
+require-mschap-v2
+logfile /var/log/xl2tpd.log
 </pre></div>
 <ul>
 <li>/etc/ppp/chap-secrets</li>
 </ul>
-<div class="highlight"><pre><span class="s">"username"</span> <span class="o">*</span> <span class="s">"password"</span> <span class="o">*</span>
+<div class="highlight"><pre>"username" * "password" *
 </pre></div>
 <p>usernameとpasswordは書き換えてね。</p>
 <h2 id="ipsec">ipsecの設定</h2>
 <ul>
 <li>/etc/ipsec.conf</li>
 </ul>
-<div class="highlight"><pre><span class="n">config</span> <span class="n">setup</span>
-    <span class="n">protostack</span><span class="o">=</span><span class="n">netkey</span>
-    <span class="n">dumpdir</span><span class="o">=/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">pluto</span><span class="o">/</span>
-    <span class="n">nat_traversal</span><span class="o">=</span><span class="n">yes</span>
-    <span class="n">virtual_private</span><span class="o">=%</span><span class="n">v4</span><span class="o">:</span><span class="mf">10.0.0.0</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span><span class="o">%</span><span class="n">v4</span><span class="o">:</span><span class="mf">192.168.0.0</span><span class="o">/</span><span class="mi">16</span><span class="p">,</span><span class="o">%</span><span class="n">v4</span><span class="o">:</span><span class="mf">172.16.0.0</span><span class="o">/</span><span class="mi">12</span><span class="p">,</span><span class="o">%</span><span class="n">v4</span><span class="o">:</span><span class="mf">25.0.0.0</span><span class="o">/</span><span class="mi">8</span><span class="p">,</span><span class="o">%</span><span class="n">v4</span><span class="o">:</span><span class="mf">100.64.0.0</span><span class="o">/</span><span class="mi">10</span><span class="p">,</span><span class="o">%</span><span class="n">v6</span><span class="o">:</span><span class="n">fd00</span><span class="o">::/</span><span class="mi">8</span><span class="p">,</span><span class="o">%</span><span class="n">v6</span><span class="o">:</span><span class="n">fe80</span><span class="o">::/</span><span class="mi">10</span>
-<span class="n">include</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ipsec</span><span class="p">.</span><span class="n">d</span><span class="o">/*</span><span class="p">.</span><span class="n">conf</span>
+<div class="highlight"><pre>config setup
+    protostack=netkey
+    dumpdir=/var/run/pluto/
+    nat_traversal=yes
+    virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v4:25.0.0.0/8,%v4:100.64.0.0/10,%v6:fd00::/8,%v6:fe80::/10
+include /etc/ipsec.d/*.conf
 </pre></div>
 <ul>
 <li>/etc/ipsec.d/ipsec.conf</li>
 </ul>
-<div class="highlight"><pre><span class="n">conn</span> <span class="n">L2TP</span><span class="o">-</span><span class="n">PSK</span><span class="o">-</span><span class="n">NAT</span>
-    <span class="n">rightsubnet</span><span class="o">=</span><span class="mf">0.0.0.0</span><span class="o">/</span><span class="mi">0</span>
-    <span class="n">forceencaps</span><span class="o">=</span><span class="n">yes</span>
-    <span class="n">also</span><span class="o">=</span><span class="n">L2TP</span><span class="o">-</span><span class="n">PSK</span><span class="o">-</span><span class="n">noNAT</span>
+<div class="highlight"><pre>conn L2TP-PSK-NAT
+    rightsubnet=0.0.0.0/0
+    forceencaps=yes
+    also=L2TP-PSK-noNAT
 
-<span class="n">conn</span> <span class="n">L2TP</span><span class="o">-</span><span class="n">PSK</span><span class="o">-</span><span class="n">noNAT</span>
-    <span class="n">dpddelay</span><span class="o">=</span><span class="mi">10</span>
-    <span class="n">dpdtimeout</span><span class="o">=</span><span class="mi">20</span>
-    <span class="n">dpdaction</span><span class="o">=</span><span class="n">clear</span>
-    <span class="n">authby</span><span class="o">=</span><span class="n">secret</span>
-    <span class="n">pfs</span><span class="o">=</span><span class="n">no</span>
-    <span class="k">auto</span><span class="o">=</span><span class="n">add</span>
-    <span class="n">keyingtries</span><span class="o">=</span><span class="mi">3</span>
-    <span class="n">rekey</span><span class="o">=</span><span class="n">no</span>
-    <span class="n">ikelifetime</span><span class="o">=</span><span class="mi">8</span><span class="n">h</span>
-    <span class="n">keylife</span><span class="o">=</span><span class="mi">1</span><span class="n">h</span>
-    <span class="n">type</span><span class="o">=</span><span class="n">transport</span>
-    <span class="n">left</span><span class="o">=%</span><span class="n">defaultroute</span>
-    <span class="n">leftprotoport</span><span class="o">=</span><span class="mi">17</span><span class="o">/</span><span class="mi">1701</span>
-    <span class="n">right</span><span class="o">=%</span><span class="n">any</span>
-    <span class="n">rightprotoport</span><span class="o">=</span><span class="mi">17</span><span class="o">/%</span><span class="n">any</span>
+conn L2TP-PSK-noNAT
+    dpddelay=10
+    dpdtimeout=20
+    dpdaction=clear
+    authby=secret
+    pfs=no
+    auto=add
+    keyingtries=3
+    rekey=no
+    ikelifetime=8h
+    keylife=1h
+    type=transport
+    left=%defaultroute
+    leftprotoport=17/1701
+    right=%any
+    rightprotoport=17/%any
 </pre></div>
 <p>iOSは切断のシグナルを送らずに切ってくれるので<br/>
 以下の設定を/etc/ipsec.d/ipsec.confに入れておく。</p>
-<div class="highlight"><pre><span class="n">dpddelay</span><span class="o">=</span><span class="mi">10</span>
-<span class="n">dpdtimeout</span><span class="o">=</span><span class="mi">20</span>
-<span class="n">dpdaction</span><span class="o">=</span><span class="n">clear</span>
+<div class="highlight"><pre>dpddelay=10
+dpdtimeout=20
+dpdaction=clear
 </pre></div>
 <p>シークレットパスワードの設定<br/>
 仮でvpnにしてます。
 - /etc/ipsec.d/ipsec.secrets</p>
-<div class="highlight"><pre><span class="o">:</span> <span class="n">PSK</span> <span class="s">"vpn"</span>
+<div class="highlight"><pre>: PSK "vpn"
 </pre></div>
 <h2 id="_6">システム設定</h2>
 <p>sysctl.confに下記を追記<br/>
@@ -249,29 +249,29 @@ tkr0429 blog            </a>
 <ul>
 <li>/etc/sysctl.conf</li>
 </ul>
-<div class="highlight"><pre><span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">all</span><span class="p">.</span><span class="n">accept_redirects</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">accept_redirects</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">eth0</span><span class="p">.</span><span class="n">accept_redirects</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">lo</span><span class="p">.</span><span class="n">accept_redirects</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">all</span><span class="p">.</span><span class="n">send_redirects</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">send_redirects</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">eth0</span><span class="p">.</span><span class="n">send_redirects</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">lo</span><span class="p">.</span><span class="n">send_redirects</span> <span class="o">=</span> <span class="mi">0</span>
+<div class="highlight"><pre>net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.default.accept_redirects = 0
+net.ipv4.conf.eth0.accept_redirects = 0
+net.ipv4.conf.lo.accept_redirects = 0
+net.ipv4.conf.all.send_redirects = 0
+net.ipv4.conf.default.send_redirects = 0
+net.ipv4.conf.eth0.send_redirects = 0
+net.ipv4.conf.lo.send_redirects = 0
 
-<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="k">default</span><span class="p">.</span><span class="n">rp_filter</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">lo</span><span class="p">.</span><span class="n">rp_filter</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">eth0</span><span class="p">.</span><span class="n">rp_filter</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">eth1</span><span class="p">.</span><span class="n">rp_filter</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="n">net</span><span class="p">.</span><span class="n">ipv4</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">all</span><span class="p">.</span><span class="n">rp_filter</span> <span class="o">=</span> <span class="mi">2</span>
+net.ipv4.conf.default.rp_filter = 2
+net.ipv4.conf.lo.rp_filter = 2
+net.ipv4.conf.eth0.rp_filter = 2
+net.ipv4.conf.eth1.rp_filter = 2
+net.ipv4.conf.all.rp_filter = 2
 </pre></div>
 <p>で、反映する。</p>
-<div class="highlight"><pre><span class="n">sysctl</span> <span class="o">-</span><span class="n">p</span>
+<div class="highlight"><pre>sysctl -p
 </pre></div>
 <h3 id="os">OS起動時の自動起動とサービス起動</h3>
-<div class="highlight"><pre><span class="n">chkconfig</span> <span class="n">ipsec</span> <span class="n">on</span>
-<span class="n">chkconfig</span> <span class="n">xl2tpd</span> <span class="n">on</span>
-<span class="n">service</span> <span class="n">ipsec</span> <span class="n">start</span>
-<span class="n">service</span> <span class="n">xl2tpd</span> <span class="n">start</span>
+<div class="highlight"><pre>chkconfig ipsec on
+chkconfig xl2tpd on
+service ipsec start
+service xl2tpd start
 </pre></div>
 <h2 id="iphone">iPhone側</h2>
 <p>設定 -&gt; 一般 -&gt; VPN -&gt; VPN構成を追加... </p>
@@ -400,36 +400,6 @@ tkr0429 blog            </a>
 
                 <li class="list-group-item"><a href="http://tkr0429.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                     <ul class="list-group " id="tags">
-                        <li class="list-group-item tag-1">
-                            <a href="http://tkr0429.github.io/tag/python.html">
-                                python
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://tkr0429.github.io/tag/linux.html">
-                                linux
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-2">
-                            <a href="http://tkr0429.github.io/tag/ansible.html">
-                                ansible
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
-                                glusterfs
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/perl.html">
-                                perl
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/bash.html">
-                                bash
-                            </a>
-                        </li>
                     </ul>
                 </li>    
 

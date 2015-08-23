@@ -5,105 +5,112 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://tkr0429.github.io/index.html</loc>
-<lastmod>2015-08-23T02:36:36-00:00</lastmod>
+<lastmod>2015-08-23T20:11:04-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/archives.html</loc>
-<lastmod>2015-08-23T02:36:36-00:00</lastmod>
+<lastmod>2015-08-23T20:11:04-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/tags.html</loc>
-<lastmod>2015-08-23T02:36:36-00:00</lastmod>
+<lastmod>2015-08-23T20:11:04-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/categories.html</loc>
-<lastmod>2015-08-23T02:36:36-00:00</lastmod>
+<lastmod>2015-08-23T20:11:04-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
+<loc>http://tkr0429.github.io/2015/08/yapc-asia2015/</loc>
+<lastmod>2015-08-23T19:00:00:%s</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
 <loc>http://tkr0429.github.io/2015/03/l2tpipsec/</loc>
-<lastmod>2015-03-03T11:56:50-00:00</lastmod>
+<lastmod>2015-03-03T11:56:50:%s</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/2014/10/ssl-pair/</loc>
-<lastmod>2014-10-17T13:02:15-00:00</lastmod>
+<lastmod>2014-10-17T13:02:15:%s</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/2014/10/centos7-runlevel/</loc>
-<lastmod>2014-10-07T00:29:32-00:00</lastmod>
+<lastmod>2014-10-07T00:29:32:%s</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/2014/10/p400i/</loc>
-<lastmod>2014-10-06T19:59:00-00:00</lastmod>
+<lastmod>2014-10-06T19:59:00:%s</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/2014/09/shellshock/</loc>
-<lastmod>2014-09-30T13:35:00-00:00</lastmod>
+<lastmod>2014-09-30T13:35:00:%s</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/2014/09/glusterfs1/</loc>
-<lastmod>2014-09-16T14:00:00-00:00</lastmod>
+<lastmod>2014-09-16T14:00:00:%s</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/2014/09/ansible-su/</loc>
-<lastmod>2014-09-12T18:00:00-00:00</lastmod>
+<lastmod>2014-09-12T18:00:00:%s</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/2014/09/ansible-pass-and-suroot/</loc>
-<lastmod>2014-09-08T20:00:00-00:00</lastmod>
+<lastmod>2014-09-08T20:00:00:%s</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/2014/09/yapc-asia/</loc>
-<lastmod>2014-09-08T17:00:00-00:00</lastmod>
+<lastmod>2014-09-08T17:00:00:%s</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/2014/09/first-post/</loc>
-<lastmod>2014-09-08T13:00:00-00:00</lastmod>
+<lastmod>2014-09-08T13:00:00:%s</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://tkr0429.github.io/category/blog.html</loc>
-<lastmod>2015-03-03T11:56:50-00:00</lastmod>
+<lastmod>2015-08-23T19:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -117,7 +124,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://tkr0429.github.io/tag/perl.html</loc>
-<lastmod>2014-09-08T17:00:00-00:00</lastmod>
+<lastmod>2015-08-23T19:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -152,7 +159,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://tkr0429.github.io/author/tkr0429.html</loc>
-<lastmod>2015-03-03T11:56:50-00:00</lastmod>
+<lastmod>2015-08-23T19:00:00-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>

@@ -85,7 +85,7 @@ tkr0429 blog            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-10-06T19:59:00"> 2014-10-06(月)</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-10-06T19:59:00+09:00"> 2014-10-06(月)</time>
     </span>
 
 
@@ -118,7 +118,7 @@ RAIDカードが正常に見えないようでDiskが表示されない。</p>
 <h2 id="_2">インストール</h2>
 <p>起動画面で「Install CentOS 7」を選択した状態で「Tab」を押し<br/>
 インストールメディアからのbootオプションで下記を追記</p>
-<div class="highlight"><pre><span class="n">hpsa</span><span class="p">.</span><span class="n">hpsa_simple_mode</span><span class="o">=</span><span class="mi">1</span> <span class="n">hpsa</span><span class="p">.</span><span class="n">hpsa_allow_any</span><span class="o">=</span><span class="mi">1</span>
+<div class="highlight"><pre>hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1
 </pre></div>
 <p><img alt="boot" src="/images/boot.png"/></p>
 <p>後は通常通りDiskパーティションを設定したりパッケージを選択したりして終了。</p>
@@ -141,7 +141,7 @@ RAIDカードが正常に見えないようでDiskが表示されない。</p>
 <p><img alt="rescue5" src="/images/rescue5.png"/></p>
 <p>ここまで進むとコマンドプロンプトの画面になります。  </p>
 <p>レスキューモードで起動させたら/mnt/sysimageをchrootします。</p>
-<div class="highlight"><pre><span class="n">chroot</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">sysimage</span>
+<div class="highlight"><pre>chroot /mnt/sysimage
 </pre></div>
 <p>viで/etc/default/grubを変更します。<br/>
 GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。</p>
@@ -149,12 +149,12 @@ GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。</p>
 <li>GRUB_CMDLINE_LINUX<br/>
   カーネルのコマンドラインオプションに追加したい場合に指定するためのパラメータです。 </li>
 </ul>
-<div class="highlight"><pre><span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s">"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"</span>
-<span class="err">↓</span>
-<span class="n">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s">"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"</span>
+<div class="highlight"><pre>GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"
+↓
+GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"
 </pre></div>
 <p>grub2-mkconfigでgrub.confを生成します。</p>
-<div class="highlight"><pre><span class="n">grub2</span><span class="o">-</span><span class="n">mkconfig</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">grub2</span><span class="o">/</span><span class="n">grub</span><span class="p">.</span><span class="n">cfg</span>
+<div class="highlight"><pre>grub2-mkconfig -o /boot/grub2/grub.cfg
 </pre></div>
 <p>※参考URL
 - <a href="http://serverfault.com/questions/611182/centos-7-x64-and-hp-proliant-dl360-g5-scsi-controller-compatibility">StackOverflow</a></p>
@@ -241,36 +241,6 @@ GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。</p>
 
                 <li class="list-group-item"><a href="http://tkr0429.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                     <ul class="list-group " id="tags">
-                        <li class="list-group-item tag-1">
-                            <a href="http://tkr0429.github.io/tag/python.html">
-                                python
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://tkr0429.github.io/tag/linux.html">
-                                linux
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-2">
-                            <a href="http://tkr0429.github.io/tag/ansible.html">
-                                ansible
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
-                                glusterfs
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/perl.html">
-                                perl
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/bash.html">
-                                bash
-                            </a>
-                        </li>
                     </ul>
                 </li>    
 

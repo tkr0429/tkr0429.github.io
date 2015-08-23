@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>tkr0429 blog</title><link>http://tkr0429.github.io/</link><description></description><atom:link href="http://tkr0429.github.io/feeds/tkr0429.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 03 Mar 2015 11:56:50 +0900</lastBuildDate><item><title>l2tp/ipsecでremote-access</title><link>http://tkr0429.github.io/2015/03/l2tpipsec/</link><description>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>tkr0429 blog</title><link>http://tkr0429.github.io/</link><description></description><atom:link href="http://tkr0429.github.io/feeds/tkr0429.rss.xml" rel="self"></atom:link><lastBuildDate>Sun, 23 Aug 2015 19:00:00 +0900</lastBuildDate><item><title>YAPC::Asia 2015 Tokyoに行った話</title><link>http://tkr0429.github.io/2015/08/yapc-asia2015/</link><description>
+&lt;h1 id="yapcasia-2015-tokyo"&gt;YAPC::Asia 2015 Tokyo&lt;/h1&gt;
+&lt;p&gt;昨年初めて参加させて頂いて、今年も是非!!と思っていたので参加してきました。
+前々から今年でYAPC::Asiaは最後です。と聞いていたので是が非でもと思っていた。&lt;/p&gt;
+&lt;p&gt;社内に引き篭もってると市場動向もわからなくなるし、
+井の中の蛙になってしまう。&lt;/p&gt;
+&lt;h3 id="_1"&gt;ざっくり感想を。&lt;/h3&gt;
+&lt;p&gt;インフラエンジニアな自分としてはconsul,stretcherは抑えておきたいなと。
+特にconsulのDNS機能を内部DNSとして使ってる事例を多く見かけて大変興味をそそられた。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://yapcasia.org/2015/talk/show/53aacc02-faca-11e4-8c2e-8ab37d574c3a"&gt;辛いことをやめる！から始まる業務改善とInfrastructure as Code&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;自分が抱えてる悩みに近いものがあり、すごく良い話を聞けた。&lt;/p&gt;
+&lt;p&gt;なかなか社外の方と交流することも少ないので、
+凄く刺激になるし自分も日々精進していかないと行けないなと
+モチベーションを取り戻すきっかけにもなります。&lt;/p&gt;
+&lt;h3 id="_2"&gt;最後に&lt;/h3&gt;
+&lt;p&gt;YAPC::Asia 楽しかったです。
+スピーカーをはじめ運営のみなさま、お疲れ様でした。
+そして、ありがとうございました。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Sun, 23 Aug 2015 19:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2015-08-23:2015/08/yapc-asia2015/</guid><category>perl</category></item><item><title>l2tp/ipsecでremote-access</title><link>http://tkr0429.github.io/2015/03/l2tpipsec/</link><description>
 &lt;h1 id="l2tpipsec-remoteaccess"&gt;l2tp/ipsec で RemoteAccess&lt;/h1&gt;
 &lt;p&gt;VPNゲートウェイを当初VyOSでやろうと思ってたけど、上手くipsec通らず挫折&lt;br/&gt;
 それならばと思いCentOS6+openswan+xl2tpでやるも挫折&lt;br/&gt;
@@ -24,7 +43,7 @@
 &lt;img alt="ネットワーク図" src="/images/ipsec1.png"/&gt;&lt;/p&gt;
 &lt;h2 id="_5"&gt;パッケージインストール&lt;/h2&gt;
 &lt;p&gt;epelレポジトリが追加してあること前提です。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;yum&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;y&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;libreswan&lt;/span&gt; &lt;span class="n"&gt;xl2tpd&lt;/span&gt; &lt;span class="n"&gt;lsof&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;yum -y install libreswan xl2tpd lsof
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id="l2tp"&gt;l2tp設定&lt;/h2&gt;
 &lt;ul&gt;
@@ -45,80 +64,80 @@
 &lt;ul&gt;
 &lt;li&gt;/etc/ppp/options.xl2tpd&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;name&lt;/span&gt; &lt;span class="n"&gt;xl2tpd&lt;/span&gt;
-&lt;span class="n"&gt;linkname&lt;/span&gt; &lt;span class="n"&gt;l2tp&lt;/span&gt;
-&lt;span class="n"&gt;ipcp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;accept&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;local&lt;/span&gt;
-&lt;span class="n"&gt;ipcp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;accept&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;remote&lt;/span&gt;
-&lt;span class="n"&gt;ms&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dns&lt;/span&gt; &lt;span class="mf"&gt;192.168.100.1&lt;/span&gt;
-&lt;span class="n"&gt;ms&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;dns&lt;/span&gt; &lt;span class="mf"&gt;8.8.8.8&lt;/span&gt;
-&lt;span class="n"&gt;noccp&lt;/span&gt;
-&lt;span class="n"&gt;auth&lt;/span&gt;
-&lt;span class="n"&gt;crtscts&lt;/span&gt;
-&lt;span class="n"&gt;idle&lt;/span&gt; &lt;span class="mi"&gt;1800&lt;/span&gt;
-&lt;span class="n"&gt;mtu&lt;/span&gt; &lt;span class="mi"&gt;1426&lt;/span&gt;
-&lt;span class="n"&gt;mru&lt;/span&gt; &lt;span class="mi"&gt;1426&lt;/span&gt;
-&lt;span class="n"&gt;nodefaultroute&lt;/span&gt;
-&lt;span class="n"&gt;debug&lt;/span&gt;
-&lt;span class="n"&gt;lock&lt;/span&gt;
-&lt;span class="n"&gt;proxyarp&lt;/span&gt;
-&lt;span class="n"&gt;connect&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;delay&lt;/span&gt; &lt;span class="mi"&gt;5000&lt;/span&gt;
-&lt;span class="n"&gt;netmask&lt;/span&gt; &lt;span class="mf"&gt;255.255.255.0&lt;/span&gt;
-&lt;span class="n"&gt;persist&lt;/span&gt;
-&lt;span class="n"&gt;require&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mschap&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;v2&lt;/span&gt;
-&lt;span class="n"&gt;logfile&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;xl2tpd&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;name xl2tpd
+linkname l2tp
+ipcp-accept-local
+ipcp-accept-remote
+ms-dns 192.168.100.1
+ms-dns 8.8.8.8
+noccp
+auth
+crtscts
+idle 1800
+mtu 1426
+mru 1426
+nodefaultroute
+debug
+lock
+proxyarp
+connect-delay 5000
+netmask 255.255.255.0
+persist
+require-mschap-v2
+logfile /var/log/xl2tpd.log
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;/etc/ppp/chap-secrets&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="s"&gt;"username"&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="s"&gt;"password"&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;"username" * "password" *
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;usernameとpasswordは書き換えてね。&lt;/p&gt;
 &lt;h2 id="ipsec"&gt;ipsecの設定&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;/etc/ipsec.conf&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="n"&gt;setup&lt;/span&gt;
-    &lt;span class="n"&gt;protostack&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;netkey&lt;/span&gt;
-    &lt;span class="n"&gt;dumpdir&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;var&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;pluto&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;
-    &lt;span class="n"&gt;nat_traversal&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
-    &lt;span class="n"&gt;virtual_private&lt;/span&gt;&lt;span class="o"&gt;=%&lt;/span&gt;&lt;span class="n"&gt;v4&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;10.0.0.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;v4&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;192.168.0.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;v4&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;172.16.0.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;v4&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;25.0.0.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;v4&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;100.64.0.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;fd00&lt;/span&gt;&lt;span class="o"&gt;::/&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="n"&gt;v6&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="n"&gt;fe80&lt;/span&gt;&lt;span class="o"&gt;::/&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;
-&lt;span class="n"&gt;include&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;etc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;ipsec&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;d&lt;/span&gt;&lt;span class="o"&gt;/*&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;config setup
+    protostack=netkey
+    dumpdir=/var/run/pluto/
+    nat_traversal=yes
+    virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v4:25.0.0.0/8,%v4:100.64.0.0/10,%v6:fd00::/8,%v6:fe80::/10
+include /etc/ipsec.d/*.conf
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;/etc/ipsec.d/ipsec.conf&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;conn&lt;/span&gt; &lt;span class="n"&gt;L2TP&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;PSK&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;NAT&lt;/span&gt;
-    &lt;span class="n"&gt;rightsubnet&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mf"&gt;0.0.0.0&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
-    &lt;span class="n"&gt;forceencaps&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;yes&lt;/span&gt;
-    &lt;span class="n"&gt;also&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;L2TP&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;PSK&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;noNAT&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;conn L2TP-PSK-NAT
+    rightsubnet=0.0.0.0/0
+    forceencaps=yes
+    also=L2TP-PSK-noNAT
 
-&lt;span class="n"&gt;conn&lt;/span&gt; &lt;span class="n"&gt;L2TP&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;PSK&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;noNAT&lt;/span&gt;
-    &lt;span class="n"&gt;dpddelay&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;
-    &lt;span class="n"&gt;dpdtimeout&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;
-    &lt;span class="n"&gt;dpdaction&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;clear&lt;/span&gt;
-    &lt;span class="n"&gt;authby&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;secret&lt;/span&gt;
-    &lt;span class="n"&gt;pfs&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;no&lt;/span&gt;
-    &lt;span class="k"&gt;auto&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;add&lt;/span&gt;
-    &lt;span class="n"&gt;keyingtries&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;
-    &lt;span class="n"&gt;rekey&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;no&lt;/span&gt;
-    &lt;span class="n"&gt;ikelifetime&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;
-    &lt;span class="n"&gt;keylife&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="n"&gt;h&lt;/span&gt;
-    &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;transport&lt;/span&gt;
-    &lt;span class="n"&gt;left&lt;/span&gt;&lt;span class="o"&gt;=%&lt;/span&gt;&lt;span class="n"&gt;defaultroute&lt;/span&gt;
-    &lt;span class="n"&gt;leftprotoport&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mi"&gt;1701&lt;/span&gt;
-    &lt;span class="n"&gt;right&lt;/span&gt;&lt;span class="o"&gt;=%&lt;/span&gt;&lt;span class="n"&gt;any&lt;/span&gt;
-    &lt;span class="n"&gt;rightprotoport&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;17&lt;/span&gt;&lt;span class="o"&gt;/%&lt;/span&gt;&lt;span class="n"&gt;any&lt;/span&gt;
+conn L2TP-PSK-noNAT
+    dpddelay=10
+    dpdtimeout=20
+    dpdaction=clear
+    authby=secret
+    pfs=no
+    auto=add
+    keyingtries=3
+    rekey=no
+    ikelifetime=8h
+    keylife=1h
+    type=transport
+    left=%defaultroute
+    leftprotoport=17/1701
+    right=%any
+    rightprotoport=17/%any
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;iOSは切断のシグナルを送らずに切ってくれるので&lt;br/&gt;
 以下の設定を/etc/ipsec.d/ipsec.confに入れておく。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;dpddelay&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;
-&lt;span class="n"&gt;dpdtimeout&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;20&lt;/span&gt;
-&lt;span class="n"&gt;dpdaction&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;clear&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;dpddelay=10
+dpdtimeout=20
+dpdaction=clear
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;シークレットパスワードの設定&lt;br/&gt;
 仮でvpnにしてます。
 - /etc/ipsec.d/ipsec.secrets&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;PSK&lt;/span&gt; &lt;span class="s"&gt;"vpn"&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;: PSK "vpn"
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id="_6"&gt;システム設定&lt;/h2&gt;
 &lt;p&gt;sysctl.confに下記を追記&lt;br/&gt;
@@ -126,29 +145,29 @@
 &lt;ul&gt;
 &lt;li&gt;/etc/sysctl.conf&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accept_redirects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accept_redirects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;eth0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accept_redirects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;accept_redirects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_redirects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_redirects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;eth0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_redirects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_redirects&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.default.accept_redirects = 0
+net.ipv4.conf.eth0.accept_redirects = 0
+net.ipv4.conf.lo.accept_redirects = 0
+net.ipv4.conf.all.send_redirects = 0
+net.ipv4.conf.default.send_redirects = 0
+net.ipv4.conf.eth0.send_redirects = 0
+net.ipv4.conf.lo.send_redirects = 0
 
-&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rp_filter&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
-&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lo&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rp_filter&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
-&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;eth0&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rp_filter&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
-&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;eth1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rp_filter&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
-&lt;span class="n"&gt;net&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ipv4&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;conf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;rp_filter&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+net.ipv4.conf.default.rp_filter = 2
+net.ipv4.conf.lo.rp_filter = 2
+net.ipv4.conf.eth0.rp_filter = 2
+net.ipv4.conf.eth1.rp_filter = 2
+net.ipv4.conf.all.rp_filter = 2
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;で、反映する。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sysctl&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;sysctl -p
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h3 id="os"&gt;OS起動時の自動起動とサービス起動&lt;/h3&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;chkconfig&lt;/span&gt; &lt;span class="n"&gt;ipsec&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt;
-&lt;span class="n"&gt;chkconfig&lt;/span&gt; &lt;span class="n"&gt;xl2tpd&lt;/span&gt; &lt;span class="n"&gt;on&lt;/span&gt;
-&lt;span class="n"&gt;service&lt;/span&gt; &lt;span class="n"&gt;ipsec&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;
-&lt;span class="n"&gt;service&lt;/span&gt; &lt;span class="n"&gt;xl2tpd&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;chkconfig ipsec on
+chkconfig xl2tpd on
+service ipsec start
+service xl2tpd start
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id="iphone"&gt;iPhone側&lt;/h2&gt;
 &lt;p&gt;設定 -&amp;gt; 一般 -&amp;gt; VPN -&amp;gt; VPN構成を追加... &lt;/p&gt;
@@ -200,41 +219,41 @@
 &lt;ul&gt;
 &lt;li&gt;crtの確認&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# openssl x509 -noout -modulus -in server.crt | openssl md5&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;880&lt;/span&gt;&lt;span class="n"&gt;a6ffb3daba7d98abf955003ad2e69&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# openssl x509 -noout -modulus -in server.crt | openssl md5
+(stdin)= 880a6ffb3daba7d98abf955003ad2e69
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;keyの確認&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# openssl rsa -noout -modulus -in server.key | openssl md5&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;880&lt;/span&gt;&lt;span class="n"&gt;a6ffb3daba7d98abf955003ad2e69&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# openssl rsa -noout -modulus -in server.key | openssl md5
+(stdin)= 880a6ffb3daba7d98abf955003ad2e69
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;crtの確認&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# openssl req -noout -modulus -in server.csr | openssl md5&lt;/span&gt;
-&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;stdin&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;880&lt;/span&gt;&lt;span class="n"&gt;a6ffb3daba7d98abf955003ad2e69&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# openssl req -noout -modulus -in server.csr | openssl md5
+(stdin)= 880a6ffb3daba7d98abf955003ad2e69
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;証明書情報を表示させたい場合は以下&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# openssl x509 -noout -text -in server.crt&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# openssl x509 -noout -text -in server.crt
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;期限だけを確認したい場合&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# openssl x509 -in server.crt -noout -dates&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# openssl x509 -in server.crt -noout -dates
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;ディスティングイッシュネームを確認したい場合は&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# openssl x509 -in server.crt -noout -subject&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# openssl x509 -in server.crt -noout -subject
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;こんな感じで各情報を確認可能。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Fri, 17 Oct 2014 13:02:15 +0900</pubDate><guid>tag:tkr0429.github.io,2014-10-16:2014/10/ssl-pair/</guid><category>linux</category></item><item><title>CentOS7 デフォルトランレベルの設定</title><link>http://tkr0429.github.io/2014/10/centos7-runlevel/</link><description>
 &lt;p&gt;既存設定の確認&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;systemctl&lt;/span&gt; &lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;
-&lt;span class="n"&gt;graphical&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;target&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;systemctl get-default
+graphical.target
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;multi-userモードを設定する&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;systemctl&lt;/span&gt; &lt;span class="n"&gt;set&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt; &lt;span class="n"&gt;multi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;target&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;systemctl set-default multi-user.target
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;再度確認&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;systemctl&lt;/span&gt; &lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="k"&gt;default&lt;/span&gt;
-&lt;span class="n"&gt;multi&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;target&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;systemctl get-default
+multi-user.target
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;これでrebootしてCUIで起動することを確認。&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Tue, 07 Oct 2014 00:29:32 +0900</pubDate><guid>tag:tkr0429.github.io,2014-10-07:2014/10/centos7-runlevel/</guid><category>linux</category></item><item><title>CentOS7をDL360G5にインストールメモ</title><link>http://tkr0429.github.io/2014/10/p400i/</link><description>
 &lt;h1 id="centos7"&gt;CentOS7のインストール&lt;/h1&gt;
@@ -244,7 +263,7 @@ RAIDカードが正常に見えないようでDiskが表示されない。&lt;/p
 &lt;h2 id="_2"&gt;インストール&lt;/h2&gt;
 &lt;p&gt;起動画面で「Install CentOS 7」を選択した状態で「Tab」を押し&lt;br/&gt;
 インストールメディアからのbootオプションで下記を追記&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;hpsa&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hpsa_simple_mode&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="n"&gt;hpsa&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hpsa_allow_any&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;img alt="boot" src="/images/boot.png"/&gt;&lt;/p&gt;
 &lt;p&gt;後は通常通りDiskパーティションを設定したりパッケージを選択したりして終了。&lt;/p&gt;
@@ -267,7 +286,7 @@ RAIDカードが正常に見えないようでDiskが表示されない。&lt;/p
 &lt;p&gt;&lt;img alt="rescue5" src="/images/rescue5.png"/&gt;&lt;/p&gt;
 &lt;p&gt;ここまで進むとコマンドプロンプトの画面になります。  &lt;/p&gt;
 &lt;p&gt;レスキューモードで起動させたら/mnt/sysimageをchrootします。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;chroot&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;mnt&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sysimage&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;chroot /mnt/sysimage
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;viで/etc/default/grubを変更します。&lt;br/&gt;
 GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。&lt;/p&gt;
@@ -275,12 +294,12 @@ GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。&lt;/p&gt;
 &lt;li&gt;GRUB_CMDLINE_LINUX&lt;br/&gt;
   カーネルのコマンドラインオプションに追加したい場合に指定するためのパラメータです。 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;GRUB_CMDLINE_LINUX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"&lt;/span&gt;
-&lt;span class="err"&gt;↓&lt;/span&gt;
-&lt;span class="n"&gt;GRUB_CMDLINE_LINUX&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet"
+↓
+GRUB_CMDLINE_LINUX="vconsole.keymap=jp106 crashkernel=auto vconsole.font=latarcyrheb-sun16 rhgb quiet hpsa.hpsa_simple_mode=1 hpsa.hpsa_allow_any=1"
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;grub2-mkconfigでgrub.confを生成します。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;grub2&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;mkconfig&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;boot&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grub2&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;grub&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;cfg&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;grub2-mkconfig -o /boot/grub2/grub.cfg
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;※参考URL
 - &lt;a href="http://serverfault.com/questions/611182/centos-7-x64-and-hp-proliant-dl360-g5-scsi-controller-compatibility"&gt;StackOverflow&lt;/a&gt;&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 06 Oct 2014 19:59:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-10-06:2014/10/p400i/</guid><category>linux</category></item><item><title>bashの脆弱性</title><link>http://tkr0429.github.io/2014/09/shellshock/</link><description>
@@ -289,9 +308,9 @@ GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。&lt;/p&gt;
 今回発見されたbashのバグについて感想を書きます。&lt;/p&gt;
 &lt;h2 id="_1"&gt;脆弱性の確認&lt;/h2&gt;
 &lt;p&gt;下記のコマンドを実行した際に[vulnerable]が表示される場合は本脆弱性の対象です。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# env x='() { :;}; echo vulnerable' bash -c "echo this is a test"&lt;/span&gt;
-&lt;span class="n"&gt;vulnerable&lt;/span&gt;
-&lt;span class="n"&gt;this&lt;/span&gt; &lt;span class="n"&gt;is&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;test&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# env x='() { :;}; echo vulnerable' bash -c "echo this is a test"
+vulnerable
+this is a test
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;既に対策済みであれば下記の様にエラー出力や、[this is a test]のみの出力になるかと思います。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="nx"&gt;env&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'() { :;}; echo vulnerable'&lt;/span&gt; &lt;span class="nx"&gt;bash&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;c&lt;/span&gt; &lt;span class="s2"&gt;"echo this is a test"&lt;/span&gt;
@@ -327,27 +346,27 @@ GRUB_CMDLINE_LINUXにhpsaのオプションを追加します。&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;また、色々な大人の事情でupdateを適用出来ない場合などは下記を実施しておいた方が良いでしょう。&lt;/p&gt;
 &lt;p&gt;ダウンロード: &lt;a href="https://access.redhat.com/sites/default/files/attachments/bash_ld_preload.c"&gt;bash_ld_preload.c&lt;/a&gt;&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;wget&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//access.redhat.com/sites/default/files/attachments/bash_ld_preload.c&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;wget https://access.redhat.com/sites/default/files/attachments/bash_ld_preload.c
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;チェックサムの確認&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;sha256sum&lt;/span&gt; &lt;span class="n"&gt;bash_ld_preload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;
-&lt;span class="mi"&gt;28&lt;/span&gt;&lt;span class="n"&gt;cb0ab767a95dc2f50a515106f6a9be0f4167f9e5dbc47db9b7788798eef153&lt;/span&gt; &lt;span class="n"&gt;bash_ld_preload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;sha256sum bash_ld_preload.c
+28cb0ab767a95dc2f50a515106f6a9be0f4167f9e5dbc47db9b7788798eef153 bash_ld_preload.c
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;コンパイル&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="n"&gt;gcc&lt;/span&gt; &lt;span class="n"&gt;bash_ld_preload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;c&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;fPIC&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;shared&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;Wl&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;soname&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;bash_ld_preload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;so&lt;/span&gt;&lt;span class="mf"&gt;.1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="n"&gt;bash_ld_preload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;so&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;gcc bash_ld_preload.c -fPIC -shared -Wl,-soname,bash_ld_preload.so.1 -o bash_ld_preload.so
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;コンパイル済みライブラリの配置&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# cp bash_ld_preload.so /lib/&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# cp bash_ld_preload.so /lib/
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;ld.so.preloadファイルの作成&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# vi /etc/ld.so.preload&lt;/span&gt;
-&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;lib&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;bash_ld_preload&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;so&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# vi /etc/ld.so.preload
+/lib/bash_ld_preload.so
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;ライブラリの再読み込み&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# ldconfig&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# ldconfig
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Apacheの再起動&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# service httpd restart&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# service httpd restart
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;可能であればOS再起動するのが望ましいと思います。&lt;/p&gt;
 &lt;h1 id="msp"&gt;MSPとしての対応&lt;/h1&gt;
@@ -369,121 +388,121 @@ bashのshellshockについても同様で、脆弱性を残したまま放置さ
 &lt;li&gt;レポジトリの追加&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;glusterfsのレポジトリを追加します。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# curl -Ls http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo &amp;gt; /etc/yum.repos.d/glusterfs-epel.repo&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# curl -Ls http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo &amp;gt; /etc/yum.repos.d/glusterfs-epel.repo
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;パッケージのインストール&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;yumコマンドで各種パッケージをインストール&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# yum -y install glusterfs-server \&lt;/span&gt;
-&lt;span class="cp"&gt;                 glusterfs-libs \&lt;/span&gt;
-&lt;span class="cp"&gt;                 glusterfs-api \&lt;/span&gt;
-&lt;span class="cp"&gt;                 glusterfs-extra-xlators \&lt;/span&gt;
-&lt;span class="cp"&gt;                 glusterfs-fuse \&lt;/span&gt;
-&lt;span class="cp"&gt;                 glusterfs-geo-replication \&lt;/span&gt;
-&lt;span class="cp"&gt;                 glusterfs-rdma \&lt;/span&gt;
-&lt;span class="cp"&gt;                 glusterfs-resource-agents \&lt;/span&gt;
-&lt;span class="cp"&gt;                 glusterfs-cli \&lt;/span&gt;
-&lt;span class="cp"&gt;                 xfsprogs&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# yum -y install glusterfs-server \
+                 glusterfs-libs \
+                 glusterfs-api \
+                 glusterfs-extra-xlators \
+                 glusterfs-fuse \
+                 glusterfs-geo-replication \
+                 glusterfs-rdma \
+                 glusterfs-resource-agents \
+                 glusterfs-cli \
+                 xfsprogs
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;パーティション作成&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;glusterfsのbrickを作成するための領域をOS領域とは別にパーティションを作ります。&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# fdisk /dev/sda&lt;/span&gt;
-&lt;span class="err"&gt;コマンド&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="err"&gt;でヘルプ&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;
-&lt;span class="err"&gt;コマンドアクション&lt;/span&gt;
-   &lt;span class="n"&gt;e&lt;/span&gt;   &lt;span class="err"&gt;拡張&lt;/span&gt;
-   &lt;span class="n"&gt;p&lt;/span&gt;   &lt;span class="err"&gt;基本パーティション&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-&lt;span class="n"&gt;p&lt;/span&gt;
-&lt;span class="err"&gt;パーティション番号&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;
-&lt;span class="err"&gt;最初&lt;/span&gt; &lt;span class="err"&gt;シリンダ&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;652&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;初期値&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="err"&gt;初期値&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="err"&gt;を使います&lt;/span&gt;
-&lt;span class="n"&gt;Last&lt;/span&gt; &lt;span class="err"&gt;シリンダ&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="err"&gt;シリンダ数&lt;/span&gt; &lt;span class="n"&gt;or&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;size&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;K&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;M&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;G&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;652&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;初期値&lt;/span&gt; &lt;span class="mi"&gt;652&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
-&lt;span class="err"&gt;初期値&lt;/span&gt; &lt;span class="mi"&gt;652&lt;/span&gt; &lt;span class="err"&gt;を使います&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# fdisk /dev/sda
+コマンド (m でヘルプ): n
+コマンドアクション
+   e   拡張
+   p   基本パーティション (1-4)
+p
+パーティション番号 (1-4): 4
+最初 シリンダ (1-652, 初期値 1):
+初期値 1 を使います
+Last シリンダ, +シリンダ数 or +size{K,M,G} (1-652, 初期値 652):
+初期値 652 を使います
 
-&lt;span class="err"&gt;コマンド&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="err"&gt;でヘルプ&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;w&lt;/span&gt;
-&lt;span class="err"&gt;パーティションテーブルは変更されました！&lt;/span&gt;
+コマンド (m でヘルプ): w
+パーティションテーブルは変更されました！
 
-&lt;span class="n"&gt;ioctl&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="err"&gt;を呼び出してパーティションテーブルを再読込みします。&lt;/span&gt;
-&lt;span class="err"&gt;ディスクを同期しています。&lt;/span&gt;
+ioctl() を呼び出してパーティションテーブルを再読込みします。
+ディスクを同期しています。
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;xfsでフォーマット&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# mkfs.xfs -f -i size=512 /dev/sda3&lt;/span&gt;
-&lt;span class="n"&gt;meta&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;=/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda3&lt;/span&gt;              &lt;span class="n"&gt;isize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;512&lt;/span&gt;    &lt;span class="n"&gt;agcount&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;agsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;622878&lt;/span&gt; &lt;span class="n"&gt;blks&lt;/span&gt;
-         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="n"&gt;sectsz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;512&lt;/span&gt;   &lt;span class="n"&gt;attr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;projid32bit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;span class="n"&gt;data&lt;/span&gt;     &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="n"&gt;bsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;4096&lt;/span&gt;   &lt;span class="n"&gt;blocks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2491510&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;imaxpct&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt;
-         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="n"&gt;sunit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;      &lt;span class="n"&gt;swidth&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;blks&lt;/span&gt;
-&lt;span class="n"&gt;naming&lt;/span&gt;   &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;version&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;              &lt;span class="n"&gt;bsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;4096&lt;/span&gt;   &lt;span class="n"&gt;ascii&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;ci&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;span class="n"&gt;log&lt;/span&gt;      &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;internal&lt;/span&gt; &lt;span class="n"&gt;log&lt;/span&gt;           &lt;span class="n"&gt;bsize&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;4096&lt;/span&gt;   &lt;span class="n"&gt;blocks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2560&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;version&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;
-         &lt;span class="o"&gt;=&lt;/span&gt;                       &lt;span class="n"&gt;sectsz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;512&lt;/span&gt;   &lt;span class="n"&gt;sunit&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="n"&gt;blks&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;lazy&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;count&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
-&lt;span class="n"&gt;realtime&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;none&lt;/span&gt;                   &lt;span class="n"&gt;extsz&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;4096&lt;/span&gt;   &lt;span class="n"&gt;blocks&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;rtextents&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# mkfs.xfs -f -i size=512 /dev/sda3
+meta-data=/dev/sda3              isize=512    agcount=4, agsize=622878 blks
+         =                       sectsz=512   attr=2, projid32bit=0
+data     =                       bsize=4096   blocks=2491510, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;マウント先ディレクトリの作成&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# mkdir -p /gfs/brick01&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# mkdir -p /gfs/brick01
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;fstab への記載
 起動時に自動マウントされるようにfstabにマウント設定を記載します。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# cat &amp;lt;&amp;lt; EOF &amp;gt;&amp;gt; /etc/fstab&lt;/span&gt;
-&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;dev&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;sda3&lt;/span&gt;       &lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;gfs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;brick01&lt;/span&gt;        &lt;span class="n"&gt;xfs&lt;/span&gt; &lt;span class="n"&gt;defaults&lt;/span&gt;    &lt;span class="mi"&gt;0&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
-&lt;span class="n"&gt;EOF&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# cat &amp;lt;&amp;lt; EOF &amp;gt;&amp;gt; /etc/fstab
+/dev/sda3       /gfs/brick01        xfs defaults    0 0
+EOF
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id="glusterfs_1"&gt;GlusterFSの設定&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;サービスの起動&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# service glusterd start&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# service glusterd start
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;Peerの設定&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# gluster peer probe vm02&lt;/span&gt;
-&lt;span class="n"&gt;peer&lt;/span&gt; &lt;span class="n"&gt;probe&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;success&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# gluster peer probe vm02
+peer probe: success.
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;GlusterFSボリュームの作成&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# gluster vol create vol01 \&lt;/span&gt;
-&lt;span class="cp"&gt;          replica 2 \&lt;/span&gt;
-&lt;span class="cp"&gt;          vm01:/gfs/brick01/vol01 \&lt;/span&gt;
-&lt;span class="cp"&gt;          vm02:/gfs/brick01/vol01&lt;/span&gt;
-&lt;span class="n"&gt;volume&lt;/span&gt; &lt;span class="n"&gt;create&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;vol01&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;success&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;please&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;volume&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;access&lt;/span&gt; &lt;span class="n"&gt;data&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# gluster vol create vol01 \
+          replica 2 \
+          vm01:/gfs/brick01/vol01 \
+          vm02:/gfs/brick01/vol01
+volume create: vol01: success: please start the volume to access data
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;volumeの開始&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;# gluster vol start vol01&lt;/span&gt;
-&lt;span class="n"&gt;volume&lt;/span&gt; &lt;span class="n"&gt;start&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;vol01&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;success&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# gluster vol start vol01
+volume start: vol01: success
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id="_2"&gt;チューニング&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;GlusterFSチューニング&lt;/li&gt;
 &lt;/ul&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# gluster vol set vol01 performance.cache-size 8GB&lt;/span&gt;
-&lt;span class="c"&gt;# gluster vol set vol01 performance.cache-max-file-size 100MB&lt;/span&gt;
-&lt;span class="c"&gt;# gluster vol set vol01 performance.cache-min-file-size 1KB&lt;/span&gt;
-&lt;span class="c"&gt;# gluster vol set vol01 performance.cache-refresh-timeout 1&lt;/span&gt;
-&lt;span class="c"&gt;# gluster vol set vol01 performance.io-thread-count 32&lt;/span&gt;
-&lt;span class="c"&gt;# gluster vol set vol01 performance.flush-behind On&lt;/span&gt;
-&lt;span class="c"&gt;# gluster vol set vol01 performance.write-behind-window-size 5MB&lt;/span&gt;
-&lt;span class="c"&gt;# gluster vol set vol01 network.frame-timeout 1800&lt;/span&gt;
-&lt;span class="c"&gt;# gluster vol set vol01 network.ping-timeout 30&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;# gluster vol set vol01 performance.cache-size 8GB
+# gluster vol set vol01 performance.cache-max-file-size 100MB
+# gluster vol set vol01 performance.cache-min-file-size 1KB
+# gluster vol set vol01 performance.cache-refresh-timeout 1
+# gluster vol set vol01 performance.io-thread-count 32
+# gluster vol set vol01 performance.flush-behind On
+# gluster vol set vol01 performance.write-behind-window-size 5MB
+# gluster vol set vol01 network.frame-timeout 1800
+# gluster vol set vol01 network.ping-timeout 30
 &lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
 &lt;li&gt;Kernelチューニング&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# vi /etc/rc.local&lt;/span&gt;
-sysctl -w vm.swappiness&lt;span class="o"&gt;=&lt;/span&gt;10;
-sysctl -w vm.dirty_background_ratio&lt;span class="o"&gt;=&lt;/span&gt;1;
+sysctl -w vm.swappiness&lt;span class="o"&gt;=&lt;/span&gt;10&lt;span class="p"&gt;;&lt;/span&gt;
+sysctl -w vm.dirty_background_ratio&lt;span class="o"&gt;=&lt;/span&gt;1&lt;span class="p"&gt;;&lt;/span&gt;
 sysctl -w kernel.sched_wakeup_granularity_ns&lt;span class="o"&gt;=&lt;/span&gt;15
-&lt;span class="k"&gt;for &lt;/span&gt;i in &lt;span class="k"&gt;$(&lt;/span&gt;ls -d /sys/block/*/queue/iosched 2&amp;gt;/dev/null&lt;span class="k"&gt;)&lt;/span&gt;; &lt;span class="k"&gt;do&lt;/span&gt;
-&lt;span class="k"&gt;    &lt;/span&gt;&lt;span class="nv"&gt;iosched_dir&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$i&lt;/span&gt; | awk &lt;span class="s1"&gt;'/iosched/ {print $1}'&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; i in &lt;span class="k"&gt;$(&lt;/span&gt;ls -d /sys/block/*/queue/iosched 2&amp;gt;/dev/null&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;do&lt;/span&gt;
+    &lt;span class="nv"&gt;iosched_dir&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$i&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;'/iosched/ {print $1}'&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
     &lt;span class="o"&gt;[&lt;/span&gt; -z &lt;span class="nv"&gt;$iosched_dir&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;continue&lt;/span&gt;
     &lt;span class="o"&gt;}&lt;/span&gt;
@@ -523,7 +542,7 @@ sysctl -w kernel.sched_wakeup_granularity_ns&lt;span class="o"&gt;=&lt;/span&gt;
 &lt;li&gt;brickの追加  &lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;gluster vol add-brick vol01 &lt;span class="se"&gt;\&lt;/span&gt;
-replica 2 &lt;span class="se"&gt;\&lt;/span&gt;
+replica &lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
 vm03:/gfs/brick02/vol01 &lt;span class="se"&gt;\&lt;/span&gt;
 vm04:/gfs/brick02/vol01
 &lt;/pre&gt;&lt;/div&gt;
@@ -600,7 +619,7 @@ ok: &lt;span class="o"&gt;[&lt;/span&gt;clinet1&lt;span class="o"&gt;]&lt;/span&
 &lt;span class="o"&gt;}&lt;/span&gt;
 
 PLAY RECAP ********************************************************************
-client1                      : &lt;span class="nv"&gt;ok&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;2    &lt;span class="nv"&gt;changed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;1    &lt;span class="nv"&gt;unreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;0    &lt;span class="nv"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;0
+client1                      : &lt;span class="nv"&gt;ok&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;    &lt;span class="nv"&gt;changed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;    &lt;span class="nv"&gt;unreachable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;    &lt;span class="nv"&gt;failed&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;0
 &lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">tkr0429</dc:creator><pubDate>Mon, 08 Sep 2014 20:00:00 +0900</pubDate><guid>tag:tkr0429.github.io,2014-09-08:2014/09/ansible-pass-and-suroot/</guid><category>ansible</category><category>python</category></item><item><title>YAPC::Asia 2014 Tokyoに行った話</title><link>http://tkr0429.github.io/2014/09/yapc-asia/</link><description>
 &lt;h1 id="yapcasia-2014-tokyo"&gt;YAPC:Asia 2014 Tokyo&lt;/h1&gt;
 &lt;p&gt;今年はじめてYAPC:Asiaに@laugh_kさんの誘いで行って来ました。&lt;br/&gt;

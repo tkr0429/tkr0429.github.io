@@ -86,7 +86,7 @@ tkr0429 blog            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2014-09-16T14:00:00"> 2014-09-16(火)</time>
+        <i class="fa fa-calendar"></i><time datetime="2014-09-16T14:00:00+09:00"> 2014-09-16(火)</time>
     </span>
 
 
@@ -124,121 +124,121 @@ tkr0429 blog            </a>
 <li>レポジトリの追加</li>
 </ul>
 <p>glusterfsのレポジトリを追加します。</p>
-<div class="highlight"><pre><span class="c"># curl -Ls http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo &gt; /etc/yum.repos.d/glusterfs-epel.repo</span>
+<div class="highlight"><pre># curl -Ls http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo &gt; /etc/yum.repos.d/glusterfs-epel.repo
 </pre></div>
 <ul>
 <li>パッケージのインストール</li>
 </ul>
 <p>yumコマンドで各種パッケージをインストール</p>
-<div class="highlight"><pre><span class="cp"># yum -y install glusterfs-server \</span>
-<span class="cp">                 glusterfs-libs \</span>
-<span class="cp">                 glusterfs-api \</span>
-<span class="cp">                 glusterfs-extra-xlators \</span>
-<span class="cp">                 glusterfs-fuse \</span>
-<span class="cp">                 glusterfs-geo-replication \</span>
-<span class="cp">                 glusterfs-rdma \</span>
-<span class="cp">                 glusterfs-resource-agents \</span>
-<span class="cp">                 glusterfs-cli \</span>
-<span class="cp">                 xfsprogs</span>
+<div class="highlight"><pre># yum -y install glusterfs-server \
+                 glusterfs-libs \
+                 glusterfs-api \
+                 glusterfs-extra-xlators \
+                 glusterfs-fuse \
+                 glusterfs-geo-replication \
+                 glusterfs-rdma \
+                 glusterfs-resource-agents \
+                 glusterfs-cli \
+                 xfsprogs
 </pre></div>
 <ul>
 <li>パーティション作成</li>
 </ul>
 <p>glusterfsのbrickを作成するための領域をOS領域とは別にパーティションを作ります。</p>
-<div class="highlight"><pre><span class="cp"># fdisk /dev/sda</span>
-<span class="err">コマンド</span> <span class="p">(</span><span class="n">m</span> <span class="err">でヘルプ</span><span class="p">)</span><span class="o">:</span> <span class="n">n</span>
-<span class="err">コマンドアクション</span>
-   <span class="n">e</span>   <span class="err">拡張</span>
-   <span class="n">p</span>   <span class="err">基本パーティション</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span>
-<span class="n">p</span>
-<span class="err">パーティション番号</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">4</span><span class="p">)</span><span class="o">:</span> <span class="mi">4</span>
-<span class="err">最初</span> <span class="err">シリンダ</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">652</span><span class="p">,</span> <span class="err">初期値</span> <span class="mi">1</span><span class="p">)</span><span class="o">:</span>
-<span class="err">初期値</span> <span class="mi">1</span> <span class="err">を使います</span>
-<span class="n">Last</span> <span class="err">シリンダ</span><span class="p">,</span> <span class="o">+</span><span class="err">シリンダ数</span> <span class="n">or</span> <span class="o">+</span><span class="n">size</span><span class="p">{</span><span class="n">K</span><span class="p">,</span><span class="n">M</span><span class="p">,</span><span class="n">G</span><span class="p">}</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="mi">652</span><span class="p">,</span> <span class="err">初期値</span> <span class="mi">652</span><span class="p">)</span><span class="o">:</span>
-<span class="err">初期値</span> <span class="mi">652</span> <span class="err">を使います</span>
+<div class="highlight"><pre># fdisk /dev/sda
+コマンド (m でヘルプ): n
+コマンドアクション
+   e   拡張
+   p   基本パーティション (1-4)
+p
+パーティション番号 (1-4): 4
+最初 シリンダ (1-652, 初期値 1):
+初期値 1 を使います
+Last シリンダ, +シリンダ数 or +size{K,M,G} (1-652, 初期値 652):
+初期値 652 を使います
 
-<span class="err">コマンド</span> <span class="p">(</span><span class="n">m</span> <span class="err">でヘルプ</span><span class="p">)</span><span class="o">:</span> <span class="n">w</span>
-<span class="err">パーティションテーブルは変更されました！</span>
+コマンド (m でヘルプ): w
+パーティションテーブルは変更されました！
 
-<span class="n">ioctl</span><span class="p">()</span> <span class="err">を呼び出してパーティションテーブルを再読込みします。</span>
-<span class="err">ディスクを同期しています。</span>
+ioctl() を呼び出してパーティションテーブルを再読込みします。
+ディスクを同期しています。
 </pre></div>
 <ul>
 <li>xfsでフォーマット</li>
 </ul>
-<div class="highlight"><pre><span class="cp"># mkfs.xfs -f -i size=512 /dev/sda3</span>
-<span class="n">meta</span><span class="o">-</span><span class="n">data</span><span class="o">=/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span>              <span class="n">isize</span><span class="o">=</span><span class="mi">512</span>    <span class="n">agcount</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">agsize</span><span class="o">=</span><span class="mi">622878</span> <span class="n">blks</span>
-         <span class="o">=</span>                       <span class="n">sectsz</span><span class="o">=</span><span class="mi">512</span>   <span class="n">attr</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">projid32bit</span><span class="o">=</span><span class="mi">0</span>
-<span class="n">data</span>     <span class="o">=</span>                       <span class="n">bsize</span><span class="o">=</span><span class="mi">4096</span>   <span class="n">blocks</span><span class="o">=</span><span class="mi">2491510</span><span class="p">,</span> <span class="n">imaxpct</span><span class="o">=</span><span class="mi">25</span>
-         <span class="o">=</span>                       <span class="n">sunit</span><span class="o">=</span><span class="mi">0</span>      <span class="n">swidth</span><span class="o">=</span><span class="mi">0</span> <span class="n">blks</span>
-<span class="n">naming</span>   <span class="o">=</span><span class="n">version</span> <span class="mi">2</span>              <span class="n">bsize</span><span class="o">=</span><span class="mi">4096</span>   <span class="n">ascii</span><span class="o">-</span><span class="n">ci</span><span class="o">=</span><span class="mi">0</span>
-<span class="n">log</span>      <span class="o">=</span><span class="n">internal</span> <span class="n">log</span>           <span class="n">bsize</span><span class="o">=</span><span class="mi">4096</span>   <span class="n">blocks</span><span class="o">=</span><span class="mi">2560</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">2</span>
-         <span class="o">=</span>                       <span class="n">sectsz</span><span class="o">=</span><span class="mi">512</span>   <span class="n">sunit</span><span class="o">=</span><span class="mi">0</span> <span class="n">blks</span><span class="p">,</span> <span class="n">lazy</span><span class="o">-</span><span class="n">count</span><span class="o">=</span><span class="mi">1</span>
-<span class="n">realtime</span> <span class="o">=</span><span class="n">none</span>                   <span class="n">extsz</span><span class="o">=</span><span class="mi">4096</span>   <span class="n">blocks</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">rtextents</span><span class="o">=</span><span class="mi">0</span>
+<div class="highlight"><pre># mkfs.xfs -f -i size=512 /dev/sda3
+meta-data=/dev/sda3              isize=512    agcount=4, agsize=622878 blks
+         =                       sectsz=512   attr=2, projid32bit=0
+data     =                       bsize=4096   blocks=2491510, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
 </pre></div>
 <ul>
 <li>マウント先ディレクトリの作成</li>
 </ul>
-<div class="highlight"><pre><span class="c"># mkdir -p /gfs/brick01</span>
+<div class="highlight"><pre># mkdir -p /gfs/brick01
 </pre></div>
 <ul>
 <li>fstab への記載
 起動時に自動マウントされるようにfstabにマウント設定を記載します。</li>
 </ul>
-<div class="highlight"><pre><span class="cp"># cat &lt;&lt; EOF &gt;&gt; /etc/fstab</span>
-<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">sda3</span>       <span class="o">/</span><span class="n">gfs</span><span class="o">/</span><span class="n">brick01</span>        <span class="n">xfs</span> <span class="n">defaults</span>    <span class="mi">0</span> <span class="mi">0</span>
-<span class="n">EOF</span>
+<div class="highlight"><pre># cat &lt;&lt; EOF &gt;&gt; /etc/fstab
+/dev/sda3       /gfs/brick01        xfs defaults    0 0
+EOF
 </pre></div>
 <h2 id="glusterfs_1">GlusterFSの設定</h2>
 <ul>
 <li>サービスの起動</li>
 </ul>
-<div class="highlight"><pre><span class="c"># service glusterd start</span>
+<div class="highlight"><pre># service glusterd start
 </pre></div>
 <ul>
 <li>Peerの設定</li>
 </ul>
-<div class="highlight"><pre><span class="cp"># gluster peer probe vm02</span>
-<span class="n">peer</span> <span class="n">probe</span><span class="o">:</span> <span class="n">success</span><span class="p">.</span>
+<div class="highlight"><pre># gluster peer probe vm02
+peer probe: success.
 </pre></div>
 <ul>
 <li>GlusterFSボリュームの作成</li>
 </ul>
-<div class="highlight"><pre><span class="cp"># gluster vol create vol01 \</span>
-<span class="cp">          replica 2 \</span>
-<span class="cp">          vm01:/gfs/brick01/vol01 \</span>
-<span class="cp">          vm02:/gfs/brick01/vol01</span>
-<span class="n">volume</span> <span class="n">create</span><span class="o">:</span> <span class="n">vol01</span><span class="o">:</span> <span class="n">success</span><span class="o">:</span> <span class="n">please</span> <span class="n">start</span> <span class="n">the</span> <span class="n">volume</span> <span class="n">to</span> <span class="n">access</span> <span class="n">data</span>
+<div class="highlight"><pre># gluster vol create vol01 \
+          replica 2 \
+          vm01:/gfs/brick01/vol01 \
+          vm02:/gfs/brick01/vol01
+volume create: vol01: success: please start the volume to access data
 </pre></div>
 <ul>
 <li>volumeの開始</li>
 </ul>
-<div class="highlight"><pre><span class="cp"># gluster vol start vol01</span>
-<span class="n">volume</span> <span class="n">start</span><span class="o">:</span> <span class="n">vol01</span><span class="o">:</span> <span class="n">success</span>
+<div class="highlight"><pre># gluster vol start vol01
+volume start: vol01: success
 </pre></div>
 <h2 id="_2">チューニング</h2>
 <ul>
 <li>GlusterFSチューニング</li>
 </ul>
-<div class="highlight"><pre><span class="c"># gluster vol set vol01 performance.cache-size 8GB</span>
-<span class="c"># gluster vol set vol01 performance.cache-max-file-size 100MB</span>
-<span class="c"># gluster vol set vol01 performance.cache-min-file-size 1KB</span>
-<span class="c"># gluster vol set vol01 performance.cache-refresh-timeout 1</span>
-<span class="c"># gluster vol set vol01 performance.io-thread-count 32</span>
-<span class="c"># gluster vol set vol01 performance.flush-behind On</span>
-<span class="c"># gluster vol set vol01 performance.write-behind-window-size 5MB</span>
-<span class="c"># gluster vol set vol01 network.frame-timeout 1800</span>
-<span class="c"># gluster vol set vol01 network.ping-timeout 30</span>
+<div class="highlight"><pre># gluster vol set vol01 performance.cache-size 8GB
+# gluster vol set vol01 performance.cache-max-file-size 100MB
+# gluster vol set vol01 performance.cache-min-file-size 1KB
+# gluster vol set vol01 performance.cache-refresh-timeout 1
+# gluster vol set vol01 performance.io-thread-count 32
+# gluster vol set vol01 performance.flush-behind On
+# gluster vol set vol01 performance.write-behind-window-size 5MB
+# gluster vol set vol01 network.frame-timeout 1800
+# gluster vol set vol01 network.ping-timeout 30
 </pre></div>
 <ul>
 <li>Kernelチューニング</li>
 </ul>
 <div class="highlight"><pre><span class="c"># vi /etc/rc.local</span>
-sysctl -w vm.swappiness<span class="o">=</span>10;
-sysctl -w vm.dirty_background_ratio<span class="o">=</span>1;
+sysctl -w vm.swappiness<span class="o">=</span>10<span class="p">;</span>
+sysctl -w vm.dirty_background_ratio<span class="o">=</span>1<span class="p">;</span>
 sysctl -w kernel.sched_wakeup_granularity_ns<span class="o">=</span>15
-<span class="k">for </span>i in <span class="k">$(</span>ls -d /sys/block/*/queue/iosched 2&gt;/dev/null<span class="k">)</span>; <span class="k">do</span>
-<span class="k">    </span><span class="nv">iosched_dir</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$i</span> | awk <span class="s1">'/iosched/ {print $1}'</span><span class="k">)</span>
+<span class="k">for</span> i in <span class="k">$(</span>ls -d /sys/block/*/queue/iosched 2&gt;/dev/null<span class="k">)</span><span class="p">;</span> <span class="k">do</span>
+    <span class="nv">iosched_dir</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span> <span class="nv">$i</span> <span class="p">|</span> awk <span class="s1">'/iosched/ {print $1}'</span><span class="k">)</span>
     <span class="o">[</span> -z <span class="nv">$iosched_dir</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">{</span>
     <span class="k">continue</span>
     <span class="o">}</span>
@@ -278,7 +278,7 @@ sysctl -w kernel.sched_wakeup_granularity_ns<span class="o">=</span>15
 <li>brickの追加  </li>
 </ul>
 <div class="highlight"><pre>gluster vol add-brick vol01 <span class="se">\</span>
-replica 2 <span class="se">\</span>
+replica <span class="m">2</span> <span class="se">\</span>
 vm03:/gfs/brick02/vol01 <span class="se">\</span>
 vm04:/gfs/brick02/vol01
 </pre></div>
@@ -371,36 +371,6 @@ vm04:/gfs/brick02/vol01
 
                 <li class="list-group-item"><a href="http://tkr0429.github.io/"><h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Tags</span></h4></a>
                     <ul class="list-group " id="tags">
-                        <li class="list-group-item tag-1">
-                            <a href="http://tkr0429.github.io/tag/python.html">
-                                python
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-1">
-                            <a href="http://tkr0429.github.io/tag/linux.html">
-                                linux
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-2">
-                            <a href="http://tkr0429.github.io/tag/ansible.html">
-                                ansible
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/glusterfs.html">
-                                glusterfs
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/perl.html">
-                                perl
-                            </a>
-                        </li>
-                        <li class="list-group-item tag-4">
-                            <a href="http://tkr0429.github.io/tag/bash.html">
-                                bash
-                            </a>
-                        </li>
                     </ul>
                 </li>    
 
