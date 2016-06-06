@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2015-08-23T19:00:00+09:00</updated><entry><title>YAPC::Asia 2015 Tokyoに行った話</title><link href="http://tkr0429.github.io/2015/08/yapc-asia2015/" rel="alternate"></link><updated>2015-08-23T19:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2015-08-23:2015/08/yapc-asia2015/</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>tkr0429 blog</title><link href="http://tkr0429.github.io/" rel="alternate"></link><link href="http://tkr0429.github.io/feeds/tkr0429.atom.xml" rel="self"></link><id>http://tkr0429.github.io/</id><updated>2016-06-06T13:00:00+09:00</updated><entry><title>AWS Summit Tokyo 2016</title><link href="http://tkr0429.github.io/2016/06/awssummit/" rel="alternate"></link><updated>2016-06-06T13:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2016-06-06:2016/06/awssummit/</id><summary type="html">&lt;h1 id="aws-summit-tokyo-2016"&gt;AWS Summit Tokyo 2016に参加してきました。&lt;/h1&gt;
+&lt;p&gt;今回AWSSummitは初参加だったのですが、&lt;br /&gt;
+会場に行けば誰かしら知り合い居るかなぁーくらいの気持ちでいったんですけど、&lt;br /&gt;
+見事に誰も知り合いが居ませんでした。&lt;br /&gt;
+この業界居れば誰かAWS好きが来るだろうと思ってたけど、意外と私の周りは居ないらしい。  &lt;/p&gt;
+&lt;p&gt;朝早く動くのは苦手なので、基調講演はライブストリーミング配信で視聴しつつ&lt;br /&gt;
+午後のセッションから参加しました。  &lt;/p&gt;
+&lt;p&gt;会場到着して受付をしたんですが、若い女の子いっぱーい。&lt;br /&gt;
+なんか久しぶりに女子を見た(なかなかIT土方の世界は女性が少ない)と思いつつ&lt;br /&gt;
+セッションまで時間が会ったので展示ブースへ&lt;br /&gt;
+展示ブースはExpo系に比べると小ぢんまりしてて全部回れる勢いでした。  &lt;/p&gt;
+&lt;p&gt;セッションについては感じたことをざっくりまとめちゃうと&lt;br /&gt;
+「AWSセキュアだよ！！」&lt;br /&gt;
+「EC2も良いけど、lambda+S3-Directなサーバレス構成が熱いぜ！！」&lt;br /&gt;
+ってことかなと。  &lt;/p&gt;
+&lt;p&gt;フルマネージサービス使えばインフラ運用コストが抑えられるし、&lt;br /&gt;
+その分、本職のサービス改善などに当てる時間が増えるよね。ってことらしい。  &lt;/p&gt;
+&lt;p&gt;なかなか外に出る機会があまりないので、&lt;br /&gt;
+市場動向を調べるのにこういうサミット系は良いと思う。  &lt;/p&gt;
+&lt;p&gt;見聞きしたものを自社で直ぐに導入するって言うことではなく、&lt;br /&gt;
+今、世間はこういう技術に注目してるってのを知っておく事がまずは重要と感じた。&lt;/p&gt;</summary><category term="aws linux"></category></entry><entry><title>YAPC::Asia 2015 Tokyoに行った話</title><link href="http://tkr0429.github.io/2015/08/yapc-asia2015/" rel="alternate"></link><updated>2015-08-23T19:00:00+09:00</updated><author><name>tkr0429</name></author><id>tag:tkr0429.github.io,2015-08-23:2015/08/yapc-asia2015/</id><summary type="html">
 &lt;h1 id="yapcasia-2015-tokyo"&gt;YAPC::Asia 2015 Tokyo&lt;/h1&gt;
 &lt;p&gt;昨年初めて参加させて頂いて、今年も是非!!と思っていたので参加してきました。&lt;/p&gt;
 &lt;p&gt;前々から今年でYAPC::Asiaは最後です。と聞いていたので是が非でもと思っていた。&lt;/p&gt;
